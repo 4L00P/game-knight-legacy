@@ -7,7 +7,7 @@ module.exports = {
       jsx: true
     }
   } ,
-  extends: "airbnb",
+  extends: ["airbnb", "airbnb/hooks"],
 plugins: [
   "react",
   "react-hooks/recommended"
