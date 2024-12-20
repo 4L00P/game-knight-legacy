@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./src/server/index.js",
-    "build": "webpack",
+    "build": "rimraf dist && webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Awesome Person Interface",
