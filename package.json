@@ -1,0 +1,11 @@
+{
+  "name": "game-knight",
+  "version": "1.0.0",
+  "description": "Board Game Assistant",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Awesome Person Interface",
+  "license": "ISC"
+}
