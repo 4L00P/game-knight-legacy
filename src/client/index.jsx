@@ -5,17 +5,13 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router';
-import App from './components/App.jsx';
-import Login from './views/Login.jsx';
-
-
+import { BrowserRouter } from 'react-router-dom';
+import App from './App.jsx';
 
 const root = createRoot(document.getElementById('root'));
 
-root.render(<BrowserRouter>
-<Routes>
-  <Route index element={ <App /> }/>
-  <Route path='login' element={ <Login /> }/>
-</Routes>
-</BrowserRouter> );
+root.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+);
