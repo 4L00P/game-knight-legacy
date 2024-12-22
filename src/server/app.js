@@ -4,6 +4,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const { gamesRouter } = require('./routes/games');
+const { groupsRouter } = require('./routes/groups');
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 
@@ -28,7 +29,7 @@ const app = express();
 const DIST_DIR = path.resolve(__dirname, '..', '..', 'dist');
 
 app.use(express.static(DIST_DIR));
-
+app.use(express.json());
 
 // Routers
 app.use('/api/games', gamesRouter);
