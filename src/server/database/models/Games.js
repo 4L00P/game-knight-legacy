@@ -10,7 +10,7 @@ const GameSchema = {
   minAge: { type: Number },
 };
 
-const Games = mongoose.model('game', new mongoose.Schema(GameSchema));
+const Games = mongoose.model('Game', new mongoose.Schema(GameSchema));
 
 module.exports = {
   Games,
