@@ -1,6 +1,6 @@
 const path = require('path');
-const database = require('./database');
 const dotenv = require('dotenv');
+const database = require('./database');
 
 // Loads the .env information into process.env (Do this before requiring app)
 // This is how we'll hide our .env info
