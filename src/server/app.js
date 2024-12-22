@@ -3,6 +3,10 @@ const express = require('express');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
+const { gamesRouter } = require('./routes/games');
+const { groupsRouter } = require('./routes/groups');
+const { gameNightsRouter } = require('./routes/groups');
+
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 
 console.log('GoogleStrategy:', GoogleStrategy);
@@ -26,6 +30,12 @@ const app = express();
 const DIST_DIR = path.resolve(__dirname, '..', '..', 'dist');
 
 app.use(express.static(DIST_DIR));
+app.use(express.json());
+
+// Routers
+app.use('/api/games', gamesRouter);
+app.use('/api/groups', groupsRouter);
+app.use('/api/game-nights', gameNightsRouter);
 
 /**
  * If React-Router sends a request for a particular webpage, send the index.html in response
