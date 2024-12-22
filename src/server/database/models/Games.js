@@ -9,7 +9,7 @@ const GameSchema = {
   playTime: { type: Number },
   minAge: { type: Number },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  notes: { types: String, default: '' },
+  notes: { type: String, default: '' },
   rating: { type: Number, default: 0 },
 };
 
