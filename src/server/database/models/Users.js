@@ -6,7 +6,7 @@ const UserSchema = {
   email: { type: String },
 };
 
-const Users = mongoose.model('user', new mongoose.Schema(UserSchema));
+const Users = mongoose.model('User', new mongoose.Schema(UserSchema));
 
 module.exports = {
   Users,
