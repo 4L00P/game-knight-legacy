@@ -5,6 +5,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const { gamesRouter } = require('./routes/games');
 const { groupsRouter } = require('./routes/groups');
+const { gameNightsRouter } = require('./routes/groups');
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 
