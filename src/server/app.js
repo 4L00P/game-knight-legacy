@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const authRoutes = require('./routes/authRoutes')
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
@@ -26,10 +27,16 @@ const app = express();
 const DIST_DIR = path.resolve(__dirname, '..', '..', 'dist');
 
 app.use(express.static(DIST_DIR));
+//  set up possible view engine
+
+app.use('/auth', authRoutes);
+app.set('view engine', 'ejs');
 
 /**
  * If React-Router sends a request for a particular webpage, send the index.html in response
  */
+
+
 
 app.get('/login/google', passport.authenticate('google'));
 
