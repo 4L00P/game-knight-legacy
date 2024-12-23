@@ -4,8 +4,8 @@ const database = require('./database');
 
 // Loads the .env information into process.env (Do this before requiring app)
 // This is how we'll hide our .env info
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 const { app } = require('./app');
 
 const PORT = 8000;
