@@ -1,17 +1,15 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import Hello from './components/Hello.jsx';
+import Hello from './views/Home.jsx';
 import Login from './views/Login.jsx';
-import Navbar from './components/Navbar.jsx'
 
 function App() {
   return (
     <div>
-      <Navbar />
       <Routes>
-        <Route path="/" element={<Hello />} />
-        <Route path="login" element={<Login />} />
+        <Route path="/" element={<Login />} />
+        <Route path="home" element={<Hello />} />
       </Routes>
     </div>
   );
