@@ -1,8 +1,10 @@
 import React from 'react';
+import Navbar from '../components/Navbar.jsx';
 
-function GameNight() {
+function GameNights() {
   return (
     <div>
+      <Navbar />
       <ul>
         <li>Upcoming Game Night First</li>
         <li>Any past Game Nights After</li>
@@ -11,4 +13,4 @@ function GameNight() {
   );
 }
 
-export default GameNight;
+export default GameNights;
