@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function Login() {
   const googleLogin = () => {
-    axios.get('/auth/login/google')
+    axios.get('/login/google')
       .then(() => {
         console.log('Logged in');
       })

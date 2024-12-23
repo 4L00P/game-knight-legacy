@@ -1,35 +1,26 @@
 const path = require('path');
 const express = require('express');
-const authRoutes = require('./routes/authRoutes')
-const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const authRoutes = require('./routes/authRoutes');
+const passport = require('passport');
+const passportSetup = require('./routes/passport.js')
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 
-console.log('GoogleStrategy:', GoogleStrategy);
-
-passport.use(new GoogleStrategy(
-  {
-    clientID: GOOGLE_CLIENT_ID,
-    clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: '/redirect/google',
-    scope: ['profile', 'email'],
-  },
-  (accessToken, refreshToken, profile, cb) => {
-    console.log('Access Token:', accessToken);
-    console.log('Refresh:', refreshToken);
-    console.log('Profile:', profile);
-  },
-));
 
 const app = express();
 
 const DIST_DIR = path.resolve(__dirname, '..', '..', 'dist');
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow_origin', '*');// wanna change this to google if it works.
+  // Make app middlewear that adds the appropriate header to each CORS request to say it's okay
+  next();
+});
 
 app.use(express.static(DIST_DIR));
-//  set up possible view engine
 
 app.use('/auth', authRoutes);
+//  set up possible view engine.
 app.set('view engine', 'ejs');
 
 /**
