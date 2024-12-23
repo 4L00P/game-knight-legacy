@@ -15,7 +15,9 @@ function Navbar() {
           Game Knight
         </Typography>
         <Stack direction="row" spacing={2}>
+        <Button color="inherit">Home</Button>
           <Button color="inherit">Game Nights</Button>
+          <Button color="inherit">Login</Button>
         </Stack>
       </Toolbar>
     </AppBar>
