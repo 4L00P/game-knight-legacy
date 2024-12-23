@@ -10,8 +10,15 @@ const { gamesRouter } = require('./routes/games');
 const { groupsRouter } = require('./routes/groups');
 const { gameNightsRouter } = require('./routes/gamenights');
 
+const { gamesRouter } = require('./routes/games');
+const { groupsRouter } = require('./routes/groups');
+const { gameNightsRouter } = require('./routes/gamenights');
+
+<<<<<<< HEAD
+=======
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 
+>>>>>>> f0e77b265597d1ad25c10fd42dbf3118c32a6bb0
 passport.use(new GoogleStrategy(
   {
     clientID: GOOGLE_CLIENT_ID,
