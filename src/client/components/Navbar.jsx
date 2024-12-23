@@ -16,7 +16,7 @@ function Navbar() {
           Game Knight
         </Typography>
         <Stack direction="row" spacing={2}>
-          <Button 
+          <Button
             color="inherit"
             component={Link}
             to="/home"
