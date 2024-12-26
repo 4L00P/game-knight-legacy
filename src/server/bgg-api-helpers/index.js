@@ -72,18 +72,19 @@ const buildGameObj = (convertedData) => {
 /*
 Retrieves and build game object from Board Game Geek (async)
 */
-const getGameInfoByID = (id) => {
-  axios.get(`https://boardgamegeek.com/xmlapi2/thing?id=${id}`)
+const getGameInfoByID = async (id) => {
+  const gameInfo = await axios.get(`https://boardgamegeek.com/xmlapi2/thing?id=${id}`)
     // Destructure response from BGG to grab XML from the data key
     // convertXML returns a promise; implicit return to the next .then()
     .then(({ data }) => convertXML(data))
     .then((result) => {
       const gameInfoObj = buildGameObj(result);
-      console.log('BGG GAME OBJECT:', gameInfoObj);
+      return gameInfoObj;
     })
     .catch((err) => {
       console.error('ERROR:', err);
     });
+  return gameInfo;
 };
 
 const buildGamesArray = (convertedData) => (
@@ -98,10 +99,10 @@ const buildGamesArray = (convertedData) => (
   ))
 );
 
-const getGameInfoBGG = (title) => {
-  axios.get(`https://boardgamegeek.com/xmlapi2/search?query="${title}"`)
+const getGameInfoBGG = async (title) => {
+  const gameInfoObj = await axios.get(`https://boardgamegeek.com/xmlapi2/search?query="${title}"`)
     .then(({ data }) => convertXML(data))
-    .then((result) => {
+    .then(async (result) => {
       // If no results are found, exit the function.
       if (!result) {
         return;
@@ -117,20 +118,23 @@ const getGameInfoBGG = (title) => {
         return;
       }
       // If the exact name is found, fetch the data from BGG.
-      getGameInfoByID(exactGame.id);
+      const gameInfo = await getGameInfoByID(exactGame.id);
+      return gameInfo;
     })
     .catch((err) => {
       console.error('ERROR:', err);
     });
+  return gameInfoObj;
 };
 
 // Testing getGameInfoByID
-getGameInfoBGG('EL: The Chicago Transit Adventure'); // Expect info about EL: The Chicago Transit Adventure
+const test = async () => {
+  const game = await getGameInfoBGG('EL: The Chicago Transit Adventure'); // Expect info about EL: The Chicago Transit Adventure
+  console.log(game);
+};
+
+test();
 
 module.exports = {
-  convertXML,
-  buildGameObj,
-  getGameInfoByID,
-  buildGamesArray,
-  getGameInfoBGG, // Main search function for BGG
+  getGameInfoBGG, // Main search function for BGG, can be used with async/await
 };
