@@ -1,5 +1,6 @@
 const { parseString } = require('xml2js');
 const axios = require('axios'); // For making a request to BGG API
+
 // Converts XML into a JS object (promisified)
 const convertXML = (xmlData) => (
   new Promise((resolve, reject) => {
@@ -39,6 +40,7 @@ const buildGameObj = (convertedData) => {
   } = convertedData.items.item[0];
 
   // Build game info object
+  // $ => means the data is inside the XML tag
   const bggObj = {
     id: +($.id),
     type: $.type,
@@ -49,10 +51,10 @@ const buildGameObj = (convertedData) => {
     yearPublished: +(yearpublished[0].$.value),
     minPlayers: +(minplayers[0].$.value),
     maxPlayers: +(maxplayers[0].$.value),
-    playingTime: +(playingtime[0].$.value),
+    playTime: +(playingtime[0].$.value),
     minPlayTime: +(minplaytime[0].$.value),
     maxPlayTime: +(maxplaytime[0].$.value),
-    minimumAge: +(minage[0].$.value),
+    minAge: +(minage[0].$.value),
   };
 
   // If there are any poll results with additional info, they'll be in this array
@@ -73,6 +75,7 @@ const buildGameObj = (convertedData) => {
 Retrieves and build game object from Board Game Geek (async)
 */
 const getGameInfoByID = async (id) => {
+  // Store object returned after awaiting
   const gameInfo = await axios.get(`https://boardgamegeek.com/xmlapi2/thing?id=${id}`)
     // Destructure response from BGG to grab XML from the data key
     // convertXML returns a promise; implicit return to the next .then()
@@ -84,6 +87,7 @@ const getGameInfoByID = async (id) => {
     .catch((err) => {
       console.error('ERROR:', err);
     });
+  // Return the gameInfoObj to be used by getGameInfoBGG helper
   return gameInfo;
 };
 
@@ -100,6 +104,7 @@ const buildGamesArray = (convertedData) => (
 );
 
 const getGameInfoBGG = async (title) => {
+  // Store the returned gameInfo after awaiting
   const gameInfoObj = await axios.get(`https://boardgamegeek.com/xmlapi2/search?query="${title}"`)
     .then(({ data }) => convertXML(data))
     .then(async (result) => {
@@ -124,16 +129,9 @@ const getGameInfoBGG = async (title) => {
     .catch((err) => {
       console.error('ERROR:', err);
     });
+  // Return the gameInfoObj to be used by server
   return gameInfoObj;
 };
-
-// Testing getGameInfoByID
-const test = async () => {
-  const game = await getGameInfoBGG('EL: The Chicago Transit Adventure'); // Expect info about EL: The Chicago Transit Adventure
-  console.log(game);
-};
-
-test();
 
 module.exports = {
   getGameInfoBGG, // Main search function for BGG, can be used with async/await
