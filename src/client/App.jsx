@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import Hello from './views/Home.jsx';
-import Login from './views/Login.jsx';
-import GameNights from './views/GameNights.jsx';
+import Hello from './views/Home';
+import Login from './views/Login';
+import GameNights from './views/GameNights';
 
 function App() {
   return (
