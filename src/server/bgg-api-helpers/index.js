@@ -38,8 +38,6 @@ const buildGameObj = (convertedData) => {
     minage,
   } = convertedData.items.item[0];
 
-  console.log(convertedData.items.item[0]['poll-summary'][0].result);
-
   // Build game info object
   const bggObj = {
     id: +($.id),
@@ -88,12 +86,9 @@ const getGameInfoByID = (id) => {
     });
 };
 
-// // Testing getGameInfoByID
-// getGameInfoByID(293739); // Expect info about EL: The Chicago Transit Adventure
-
 const buildGamesArray = (convertedData) => (
   // Build an array of game objects from the data returned from BGG
-  convertedData.map((game) => (
+  convertedData.items.item.map((game) => (
     {
       id: +(game.$.id),
       type: game.$.type,
@@ -103,8 +98,39 @@ const buildGamesArray = (convertedData) => (
   ))
 );
 
+const getGameInfoBGG = (title) => {
+  axios.get(`https://boardgamegeek.com/xmlapi2/search?query="${title}"`)
+    .then(({ data }) => convertXML(data))
+    .then((result) => {
+      // If no results are found, exit the function.
+      if (!result) {
+        return;
+      }
+      // Build games array
+      const gamesArray = buildGamesArray(result);
+      // Find the board game with the exact title.
+      const exactGame = gamesArray.filter((game) => (
+        game.name.toLowerCase() === title.toLowerCase()
+      ))[0];
+      // If the exact game isn't found, do nothing
+      if (!exactGame) {
+        return;
+      }
+      // If the exact name is found, fetch the data from BGG.
+      getGameInfoByID(exactGame.id);
+    })
+    .catch((err) => {
+      console.error('ERROR:', err);
+    });
+};
+
+// Testing getGameInfoByID
+getGameInfoBGG('EL: The Chicago Transit Adventure'); // Expect info about EL: The Chicago Transit Adventure
+
 module.exports = {
   convertXML,
   buildGameObj,
   getGameInfoByID,
+  buildGamesArray,
+  getGameInfoBGG, // Main search function for BGG
 };
