@@ -88,8 +88,20 @@ const getGameInfoByID = (id) => {
     });
 };
 
-// Testing getGameInfoByID
-getGameInfoByID(293739); // Expect info about EL: The Chicago Transit Adventure
+// // Testing getGameInfoByID
+// getGameInfoByID(293739); // Expect info about EL: The Chicago Transit Adventure
+
+const buildGamesArray = (convertedData) => (
+  // Build an array of game objects from the data returned from BGG
+  convertedData.map((game) => (
+    {
+      id: +(game.$.id),
+      type: game.$.type,
+      name: game.name ? game.name[0].$.value : null,
+      yearPublished: game.yearpublished ? game.yearpublished[0].$.value : null
+    }
+  ))
+);
 
 module.exports = {
   convertXML,
