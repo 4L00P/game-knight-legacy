@@ -56,6 +56,24 @@ gamesRouter.post('/', async (req, res) => {
   }
 });
 
+/*
+GET /api/games => Retrieve all games stored in DB
+*/
+gamesRouter.get('/', (req, res) => {
+  // Query the database for all games
+  Games.find({})
+    // Success, set Status: 200 & send array of games
+    .then((gamesArr) => {
+      res.status(200);
+      res.send(gamesArr);
+    })
+    // Failure, log error & send Status: 500
+    .catch((err) => {
+      console.error('Failed to find all games in DB:', err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = {
   gamesRouter,
 };
