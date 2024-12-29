@@ -23,6 +23,8 @@ gamesRouter.post('/', async (req, res) => {
     // Destructure gameInfo
     const {
       name,
+      thumbnail,
+      image,
       description,
       yearPublished,
       minPlayers,
@@ -33,6 +35,8 @@ gamesRouter.post('/', async (req, res) => {
     // Query database to create a new game object with the game Info
     Games.create({
       name,
+      thumbnail,
+      image,
       description,
       yearPublished,
       minPlayers,
@@ -50,6 +54,24 @@ gamesRouter.post('/', async (req, res) => {
         res.sendStatus(500);
       });
   }
+});
+
+/*
+GET /api/games => Retrieve all games stored in DB
+*/
+gamesRouter.get('/', (req, res) => {
+  // Query the database for all games
+  Games.find({})
+    // Success, set Status: 200 & send array of games
+    .then((gamesArr) => {
+      res.status(200);
+      res.send(gamesArr);
+    })
+    // Failure, log error & send Status: 500
+    .catch((err) => {
+      console.error('Failed to find all games in DB:', err);
+      res.sendStatus(500);
+    });
 });
 
 module.exports = {

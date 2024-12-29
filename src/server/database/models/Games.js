@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const GameSchema = {
   name: { type: String, required: true },
+  thumbnail: { type: String },
+  image: { type: String },
   description: { type: String },
   yearPublished: { type: Number },
   minPlayers: { type: Number },
