@@ -23,6 +23,8 @@ gamesRouter.post('/', async (req, res) => {
     // Destructure gameInfo
     const {
       name,
+      thumbnail,
+      image,
       description,
       yearPublished,
       minPlayers,
@@ -33,6 +35,8 @@ gamesRouter.post('/', async (req, res) => {
     // Query database to create a new game object with the game Info
     Games.create({
       name,
+      thumbnail,
+      image,
       description,
       yearPublished,
       minPlayers,
