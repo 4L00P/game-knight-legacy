@@ -16,7 +16,7 @@ function Game({ game }) {
   const { name, thumbnail } = game;
   const [showInfo, setShowInfo] = useState(false);
   return (
-    <Stack spacing={2}>
+    <Stack spacing={1}>
       <ListItem
         onClick={() => { setShowInfo(!showInfo); }}
       >
