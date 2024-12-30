@@ -45,6 +45,15 @@ function GameNightForm() {
     ));
   };
 
+  const handleClick = () => {
+    // Send axios POST request to the server
+    axios.post('api/game-nights')
+      .then((gameNight) => {
+        console.log('Game night added: ', gameNight);
+      }).catch((err) => {
+        console.error('Error POSTing new game night: ', err);
+      });
+  };
   return (
     <Box
       component="form"
@@ -66,6 +75,7 @@ function GameNightForm() {
         {mapCollection(games)}
         <Button
           variant="contained"
+          onClick={handleClick}
         >
           LET&apos;S PLAY
         </Button>
