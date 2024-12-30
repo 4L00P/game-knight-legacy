@@ -1,6 +1,12 @@
 import React from 'react';
+import {
+  FormControl,
+  InputLabel,
+  Input,
+  TextField,
+} from '@mui/material';
 
-function Input({ objValue, handleChange, index }) {
+function InputField({ objValue, handleChange, index }) {
   const { label, type, value } = objValue;
   return (
     <div className="input-group">
@@ -17,4 +23,4 @@ function Input({ objValue, handleChange, index }) {
   );
 }
 
-export default Input;
+export default InputField;
