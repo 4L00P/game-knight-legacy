@@ -11,6 +11,7 @@ import {
   Rating,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 
 function GameInfo({ game }) {
   const {
@@ -26,7 +27,9 @@ function GameInfo({ game }) {
   return (
     <Box>
       <Accordion>
-        <AccordionSummary>
+        <AccordionSummary
+          expandIcon={<ExpandCircleDownTwoToneIcon />}
+        >
           <Typography variant="subtitle2">General Info:</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -51,7 +54,9 @@ function GameInfo({ game }) {
         </AccordionDetails>
       </Accordion>
       <Accordion>
-        <AccordionSummary>
+        <AccordionSummary
+          expandIcon={<ExpandCircleDownTwoToneIcon />}
+        >
           <Typography variant="subtitle2">Rating & Notes:</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -71,7 +76,9 @@ function GameInfo({ game }) {
         </AccordionActions>
       </Accordion>
       <Accordion>
-        <AccordionSummary>
+        <AccordionSummary
+          expandIcon={<ExpandCircleDownTwoToneIcon />}
+        >
           <Typography variant="subtitle2">Description:</Typography>
         </AccordionSummary>
         <AccordionDetails>
