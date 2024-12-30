@@ -38,7 +38,15 @@ function GameInfo({ game }) {
         </Grid>
         <Grid size={12}>
           <Typography variant="subtitle2">Description:</Typography>
-          <Typography variant="subtitle1">{description}</Typography>
+          {description.split('\n').map((line, i) => (
+            <Typography
+              key={`${line.slice(0, 10)} - ${i * Math.random()}`}
+              variant="subtitle1"
+              style={{ paddingTop: 5, paddingBottom: 5 }}
+            >
+              {line}
+            </Typography>
+          ))}
         </Grid>
         <Grid size={2}>
           <Typography variant="subtitle2">Rating:</Typography>
