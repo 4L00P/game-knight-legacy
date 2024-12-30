@@ -1,9 +1,18 @@
 import React from 'react';
+import { List } from '@mui/material';
+
+import Game from './Game';
 
 function GamesList({ games }) {
-  console.log('GamesList Games:', games);
   return (
-    <div>Games List</div>
+    <List>
+      {games.map((game) => (
+        <Game
+          key={game._id}
+          game={game}
+        />
+      ))}
+    </List>
   );
 }
 

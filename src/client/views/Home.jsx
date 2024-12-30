@@ -1,5 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+import {
+  Box,
+  TextField,
+  Typography,
+} from '@mui/material';
 
 import Navbar from '../components/Navbar';
 import GamesList from '../components/GamesList';
@@ -12,7 +17,9 @@ const {
 function Home() {
   const [name, setName] = useState('');
   const [games, setGames] = useState([]);
-  useEffect(() => {
+
+  // Re-useable helper to make a request to the server for all games
+  const fetchGames = () => {
     axios.get('/api/games')
       .then(({ data }) => {
         setGames(data);
@@ -20,16 +27,41 @@ function Home() {
       .catch((err) => {
         console.error('Failed to fetch games from DB:', err);
       });
+  };
+
+  // When component mounts, make a get request for all games in the Games collection
+  useEffect(() => {
+    fetchGames();
   }, []);
+
   return (
     <>
       <Navbar />
-      <h1>Hello World</h1>
-      <input
-        value={name}
-        onChange={(e) => { setName(e.target.value); }}
-      />
-      <GamesList games={games} />
+      <Box
+        sx={{
+          padding: 2,
+        }}
+      >
+        <Typography variant="h6" style={{ paddingBottom: 10 }}>
+          Add a Game to your collection:
+        </Typography>
+        <TextField
+          label="Board Game Name"
+          variant="outlined"
+          value={name}
+          onChange={(e) => { setName(e.target.value); }}
+        />
+      </Box>
+      <Box
+        sx={{
+          padding: 2,
+        }}
+      >
+        <Typography variant="h4">
+          Board Games Collection:
+        </Typography>
+        <GamesList games={games} />
+      </Box>
     </>
   );
 }
