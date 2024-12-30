@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Button } from '@mui/material';
 import Navbar from '../components/Navbar';
+import GameNightForm from '../components/CreateNight';
 
 function GameNights() {
   const [creatingNight, toggleCreatingNight] = useState(false);
@@ -25,7 +26,7 @@ function GameNights() {
           Schedule Game Night
         </Button>
       )}
-      {creatingNight && <p>Creating Night</p>}
+      {creatingNight && <GameNightForm />}
     </div>
   );
 }
