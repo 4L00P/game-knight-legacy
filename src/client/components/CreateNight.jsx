@@ -11,43 +11,51 @@ import {
 } from '@mui/material';
 import InputField from './InputField';
 
+const initialInputs = [{
+  label: 'Name', value: '', helperText: 'Name your event',
+},
+{
+  label: 'Guest', value: '', helperText: 'Add a guest',
+},
+{
+  label: 'Snack', value: '', helperText: 'Refreshments',
+},
+{
+  label: 'Game', value: '', helperText: 'What are you playing?',
+},
+];
+
 function GameNightForm() {
   // Initialize the state of the component
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
-  const [guests, setGuests] = useState([{ label: 'Guest', value: '', helperText: 'Who\'s invited?' }]);
-  const [snacks, setSnacks] = useState([{
-    label: 'Snack', type: 'text', value: '', helperText: 'What\'s on the menu?',
-  }]);
-  const [games, setGames] = useState([{ label: 'Game', value: '', helperText: 'What are we playing?' }]);
+  const [guests, setGuests] = useState([]);
+  const [snacks, setSnacks] = useState([]);
+  const [games, setGames] = useState([]);
 
-  // Function that handles the change of the form input fields
-  /**
-   * I: element and index
-   */
-  const handleChange = (element, index) => {
-    // Grab the values from  from state
-    const newSnacks = [...snacks];
-    // Set the element value in state to the new value from the element target
-    snacks[index].value = element.target.value;
-    setSnacks(newSnacks);
+  // Handle change in the name input field
+  const handleNameChange = (element) => {
+    const { value } = element.target;
+    console.log(value);
+    setName(value);
   };
-  // Helper function to map over collection and return  InputField
-  const mapCollection = (stateValue) => {
-    console.log('Mapping: ', stateValue);
-    return stateValue.map((obj, index) => (
-      <InputField
-        key={`${obj.value + index}`}
-        index={index}
-        objvalue={obj}
-        onChange={handleChange}
-      />
-    ));
+  // Handle changes in the input fields
+  const handleChange = (element, index) => {
+    console.log(element.target.value);
   };
 
   const handleClick = () => {
+    const config = {
+      gameNight: {
+        name,
+        date,
+        guests,
+        snacks,
+        games,
+      },
+    };
     // Send axios POST request to the server
-    axios.post('api/game-nights')
+    axios.post('api/game-nights', config)
       .then((gameNight) => {
         console.log('Game night added: ', gameNight);
       }).catch((err) => {
@@ -62,17 +70,13 @@ function GameNightForm() {
       autoComplete="off"
     >
       <FormControl>
-        <TextField
-          type="text"
-          label="Name"
-          id="name"
-          variant="outlined"
-          helperText="Name your event"
-          onChange={handleChange}
-        />
-        {mapCollection(guests)}
-        {mapCollection(snacks)}
-        {mapCollection(games)}
+        {initialInputs.map((input, index) => (
+          <InputField
+            key={`${input.label}-${index * Math.random()}`}
+            objvalue={input}
+            onChange={handleChange}
+          />
+        ))}
         <Button
           variant="contained"
           onClick={handleClick}
