@@ -30,6 +30,13 @@ function Navbar() {
           >
             Game Nights
           </Button>
+          <Button
+            component={Link}
+            to="/currentgame"
+            color="inherit"
+          >
+            Start Game
+          </Button>
           <Button color="inherit">Logout</Button>
         </Stack>
       </Toolbar>
