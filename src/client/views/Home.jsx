@@ -29,6 +29,16 @@ function Home() {
       });
   };
 
+  // Sends POST request to add a game to the games collection
+  const postGame = () => {
+    axios.post('/api/games', { game: { name } })
+      .then(fetchGames)
+      .then(() => setName(''))
+      .catch((err) => {
+        console.error('Failed to postGame:', err);
+      });
+  };
+
   // When component mounts, make a get request for all games in the Games collection
   useEffect(() => {
     fetchGames();
@@ -50,6 +60,11 @@ function Home() {
           variant="outlined"
           value={name}
           onChange={(e) => { setName(e.target.value); }}
+          onKeyUp={({ key }) => {
+            if (key === 'Enter') {
+              postGame();
+            }
+          }}
         />
       </Box>
       <Box
