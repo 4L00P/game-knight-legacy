@@ -2,41 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   ListItem,
-  ListItemText,
-  ListItemAvatar,
   Avatar,
-  Stack,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 
 import GameInfo from './GameInfo';
 
-const { useState } = React;
-
 function Game({ game }) {
   const { name, thumbnail } = game;
-  const [showInfo, setShowInfo] = useState(false);
   return (
-    <Stack spacing={1}>
-      <ListItem
-        onClick={() => { setShowInfo(!showInfo); }}
-      >
-        <ListItemAvatar>
+    <ListItem>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandCircleDownTwoToneIcon />}
+        >
           <Avatar src={thumbnail} />
-        </ListItemAvatar>
-        <ListItemText>
-          {name}
-        </ListItemText>
-      </ListItem>
-      {
-        showInfo
-          ? (
-            <ListItem>
-              <GameInfo game={game} />
-            </ListItem>
-          )
-          : null
-      }
-    </Stack>
+          <Typography
+            variant="subtitle2"
+            style={{ padding: 8 }}
+          >
+            {name}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <GameInfo game={game} />
+        </AccordionDetails>
+      </Accordion>
+    </ListItem>
   );
 }
 
