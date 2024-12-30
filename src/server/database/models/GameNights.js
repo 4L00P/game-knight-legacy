@@ -8,7 +8,7 @@ const GameNightSchema = {
   isCancelled: { type: Boolean, default: false },
   guests: { type: [String] },
   snacks: { type: [String] },
-  games: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Game' }],
+  games: [{ type: String }],
   winner: { type: String, default: '' },
 };
 
