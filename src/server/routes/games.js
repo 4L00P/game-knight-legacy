@@ -61,7 +61,7 @@ GET /api/games => Retrieve all games stored in DB
 */
 gamesRouter.get('/', (req, res) => {
   // Query the database for all games
-  Games.find({})
+  Games.find({}).sort({ name: 'asc' })
     // Success, set Status: 200 & send array of games
     .then((gamesArr) => {
       res.status(200);
