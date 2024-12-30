@@ -15,9 +15,14 @@ function CurrentGame(props) {
    */
 
   return (
-    <>
-    
-    </>
+    <div>
+      <h1>{`${name}!!`}</h1>
+      {members.map((member) => {
+        return(
+          
+        );
+      })}
+    </div>
   );
 }
 

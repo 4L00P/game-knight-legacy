@@ -44,7 +44,7 @@ passport.use(new GoogleStrategy(
  * If React-Router sends a request for a particular webpage, send the index.html in response
  */
 
-app.get('/login', cors(corsOptions), passport.authenticate('google'));
+app.get('/login/google', cors(corsOptions), passport.authenticate('google'));
 
 app.get('/redirect/google', passport.authenticate('google', {
   // looks like an issue here is that after the info is sent from the auth page, our redirect
