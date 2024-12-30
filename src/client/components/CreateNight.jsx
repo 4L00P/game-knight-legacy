@@ -6,6 +6,8 @@ import {
   InputLabel,
   Input,
   TextField,
+  Box,
+  Button,
 } from '@mui/material';
 import InputField from './InputField';
 
@@ -24,7 +26,11 @@ function GameNightForm() {
    * I: element and index
    */
   const handleChange = (element, index) => {
-
+    // Grab the values from  from state
+    const newSnacks = [...snacks];
+    // Set the element value in state to the new value from the element target
+    snacks[index].value = element.target.value;
+    setSnacks(newSnacks);
   };
   // Helper function to map over collection and return  InputField
   const mapCollection = (stateValue) => {
@@ -40,19 +46,31 @@ function GameNightForm() {
   };
 
   return (
-    <FormControl>
-      <TextField
-        type="text"
-        label="Name"
-        id="name"
-        variant="outlined"
-        helperText="Name your event"
-        onChange={handleChange}
-      />
-      {mapCollection(guests)}
-      {mapCollection(snacks)}
-      {mapCollection(games)}
-    </FormControl>
+    <Box
+      component="form"
+      sx={{ '& > :not(style)': { m: 1 } }}
+      noValidate
+      autoComplete="off"
+    >
+      <FormControl>
+        <TextField
+          type="text"
+          label="Name"
+          id="name"
+          variant="outlined"
+          helperText="Name your event"
+          onChange={handleChange}
+        />
+        {mapCollection(guests)}
+        {mapCollection(snacks)}
+        {mapCollection(games)}
+        <Button
+          variant="contained"
+        >
+          LET&apos;S PLAY
+        </Button>
+      </FormControl>
+    </Box>
   );
 }
 
