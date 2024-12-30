@@ -9,6 +9,7 @@ const GameNightSchema = {
   guests: { type: [String] },
   snacks: { type: [String] },
   games: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Game' }],
+  winner: { type: String, default: '' },
 };
 
 const GameNights = mongoose.model('GameNight', new mongoose.Schema(GameNightSchema));
