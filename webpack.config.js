@@ -9,9 +9,11 @@ module.exports = {
   entry: path.join(SRC_DIR, 'index.jsx'),
   output: {
     path: DIST,
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
-
+  resolve: {
+    extensions: ['.jsx', '.js'],
+  },
   module: {
     rules: [
       {
@@ -19,25 +21,25 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
         },
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader'
-        ]
-      }
-    ]
+          'css-loader',
+        ],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(SRC_DIR, 'index.html'),
-      filename: 'index.html'
-    })
+      filename: 'index.html',
+    }),
   ],
-  watch: true
+  watch: true,
 };

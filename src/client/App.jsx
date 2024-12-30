@@ -1,15 +1,19 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import Hello from './components/Hello.jsx';
-import Login from './views/Login.jsx';
+import Hello from './views/Home';
+import Login from './views/Login';
+import GameNights from './views/GameNights';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Hello />} />
-      <Route path="login" element={<Login />} />
-    </Routes>
+    <div>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="home" element={<Hello />} />
+        <Route path="gamenights" element={<GameNights />} />
+      </Routes>
+    </div>
   );
 }
 
