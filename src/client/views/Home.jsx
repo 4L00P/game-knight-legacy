@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import Navbar from '../components/Navbar';
+import GamesList from '../components/GamesList';
 
 const {
   useState,
@@ -21,14 +22,15 @@ function Home() {
       });
   }, []);
   return (
-    <div>
+    <>
       <Navbar />
       <h1>Hello World</h1>
       <input
         value={name}
         onChange={(e) => { setName(e.target.value); }}
       />
-    </div>
+      <GamesList games={games} />
+    </>
   );
 }
 
