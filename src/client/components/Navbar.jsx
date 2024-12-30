@@ -30,7 +30,7 @@ function Navbar() {
           >
             Game Nights
           </Button>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">Logout</Button>
         </Stack>
       </Toolbar>
     </AppBar>
