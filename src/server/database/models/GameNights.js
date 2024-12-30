@@ -6,8 +6,8 @@ const GameNightSchema = {
   date: { type: Date, required: true },
   isComplete: { type: Boolean, default: false },
   isCancelled: { type: Boolean, default: false },
-  guests: { type: [String] },
-  snacks: { type: [String] },
+  guests: [{ type: String }],
+  snacks: [{ type: String }],
   games: [{ type: String }],
   winner: { type: String, default: '' },
 };
