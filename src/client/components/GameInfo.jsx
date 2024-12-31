@@ -33,13 +33,23 @@ function GameInfo({ game, getGames }) {
   const [notes, setNotes] = useState(game.notes);
   const [rating, setRating] = useState(game.rating);
 
+  // Toggles the update form status to be able to update information
   const handleUpdateFormStatusToggle = () => {
     setUpdateFormStatus(!updateFormStatus);
   };
 
+  // Handles the click event to update rating's state
+  const handleRatingClick = ({ target }) => {
+    // Check if there's a value on target
+    if (target.value) {
+      // Update the state of rating with the number (it will initially be a string)
+      setRating(+(target.value));
+    }
+  };
+
   // Send PATCH request to /api/games/:id to update game's rating & notes
   const patchRatingNotes = () => {
-    axios.patch(`/api/games${_id}`, { rating, notes })
+    axios.patch(`/api/games/${_id}`, { rating, notes })
       // Success, getGames to update the state of Home view
       .then(getGames)
       // Failure, log error
@@ -109,7 +119,13 @@ function GameInfo({ game, getGames }) {
           <Grid container spacing={2}>
             <Grid size={3}>
               <Typography variant="subtitle2">Rating:</Typography>
-              <Rating defaultValue={rating} precision={0.5} max={5} />
+              <Rating
+                readOnly={!updateFormStatus}
+                value={rating}
+                onClick={handleRatingClick}
+                precision={0.5}
+                max={5}
+              />
             </Grid>
             <Grid size={9}>
               <Typography variant="subtitle2">Notes:</Typography>
@@ -123,7 +139,10 @@ function GameInfo({ game, getGames }) {
             ? (
               <Button
                 className="update-button"
-                onClick={handleUpdateFormStatusToggle}
+                onClick={() => {
+                  patchRatingNotes();
+                  handleUpdateFormStatusToggle();
+                }}
               >
                 SAVE
               </Button>
