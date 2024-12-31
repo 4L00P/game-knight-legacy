@@ -12,46 +12,53 @@ import {
 import InputField from './InputField';
 
 const initialInputs = [{
-  label: 'Name', value: '', helperText: 'Name your event',
+  label: 'Name', value: '', collection: 'name', helperText: 'Name your event',
 },
 {
-  label: 'Guest', value: '', helperText: 'Add a guest',
+  label: 'Guest', value: '', collection: 'guests', helperText: 'Add a guest',
 },
 {
-  label: 'Snack', value: '', helperText: 'Refreshments',
+  label: 'Snack', value: '', collection: 'snacks', helperText: 'Refreshments',
 },
 {
-  label: 'Game', value: '', helperText: 'What are you playing?',
+  label: 'Game', value: '', collection: 'games', helperText: 'What are you playing?',
 },
 ];
 
 function GameNightForm() {
   // Initialize the state of the component
-  const [name, setName] = useState('');
-  const [date, setDate] = useState('');
-  const [guests, setGuests] = useState([]);
-  const [snacks, setSnacks] = useState([]);
-  const [games, setGames] = useState([]);
+  const [formValues, setFormValues] = useState({
+    name: '',
+    guests: [],
+    snacks: [],
+    games: [],
+  });
 
-  // Handle change in the name input field
-  const handleNameChange = (element) => {
-    const { value } = element.target;
-    console.log(value);
-    setName(value);
-  };
+  const [inputValues, setInputValues] = useState(initialInputs);
   // Handle changes in the input fields
-  const handleChange = (element, index) => {
-    console.log(element.target.value);
+  const handleChange = (element) => {
+    // Make a copy of the state values => Need to do this because of copy by reference
+    const inputsCopy = inputValues.slice();
+    // Access the id and value of the target element
+    const { id, value } = element.target;
+    console.log('Id and value: ', id, value);
+    // Check if were changing the name property in state
+    if (id === 'name') {
+      // Change the name value in state formValues to the current value in the input field
+      formValues.name = value;
+      // Change the value in the
+      inputsCopy[0].value = value;
+      setInputValues(inputsCopy);
+      // setFormValues(formValues);
+    } else {
+      console.log('Not for the name');
+    }
   };
 
   const handleClick = () => {
     const config = {
       gameNight: {
-        name,
-        date,
-        guests,
-        snacks,
-        games,
+
       },
     };
     // Send axios POST request to the server
@@ -70,11 +77,12 @@ function GameNightForm() {
       autoComplete="off"
     >
       <FormControl>
-        {initialInputs.map((input, index) => (
+        {inputValues.map((input, index) => (
           <InputField
             key={`${input.label}-${index * Math.random()}`}
             objvalue={input}
             onChange={handleChange}
+            onBlur={() => { console.log('left the input field'); }}
           />
         ))}
         <Button
