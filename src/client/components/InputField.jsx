@@ -1,7 +1,7 @@
 import React from "react";
 import { InputLabel, Input, TextField, Button } from "@mui/material";
 
-function InputField({ objvalue, handleChange, index, onBlur }) {
+function InputField({ objvalue, handleChange, index, handleAddClick }) {
   const { label, value, collection, helperText } = objvalue;
   return (
     <div className="input">
@@ -12,11 +12,17 @@ function InputField({ objvalue, handleChange, index, onBlur }) {
         variant="outlined"
         helperText={helperText}
         onChange={(element) => handleChange(element)}
-        onBlur={onBlur}
         autoFocus
       />
       {
-      label === 'Name' ? null : <Button>+</Button>
+      label === 'Name' ? null : (
+        <Button
+          id={collection}
+          onClick={handleAddClick}
+        >
+          +
+        </Button>
+      )
       }
     </div>
   );

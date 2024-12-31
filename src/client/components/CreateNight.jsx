@@ -137,9 +137,6 @@ function GameNightForm({ closeForm }) {
             objvalue={input}
             handleChange={handleChange}
             index={index}
-            onBlur={() => {
-              console.log('left the input field');
-            }}
             handleAddClick={handleAddClick}
           />
         ))}
