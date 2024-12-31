@@ -1,9 +1,5 @@
-import React from 'react';
-import {
-  InputLabel,
-  Input,
-  TextField,
-} from '@mui/material';
+import React from "react";
+import { InputLabel, Input, TextField, Button } from "@mui/material";
 
 function InputField({ objvalue, handleChange, index, onBlur }) {
   const { label, value, collection, helperText } = objvalue;
@@ -19,6 +15,9 @@ function InputField({ objvalue, handleChange, index, onBlur }) {
         onBlur={onBlur}
         autoFocus
       />
+      {
+      label === 'Name' ? null : <Button>+</Button>
+      }
     </div>
   );
 }
