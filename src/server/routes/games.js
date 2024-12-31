@@ -75,6 +75,31 @@ gamesRouter.get('/', (req, res) => {
     });
 });
 
+/*
+DELETE /api/games/:id => Removes game using _id from the Database
+*/
+gamesRouter.delete('/:id', (req, res) => {
+  // Grab the id from the request's path parameters
+  const { id } = req.params;
+  // Query the DB find the game by id and delete it
+  Games.findByIdAndDelete(id)
+    // Success
+    .then((removedGame) => {
+      // If no game is found, send Status: 404
+      if (!removedGame) {
+        res.sendStatus(404);
+      // If a game is removed, send Status: 200
+      } else {
+        res.sendStatus(200);
+      }
+    })
+    // Failure, log error and send Status: 500
+    .catch((err) => {
+      console.error('Failed to findByIdAndDelete:', err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = {
   gamesRouter,
 };
