@@ -23,13 +23,13 @@ function Home() {
   const [inputNameError, setInputNameError] = useState(false);
 
   // Re-useable helper to make a request to the server for all games
-  const fetchGames = () => {
+  const getGames = () => {
     axios.get('/api/games')
       .then(({ data }) => {
         setGames(data);
       })
       .catch((err) => {
-        console.error('Failed to fetch games from DB:', err);
+        console.error('Failed to getGames from DB:', err);
       });
   };
 
@@ -39,7 +39,7 @@ function Home() {
       .then(({ data }) => {
         /*
           If no data is in the response, setInputNameError to true:
-          This warns user that they have spelt the name of the board game incorrectly 
+          This warns user that they have spelt the name of the board game incorrectly
         */
         if (!data) {
           setInputNameError(true);
@@ -50,7 +50,7 @@ function Home() {
         */
         } else {
           setInputNameError(false);
-          fetchGames();
+          getGames();
           setName('');
         }
       })
@@ -61,7 +61,7 @@ function Home() {
 
   // When component mounts, make a get request for all games in the Games collection
   useEffect(() => {
-    fetchGames();
+    getGames();
   }, []);
 
   /**
@@ -104,7 +104,10 @@ function Home() {
         <Typography variant="h4">
           Board Games Collection:
         </Typography>
-        <GamesList games={games} />
+        <GamesList
+          games={games}
+          getGames={getGames}
+        />
       </Box>
     </>
   );

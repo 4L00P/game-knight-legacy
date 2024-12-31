@@ -4,7 +4,7 @@ import { List } from '@mui/material';
 
 import Game from './Game';
 
-function GamesList({ games }) {
+function GamesList({ games, getGames }) {
   /**
    * Map through the games array and return the Game component with a game property
    */
@@ -16,6 +16,7 @@ function GamesList({ games }) {
           <Game
             key={_id}
             game={game}
+            getGames={getGames}
           />
         );
       })}
