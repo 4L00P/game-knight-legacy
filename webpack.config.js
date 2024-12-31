@@ -41,5 +41,4 @@ module.exports = {
       filename: 'index.html',
     }),
   ],
-  watch: true,
 };
