@@ -18,7 +18,8 @@ gamesRouter.post('/', async (req, res) => {
   // If nothing is returned from BGG
   if (!gameInfo) {
     // Send status 404
-    res.sendStatus(404);
+    res.status(200);
+    res.send(null);
   } else {
     // Destructure gameInfo
     const {
