@@ -122,6 +122,7 @@ gamesRouter.patch('/:id', (req, res) => {
     // Failure, log error & send Status: 500
     .catch((err) => {
       console.error('Failed to findByIdAndUpdate:', err);
+      res.sendStatus(500);
     });
 });
 
