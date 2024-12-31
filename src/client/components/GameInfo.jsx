@@ -49,7 +49,7 @@ function GameInfo({ game, getGames }) {
 
   // Send PATCH request to /api/games/:id to update game's rating & notes
   const patchRatingNotes = () => {
-    axios.patch(`/api/games/${_id}`, { rating, notes })
+    axios.patch(`/api/games/${_id}`, { game: { rating, notes } })
       // Success, getGames to update the state of Home view
       .then(getGames)
       // Failure, log error
@@ -129,7 +129,11 @@ function GameInfo({ game, getGames }) {
             </Grid>
             <Grid size={9}>
               <Typography variant="subtitle2">Notes:</Typography>
-              <Typography variant="subtitle1">{notes}</Typography>
+              {
+                updateFormStatus
+                  ? <Typography variant="subtitle1">Update mode...</Typography>
+                  : <Typography variant="subtitle1">{notes}</Typography>
+              }
             </Grid>
           </Grid>
         </AccordionDetails>
