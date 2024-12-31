@@ -45,7 +45,6 @@ function GameNightForm() {
     const inputsCopy = [...inputValues];
     // Access the id and value of the target element
     const { id, value } = element.target;
-    console.log('Id and value: ', id, value);
     // Check if were changing the name property in state
     if (id === 'name') {
       // Change the name value in state formValues to the current value in the input field
@@ -58,7 +57,6 @@ function GameNightForm() {
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < inputKeys.length; i++) {
         if (inputKeys[i] === id) {
-          console.log('id equals the key');
           // Change the value of the corresponding inputValue state object
           // i + 1 cause 'name' is removed from inputKeys array
           inputsCopy[i + 1].value = value;
@@ -71,9 +69,7 @@ function GameNightForm() {
 
   const handleClick = () => {
     const config = {
-      gameNight: {
-
-      },
+      formValues,
     };
     // Send axios POST request to the server
     axios.post('api/game-nights', config)
@@ -83,7 +79,6 @@ function GameNightForm() {
         console.error('Error POSTing new game night: ', err);
       });
   };
-  console.log(inputValues);
   return (
     <Box
       component="form"
