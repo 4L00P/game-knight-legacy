@@ -59,7 +59,7 @@ function Game({ game, getGames }) {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {showGameInfo ? <GameInfo game={game} /> : null}
+          {showGameInfo ? <GameInfo game={game} getGames={getGames} /> : null}
         </AccordionDetails>
         <AccordionActions>
           <Button

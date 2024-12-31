@@ -13,7 +13,7 @@ import {
 import Grid from '@mui/material/Grid2';
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 
-function GameInfo({ game }) {
+function GameInfo({ game, getGames }) {
   // Destructure important info from the game object
   const {
     description,
@@ -131,6 +131,7 @@ GameInfo.propTypes = {
     notes: PropTypes.string,
     rating: PropTypes.number,
   }).isRequired,
+  getGames: PropTypes.func.isRequired,
 };
 
 export default GameInfo;
