@@ -8,7 +8,6 @@ function GameNights() {
   const [creatingNight, toggleCreatingNight] = useState(false);
 
   const handleClick = () => {
-    console.log('Toggling Creatingnight state');
     toggleCreatingNight(true);
   };
   return (
