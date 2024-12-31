@@ -8,10 +8,10 @@ const gameNightsRouter = Router();
 
 gameNightsRouter.post('/', (req, res) => {
   // Grab the request body
-  const { gameNight } = req.body;
-  console.log(gameNight);
+  const { formValues } = req.body;
+  console.log('FormValues: ', formValues);
   // Add the new gamenight to the database
-  GameNights.create(gameNight).then((event) => {
+  GameNights.create(formValues).then((event) => {
     // Send back the proper status codes
     res.status(201).send(event);
   }).catch((err) => {
