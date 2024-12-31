@@ -17,11 +17,6 @@ const app = express();
 
 const DIST_DIR = path.resolve(__dirname, '..', '..', 'dist');
 
-app.all('*', (req, res, next) => {
-  res.set('Access-Control-Allow-Origin', '*');
-  next();
-});
-
 app.use(express.static(DIST_DIR));
 app.use(express.json());
 
@@ -29,8 +24,8 @@ app.use(express.json());
 app.use(session({
   name: 'google-auth-session',
   secret: SESSION_SECRET,
-  resave: true,
-  saveUninitialized: true,
+  resave: false,
+  saveUninitialized: false,
   cookie: {
     // The cookie will last one hour.
     maxAge: 60000 * 60,
@@ -48,7 +43,7 @@ app.use('/api/groups', groupsRouter);
 app.use('/api/game-nights', gameNightsRouter);
 
 app.get('/logout', (req, res) => {
-  req.logout();
+  // req.logout();
   req.session.destroy((err) => {
     if (err) {
       console.error('Error destroying session:', err);
