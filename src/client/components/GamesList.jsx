@@ -5,6 +5,9 @@ import { List } from '@mui/material';
 import Game from './Game';
 
 function GamesList({ games }) {
+  /**
+   * Map through the games array and return the Game component with a game property
+   */
   return (
     <List>
       {games.map((game) => {

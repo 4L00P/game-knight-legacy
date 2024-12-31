@@ -14,6 +14,7 @@ import Grid from '@mui/material/Grid2';
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 
 function GameInfo({ game }) {
+  // Destructure important info from the game object
   const {
     description,
     yearPublished,
@@ -24,6 +25,28 @@ function GameInfo({ game }) {
     notes,
     rating,
   } = game;
+  /**
+   * Box helps to contain all of the accordions.
+   *
+   * Accordion #1: General Info
+   *  - Contains a grid of information about the game:
+   *    (1) The year it was published
+   *    (2) The number of players that can play the game.
+   *    (3) The average amount of time the game will take to play.
+   *    (4) The minimum age recommended to play the game.
+   *
+   * Accordion #2: Rating & Notes
+   *  - Contains a grid of information that the user can update:
+   *    (1) The user can rate the game from 0 to 5 stars
+   *    (2) The user can save any notes they have about the game
+   *  - An UPDATE action is included to make the details available to update
+   *  - A SAVE action will save changes to the database
+   *
+   * Accordion #3: Description
+   *  - The description can be quite long, so it is contained in its own accordion
+   *  - The description is split by line-breaks and separated into different Typography(s)
+   *    to show the line breaks to the user.
+   */
   return (
     <Box>
       <Accordion>

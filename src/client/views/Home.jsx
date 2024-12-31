@@ -15,8 +15,11 @@ const {
 } = React;
 
 function Home() {
+  // Tracks the state of the input field
   const [name, setName] = useState('');
+  // Tracks the state of the games in the collection
   const [games, setGames] = useState([]);
+  // Tracks whether there is an error in the input field
   const [inputNameError, setInputNameError] = useState(false);
 
   // Re-useable helper to make a request to the server for all games
@@ -34,8 +37,17 @@ function Home() {
   const postGame = () => {
     axios.post('/api/games', { game: { name } })
       .then(({ data }) => {
+        /*
+          If no data is in the response, setInputNameError to true:
+          This warns user that they have spelt the name of the board game incorrectly 
+        */
         if (!data) {
           setInputNameError(true);
+        /*
+          Otherwise, (1) setInputNameError to false to hide warning
+          (2) fetchGames to render the newly added game
+          (3) setName to '' to clear out the input field
+        */
         } else {
           setInputNameError(false);
           fetchGames();
@@ -52,6 +64,13 @@ function Home() {
     fetchGames();
   }, []);
 
+  /**
+   * TextField notes:
+   *  - error: Uses boolean inputNameError state value to determine if there is an error
+   *  - helperText: Shows different message depending on inputNameError state
+   *  - onChange: Sets the state of name when user types
+   *  - onKeyUp: Submits POST /api/games request on 'Enter'
+   */
   return (
     <>
       <Navbar />
@@ -68,7 +87,7 @@ function Home() {
           label="Board Game Name"
           variant="outlined"
           value={name}
-          helperText={inputNameError ? 'Check the spelling.' : ''}
+          helperText={inputNameError ? 'Check the spelling.' : 'Press \'Enter\' to submit.'}
           onChange={(e) => { setName(e.target.value); }}
           onKeyUp={({ key }) => {
             if (key === 'Enter') {
