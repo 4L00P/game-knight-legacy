@@ -56,7 +56,7 @@ function GameNightForm() {
    * I: Key which should be the id of a collection, the newValue we are setting
    */
   // Helper to set the values of inputValues in state
-  const setInputValue = (key, newValue) => {
+  const changeInputValue = (key, newValue) => {
     // Make a copy of the inputValues in state => Need to do this because of copy by reference
     const inputsCopy = [...inputValues];
     // eslint-disable-next-line no-plusplus
@@ -86,7 +86,7 @@ function GameNightForm() {
       setInputValues(inputsCopy);
       // setFormValues(formValues);
     } else {
-      setInputValue(id, value);
+      changeInputValue(id, value);
     }
   };
   // Handle the click of the + button
@@ -104,6 +104,8 @@ function GameNightForm() {
         formCopy[id].push(currValue);
         // Change formValues in state to new formCopy
         setFormValues(formCopy);
+        // Change the input value to an empty string
+        changeInputValue(id, '');
         return;
       }
     }
@@ -123,7 +125,6 @@ function GameNightForm() {
         console.error('Error POSTing new game night: ', err);
       });
   };
-  console.log('Input Values: ', inputValues);
   return (
     <Box
       component="form"
