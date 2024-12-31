@@ -8,7 +8,8 @@ function GameNightsList({ gameNights, getGameNights }) {
     <List>
       {gameNights.map((gameNight) => (
         <Night
-          key={gameNight.name}
+          // eslint-disable-next-line no-underscore-dangle
+          key={gameNight._id}
           gameNight={gameNight}
           getGameNights={getGameNights}
         />
