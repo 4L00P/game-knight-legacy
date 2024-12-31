@@ -8,7 +8,7 @@ function GameNights() {
   const [creatingNight, toggleCreatingNight] = useState(false);
 
   const handleClick = () => {
-    toggleCreatingNight(true);
+    toggleCreatingNight(!creatingNight);
   };
   return (
     <div>
@@ -25,7 +25,12 @@ function GameNights() {
           Schedule Game Night
         </Button>
       )}
-      {creatingNight && <GameNightForm />}
+      {creatingNight
+      && (
+        <GameNightForm
+          closeForm={handleClick}
+        />
+      )}
     </div>
   );
 }

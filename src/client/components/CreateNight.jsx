@@ -41,7 +41,7 @@ const initialInputs = [
 // Keep array of the collections to be iterated over later
 const inputKeys = ['guests', 'snacks', 'games'];
 
-function GameNightForm() {
+function GameNightForm({ closeForm }) {
   // Initialize the state of the component
   const [formValues, setFormValues] = useState({
     name: '',
@@ -118,9 +118,7 @@ function GameNightForm() {
     // Send axios POST request to the server
     axios
       .post('api/game-nights', config)
-      .then((gameNight) => {
-        console.log('Game night added: ', gameNight);
-      })
+      .then(closeForm)
       .catch((err) => {
         console.error('Error POSTing new game night: ', err);
       });
