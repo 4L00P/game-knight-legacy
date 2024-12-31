@@ -10,10 +10,19 @@ import {
   Button,
   Typography,
 } from '@mui/material';
+import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 
 function Night({ gameNight, getGameNights }) {
   return (
-    <ListItem>{gameNight.name}</ListItem>
+    <ListItem>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandCircleDownTwoToneIcon />}
+        >
+          {gameNight.name}
+        </AccordionSummary>
+      </Accordion>
+    </ListItem>
   );
 }
 
