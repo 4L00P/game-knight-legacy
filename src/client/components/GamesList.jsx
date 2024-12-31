@@ -30,6 +30,7 @@ GamesList.propTypes = {
       _id: PropTypes.string,
     }),
   ).isRequired,
+  getGames: PropTypes.func.isRequired,
 };
 
 export default GamesList;

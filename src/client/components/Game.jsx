@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import {
   ListItem,
@@ -10,18 +11,29 @@ import {
   Button,
   Typography,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 
 import GameInfo from './GameInfo';
 
 const { useState } = React;
 
-function Game({ game }) {
+function Game({ game, getGames }) {
   // Destructure name & thumbnail from the game object
-  const { name, thumbnail } = game;
+  const { _id, name, thumbnail } = game;
   // showGameInfo will determine whether or not the additional information is rendered to the page
   const [showGameInfo, setShowGameInfo] = useState(false);
+
+  // Send DELETE request to /api/games/:id to remove game from DB
+  const deleteGame = () => {
+    axios.delete(`/api/games/${_id}`)
+      // Success, call getGames to update the Home views state
+      .then(getGames)
+      // Failure, log error
+      .catch((err) => {
+        console.error('Failed to deleteGame:', err);
+      });
+  };
+
   /**
    * Accordion hides additional information behind a click
    * AccordionSummary displays the game image and game name without having to click
@@ -50,7 +62,12 @@ function Game({ game }) {
           {showGameInfo ? <GameInfo game={game} /> : null}
         </AccordionDetails>
         <AccordionActions>
-          <Button>REMOVE GAME</Button>
+          <Button
+            className="delete-button"
+            onClick={deleteGame}
+          >
+            REMOVE
+          </Button>
         </AccordionActions>
       </Accordion>
     </ListItem>
@@ -59,9 +76,11 @@ function Game({ game }) {
 
 Game.propTypes = {
   game: PropTypes.shape({
+    _id: PropTypes.string,
     name: PropTypes.string,
     thumbnail: PropTypes.string,
   }).isRequired,
+  getGames: PropTypes.func.isRequired,
 };
 
 export default Game;
