@@ -3,9 +3,12 @@ const express = require('express');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-const { gamesRouter } = require('./routes/games');
-const { groupsRouter } = require('./routes/groups');
-const { gameNightsRouter } = require('./routes/gamenights');
+const {
+  authRouter,
+  gamesRouter,
+  groupsRouter,
+  gameNightsRouter,
+} = require('./routes');
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 
@@ -31,6 +34,7 @@ app.use(express.static(DIST_DIR));
 app.use(express.json());
 
 // Routers
+app.use('/auth', authRouter);
 app.use('/api/games', gamesRouter);
 app.use('/api/groups', groupsRouter);
 app.use('/api/game-nights', gameNightsRouter);
