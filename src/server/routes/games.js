@@ -100,6 +100,31 @@ gamesRouter.delete('/:id', (req, res) => {
     });
 });
 
+/*
+PATCH /api/games/:id => Updates game by _id using the object in the request's body
+*/
+gamesRouter.patch('/:id', (req, res) => {
+  // Grab the game object from the request's body
+  const { game } = req.body;
+  // Grab the id from the request's path parameters
+  const { id } = req.params;
+  // Query the DB to update the game with the id using the game object
+  Games.findByIdAndUpdate(id, game)
+    .then((updatedGame) => {
+      // If no game is found, send Status: 404
+      if (!updatedGame) {
+        res.sendStatus(404);
+      // If a game is updated, send Status: 200
+      } else {
+        res.sendStatus(200);
+      }
+    })
+    // Failure, log error & send Status: 500
+    .catch((err) => {
+      console.error('Failed to findByIdAndUpdate:', err);
+    });
+});
+
 module.exports = {
   gamesRouter,
 };
