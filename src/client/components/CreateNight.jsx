@@ -55,7 +55,7 @@ function GameNightForm() {
       // setFormValues(formValues);
     } else {
       // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < inputKeys.length; i++) {
+      for (let i = 0; i < inputKeys.length; i += 1) {
         if (inputKeys[i] === id) {
           // Change the value of the corresponding inputValue state object
           // i + 1 cause 'name' is removed from inputKeys array
@@ -66,8 +66,28 @@ function GameNightForm() {
       }
     }
   };
-
-  const handleClick = () => {
+    // Handle the click of the + button
+  const handleAddClick = (element) => {
+    // Grab the id off the element
+    const { id } = element.target;
+    // Make a copy of formValues
+    const formCopy = { ...formValues };
+    // Use inputKeys (line 29) to match the collection we want to add to
+    for (let i = 0; i < inputKeys.length; i += 1) {
+      if (inputKeys[i] === id) {
+        // Grab the value from inputvalues in state at i + 1
+        const currValue = inputValues[i + 1].value;
+        // Push onto formCopy at that id
+        formCopy[id].push(currValue);
+        console.log('Form copy: ', formCopy);
+        // Change formValues in state to new formCopy
+        setFormValues(formCopy);
+        return;
+      }
+    }
+  };
+  // Handle the click of the form submit button
+  const handleFinalClick = () => {
     const config = {
       formValues,
     };
@@ -79,6 +99,7 @@ function GameNightForm() {
         console.error('Error POSTing new game night: ', err);
       });
   };
+  console.log('FormValues: ', formValues);
   return (
     <Box
       component="form"
@@ -94,11 +115,12 @@ function GameNightForm() {
             handleChange={handleChange}
             index={index}
             onBlur={() => { console.log('left the input field'); }}
+            handleAddClick={handleAddClick}
           />
         ))}
         <Button
           variant="contained"
-          onClick={handleClick}
+          onClick={handleFinalClick}
         >
           LET&apos;S PLAY
         </Button>
