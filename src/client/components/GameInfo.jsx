@@ -33,6 +33,10 @@ function GameInfo({ game, getGames }) {
   const [notes, setNotes] = useState(game.notes);
   const [rating, setRating] = useState(game.rating);
 
+  const handleUpdateFormStatusToggle = () => {
+    setUpdateFormStatus(!updateFormStatus);
+  };
+
   // Send PATCH request to /api/games/:id to update game's rating & notes
   const patchRatingNotes = () => {
     axios.patch(`/api/games${_id}`, { rating, notes })
@@ -114,7 +118,25 @@ function GameInfo({ game, getGames }) {
           </Grid>
         </AccordionDetails>
         <AccordionActions>
-          <Button>Update</Button>
+          {
+          updateFormStatus
+            ? (
+              <Button
+                className="update-button"
+                onClick={handleUpdateFormStatusToggle}
+              >
+                SAVE
+              </Button>
+            )
+            : (
+              <Button
+                className="update-button"
+                onClick={handleUpdateFormStatusToggle}
+              >
+                UPDATE
+              </Button>
+            )
+          }
         </AccordionActions>
       </Accordion>
       <Accordion>
