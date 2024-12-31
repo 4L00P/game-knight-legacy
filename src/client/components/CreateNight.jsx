@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import axios from 'axios';
 import {
   FormControl,
@@ -10,6 +9,8 @@ import {
   Button,
 } from '@mui/material';
 import InputField from './InputField';
+
+const { useState } = React;
 
 const initialInputs = [
   {
