@@ -10,6 +10,7 @@ import {
   AccordionDetails,
   Button,
   Rating,
+  TextField,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
@@ -47,15 +48,31 @@ function GameInfo({ game, getGames }) {
     }
   };
 
+  // Handles the on change event to update note's state
+  const handleNotesChange = ({ target }) => {
+    setNotes(target.value);
+  };
+
   // Send PATCH request to /api/games/:id to update game's rating & notes
   const patchRatingNotes = () => {
     axios.patch(`/api/games/${_id}`, { game: { rating, notes } })
-      // Success, getGames to update the state of Home view
+      // Success:
+      // Invoke getGames to update the state of Home view so data persists after closing accordion
       .then(getGames)
       // Failure, log error
       .catch((err) => {
         console.error('Failed to patchRatingNotes:', err);
       });
+  };
+
+  // Handles the onKeyUp event to submit an PATCH request on enter
+  const handleNotesEnterPress = ({ key }) => {
+    if (key === 'Enter') {
+      // Toggle updateFormStatus first to lock in the state for the PATCH request
+      handleUpdateFormStatusToggle();
+      // Send PATCH request with the current state of rating and notes
+      patchRatingNotes();
+    }
   };
 
   /**
@@ -131,7 +148,17 @@ function GameInfo({ game, getGames }) {
               <Typography variant="subtitle2">Notes:</Typography>
               {
                 updateFormStatus
-                  ? <Typography variant="subtitle1">Update mode...</Typography>
+                  ? (
+                    <TextField
+                      variant="outlined"
+                      helperText="What did you like/dislike? Any house rules? Any fun moments?"
+                      fullWidth
+                      multiline
+                      value={notes}
+                      onChange={handleNotesChange}
+                      onKeyUp={handleNotesEnterPress}
+                    />
+                  )
                   : <Typography variant="subtitle1">{notes}</Typography>
               }
             </Grid>
