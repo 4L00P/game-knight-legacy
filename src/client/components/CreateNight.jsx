@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import {
   FormControl,
   InputLabel,
@@ -148,5 +149,9 @@ function GameNightForm({ closeForm }) {
     </Box>
   );
 }
+
+GameNightForm.propTypes = {
+  closeForm: PropTypes.func.isRequired,
+};
 
 export default GameNightForm;
