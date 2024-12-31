@@ -11,6 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
+import NightDetails from './NightDetails';
 
 function Night({ gameNight, getGameNights }) {
   return (
@@ -19,8 +20,11 @@ function Night({ gameNight, getGameNights }) {
         <AccordionSummary
           expandIcon={<ExpandCircleDownTwoToneIcon />}
         >
-          {gameNight.name}
+          <Typography variants="h6">{gameNight.name}</Typography>
         </AccordionSummary>
+        <NightDetails
+          gameNight={gameNight}
+        />
       </Accordion>
     </ListItem>
   );
@@ -29,6 +33,7 @@ function Night({ gameNight, getGameNights }) {
 Night.propTypes = {
   gameNight: PropTypes.shape({
     name: PropTypes.string,
+    guests: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   getGameNights: PropTypes.func.isRequired,
 };
