@@ -7,17 +7,12 @@ import {
   Stack,
   Button,
 } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
-  // Create navigate function to change the view after logout
-  const navigate = useNavigate();
   // Handles logging out of the current session for the user
   const handleLogout = () => {
     axios.get('/logout')
-      .then(() => {
-        navigate('/');
-      })
       .catch((err) => {
         console.error('Failed to logout:', err);
       });
