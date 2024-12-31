@@ -12,12 +12,12 @@ function NightDetails({ gameNight }) {
   // Helper function to create a list from props arrays
   const createList = (label, prop, index) => (
     <List>
-      <Typography variant="subtitle1">{`${label}:`}</Typography>
+      <Typography variant="body">{`${label}:`}</Typography>
       {prop.map((value) => (
         <ListItem
           key={`${value}-${index * 2}`}
         >
-          {value}
+          <Typography variant="subtitle2">{value}</Typography>
         </ListItem>
       ))}
     </List>
@@ -25,7 +25,7 @@ function NightDetails({ gameNight }) {
 
   return (
     <AccordionDetails>
-      <Typography variant="subtitle1">Winner:</Typography>
+      <Typography variant="subtitle2">Winner:</Typography>
       <Grid container spacing={2}>
         <Grid size={6}>
           {createList('Guests', gameNight.guests)}
