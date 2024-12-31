@@ -13,13 +13,17 @@ import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwo
 
 import GameInfo from './GameInfo';
 
+const { useState } = React;
+
 function Game({ game }) {
   const { name, thumbnail } = game;
+  const [showGameInfo, setShowGameInfo] = useState(false);
   return (
     <ListItem>
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandCircleDownTwoToneIcon />}
+          onClick={() => { setShowGameInfo(!showGameInfo); }}
         >
           <Avatar src={thumbnail} />
           <Typography
@@ -30,7 +34,7 @@ function Game({ game }) {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <GameInfo game={game} />
+          {showGameInfo ? <GameInfo game={game} /> : null}
         </AccordionDetails>
       </Accordion>
     </ListItem>
