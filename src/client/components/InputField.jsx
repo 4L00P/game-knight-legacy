@@ -1,8 +1,14 @@
-import React from "react";
-import { InputLabel, Input, TextField, Button } from "@mui/material";
+import React from 'react';
+import { TextField, Button } from '@mui/material';
+import PropTypes from 'prop-types';
 
-function InputField({ objvalue, handleChange, index, handleAddClick }) {
-  const { label, value, collection, helperText } = objvalue;
+function InputField({ objvalue, handleChange, handleAddClick }) {
+  const {
+    label,
+    value,
+    collection,
+    helperText,
+  } = objvalue;
   return (
     <div className="input">
       <TextField
@@ -27,5 +33,16 @@ function InputField({ objvalue, handleChange, index, handleAddClick }) {
     </div>
   );
 }
+
+InputField.propTypes = {
+  objvalue: PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.string,
+    collection: PropTypes.string,
+    helperText: PropTypes.string,
+  }).isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleAddClick: PropTypes.func.isRequired,
+};
 
 export default InputField;
