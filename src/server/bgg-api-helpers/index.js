@@ -1,6 +1,9 @@
 const { parseString } = require('xml2js');
 const axios = require('axios'); // For making a request to BGG API
 
+// Update this helper if more xml unicode appears in the descriptions
+const { replaceXmlUnicode } = require('./replaceXmlUnicode');
+
 // Converts XML into a JS object (promisified)
 const convertXML = (xmlData) => (
   new Promise((resolve, reject) => {
@@ -47,7 +50,8 @@ const buildGameObj = (convertedData) => {
     thumbnail: thumbnail[0],
     image: image[0],
     name: name[0].$.value,
-    description: description[0],
+    // Replace the XML unicode characters with meaningful characters
+    description: replaceXmlUnicode(description[0]),
     yearPublished: +(yearpublished[0].$.value),
     minPlayers: +(minplayers[0].$.value),
     maxPlayers: +(maxplayers[0].$.value),

@@ -18,7 +18,8 @@ gamesRouter.post('/', async (req, res) => {
   // If nothing is returned from BGG
   if (!gameInfo) {
     // Send status 404
-    res.sendStatus(404);
+    res.status(200);
+    res.send(null);
   } else {
     // Destructure gameInfo
     const {
@@ -61,7 +62,7 @@ GET /api/games => Retrieve all games stored in DB
 */
 gamesRouter.get('/', (req, res) => {
   // Query the database for all games
-  Games.find({})
+  Games.find({}).sort({ name: 'asc' })
     // Success, set Status: 200 & send array of games
     .then((gamesArr) => {
       res.status(200);
@@ -70,6 +71,57 @@ gamesRouter.get('/', (req, res) => {
     // Failure, log error & send Status: 500
     .catch((err) => {
       console.error('Failed to find all games in DB:', err);
+      res.sendStatus(500);
+    });
+});
+
+/*
+DELETE /api/games/:id => Removes game using _id from the Database
+*/
+gamesRouter.delete('/:id', (req, res) => {
+  // Grab the id from the request's path parameters
+  const { id } = req.params;
+  // Query the DB find the game by id and delete it
+  Games.findByIdAndDelete(id)
+    // Success
+    .then((removedGame) => {
+      // If no game is found, send Status: 404
+      if (!removedGame) {
+        res.sendStatus(404);
+      // If a game is removed, send Status: 200
+      } else {
+        res.sendStatus(200);
+      }
+    })
+    // Failure, log error and send Status: 500
+    .catch((err) => {
+      console.error('Failed to findByIdAndDelete:', err);
+      res.sendStatus(500);
+    });
+});
+
+/*
+PATCH /api/games/:id => Updates game by _id using the object in the request's body
+*/
+gamesRouter.patch('/:id', (req, res) => {
+  // Grab the game object from the request's body
+  const { game } = req.body;
+  // Grab the id from the request's path parameters
+  const { id } = req.params;
+  // Query the DB to update the game with the id using the game object
+  Games.findByIdAndUpdate(id, game)
+    .then((updatedGame) => {
+      // If no game is found, send Status: 404
+      if (!updatedGame) {
+        res.sendStatus(404);
+      // If a game is updated, send Status: 200
+      } else {
+        res.sendStatus(200);
+      }
+    })
+    // Failure, log error & send Status: 500
+    .catch((err) => {
+      console.error('Failed to findByIdAndUpdate:', err);
       res.sendStatus(500);
     });
 });
