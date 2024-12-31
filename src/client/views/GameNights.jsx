@@ -42,7 +42,10 @@ function GameNights() {
   return (
     <div>
       <Navbar />
-      <GameNightsList />
+      <GameNightsList
+        gameNights={gameNights}
+        getGameNights={getGameNights}
+      />
       {!creatingNight && (
         <Button
           variant="contained"
