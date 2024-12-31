@@ -5,18 +5,19 @@ import {
   TextField,
 } from '@mui/material';
 
-function InputField({ objvalue, onChange, index, onBlur }) {
-  const { label, value, helperText } = objvalue;
+function InputField({ objvalue, handleChange, index, onBlur }) {
+  const { label, value, collection, helperText } = objvalue;
   return (
     <div className="input">
       <TextField
         label={label}
-        id={label === 'Name' ? 'name' : `${label[0].toLowerCase()}${label.slice(1)}s`}
+        id={collection}
         value={value}
         variant="outlined"
         helperText={helperText}
-        onChange={onChange}
+        onChange={(element) => handleChange(element)}
         onBlur={onBlur}
+        autoFocus
       />
     </div>
   );
