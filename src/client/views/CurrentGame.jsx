@@ -13,13 +13,16 @@ function CurrentGame(props) {
    * 3. a timeout form and function that says when to alert a player that they're taking too long
    *  (maybe toggle the consequences. alert, move to next player);
    */
+  [ members, SetMembers ] = useState
+  // when you press start game, you get a filter with all gamenights set for today. Picking one(even if there's only one), starts the get/post process.
 
   return (
     <div>
+      <Navbar />
       <h1>{`${name}!!`}</h1>
       {members.map((member) => {
         return(
-          
+
         );
       })}
     </div>
