@@ -5,7 +5,10 @@ import Navbar from '../components/Navbar';
 import GameNightForm from '../components/CreateNight';
 import GameNightsList from '../components/GameNightsList';
 
-const { useState } = React;
+const {
+  useState,
+  useEffect,
+} = React;
 
 function GameNights() {
   // Set a state property to a boolean value to keep track if a new night is being made
@@ -19,7 +22,6 @@ function GameNights() {
     axios.get('/api/game-nights')
       .then(({ data }) => {
       // Set gameNights property in state to the returned gameNights array
-        console.log('Data from axios.get(): ', data);
         setGameNights(data);
       })
       .catch((err) => {
@@ -28,11 +30,15 @@ function GameNights() {
       });
   };
 
+  // When the components mounts, call our getGameNights function to set the state
+  useEffect(() => {
+    getGameNights();
+  }, []);
+
   const handleClick = () => {
     toggleCreatingNight(!creatingNight);
   };
 
-  console.log('Gamenights in state: ', gameNights);
   return (
     <div>
       <Navbar />
