@@ -1,5 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const { Users } = require('../database/models/Users');
 
 // Research
 passport.serializeUser((user, done) => {
@@ -25,7 +26,24 @@ passport.use(new GoogleStrategy(
     passReqToCallback: true,
   },
   // Research
-  (request, accessToken, refreshToken, profile, done) => done(null, profile),
+  async (request, accessToken, refreshToken, profile, done) => {
+    const {
+      id,
+      displayName,
+      emails,
+    } = profile;
+    if (await Users.findOne({ googleId: id }).exec()) {
+      console.log('User already exists.');
+    } else {
+      console.log('User doesn\'t exist yet. Adding them to the Users collection');
+      Users.create({
+        name: displayName,
+        googleId: id,
+        email: emails[0].value,
+      });
+    }
+    done(null, profile);
+  },
 ));
 
 console.log('Passport Built');
