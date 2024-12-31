@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import {
   AppBar,
   Toolbar,
@@ -6,9 +7,22 @@ import {
   Stack,
   Button,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Navbar() {
+  // Create navigate function to change the view after logout
+  const navigate = useNavigate();
+  // Handles logging out of the current session for the user
+  const handleLogout = () => {
+    axios.get('/logout')
+      .then(() => {
+        navigate('/');
+      })
+      .catch((err) => {
+        console.error('Failed to logout:', err);
+      });
+  };
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -30,7 +44,12 @@ function Navbar() {
           >
             Game Nights
           </Button>
-          <Button color="inherit">Logout</Button>
+          <Button
+            color="inherit"
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
         </Stack>
       </Toolbar>
     </AppBar>
