@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -13,18 +14,36 @@ import {
 import Grid from '@mui/material/Grid2';
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 
+const { useState } = React;
+
 function GameInfo({ game, getGames }) {
   // Destructure important info from the game object
   const {
+    _id,
     description,
     yearPublished,
     minPlayers,
     maxPlayers,
     playTime,
     minAge,
-    notes,
-    rating,
   } = game;
+
+  // Create state for updateForm, notes, & rating
+  const [updateFormStatus, setUpdateFormStatus] = useState(false);
+  const [notes, setNotes] = useState(game.notes);
+  const [rating, setRating] = useState(game.rating);
+
+  // Send PATCH request to /api/games/:id to update game's rating & notes
+  const patchRatingNotes = () => {
+    axios.patch(`/api/games${_id}`, { rating, notes })
+      // Success, getGames to update the state of Home view
+      .then(getGames)
+      // Failure, log error
+      .catch((err) => {
+        console.error('Failed to patchRatingNotes:', err);
+      });
+  };
+
   /**
    * Box helps to contain all of the accordions.
    *
@@ -122,6 +141,7 @@ function GameInfo({ game, getGames }) {
 
 GameInfo.propTypes = {
   game: PropTypes.shape({
+    _id: PropTypes.string,
     description: PropTypes.string,
     yearPublished: PropTypes.number,
     minPlayers: PropTypes.number,
