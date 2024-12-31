@@ -11,18 +11,31 @@ import {
 } from '@mui/material';
 import InputField from './InputField';
 
-const initialInputs = [{
-  label: 'Name', value: '', collection: 'name', helperText: 'Name your event',
-},
-{
-  label: 'Guest', value: '', collection: 'guests', helperText: 'Add a guest',
-},
-{
-  label: 'Snack', value: '', collection: 'snacks', helperText: 'Refreshments',
-},
-{
-  label: 'Game', value: '', collection: 'games', helperText: 'What are you playing?',
-},
+const initialInputs = [
+  {
+    label: 'Name',
+    value: '',
+    collection: 'name',
+    helperText: 'Name your even',
+  },
+  {
+    label: 'Guest',
+    value: '',
+    collection: 'guests',
+    helperText: 'Add a guest',
+  },
+  {
+    label: 'Snack',
+    value: '',
+    collection: 'snacks',
+    helperText: 'Refreshments',
+  },
+  {
+    label: 'Game',
+    value: '',
+    collection: 'games',
+    helperText: 'What are you playing?',
+  },
 ];
 
 // Keep array of the collections to be iterated over later
@@ -39,6 +52,25 @@ function GameNightForm() {
   // State object to hold the input objects from initialInputs above (line 14)
   const [inputValues, setInputValues] = useState(initialInputs);
 
+  /**
+   * I: Key which should be the id of a collection, the newValue we are setting
+   */
+  // Helper to set the values of inputValues in state
+  const setInputValue = (key, newValue) => {
+    // Make a copy of the inputValues in state => Need to do this because of copy by reference
+    const inputsCopy = [...inputValues];
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < inputKeys.length; i += 1) {
+      if (inputKeys[i] === key) {
+        // Change the value of the corresponding inputValue state object
+        // i + 1 cause 'name' is removed from inputKeys array
+        inputsCopy[i + 1].value = newValue;
+        setInputValues(inputsCopy);
+        return;
+      }
+    }
+  };
+
   // Handle changes in the input fields
   const handleChange = (element) => {
     // Make a copy of the inputValues in state => Need to do this because of copy by reference
@@ -54,19 +86,10 @@ function GameNightForm() {
       setInputValues(inputsCopy);
       // setFormValues(formValues);
     } else {
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < inputKeys.length; i += 1) {
-        if (inputKeys[i] === id) {
-          // Change the value of the corresponding inputValue state object
-          // i + 1 cause 'name' is removed from inputKeys array
-          inputsCopy[i + 1].value = value;
-          setInputValues(inputsCopy);
-          return;
-        }
-      }
+      setInputValue(id, value);
     }
   };
-    // Handle the click of the + button
+  // Handle the click of the + button
   const handleAddClick = (element) => {
     // Grab the id off the element
     const { id } = element.target;
@@ -79,7 +102,6 @@ function GameNightForm() {
         const currValue = inputValues[i + 1].value;
         // Push onto formCopy at that id
         formCopy[id].push(currValue);
-        console.log('Form copy: ', formCopy);
         // Change formValues in state to new formCopy
         setFormValues(formCopy);
         return;
@@ -92,14 +114,16 @@ function GameNightForm() {
       formValues,
     };
     // Send axios POST request to the server
-    axios.post('api/game-nights', config)
+    axios
+      .post('api/game-nights', config)
       .then((gameNight) => {
         console.log('Game night added: ', gameNight);
-      }).catch((err) => {
+      })
+      .catch((err) => {
         console.error('Error POSTing new game night: ', err);
       });
   };
-  console.log('FormValues: ', formValues);
+  console.log('Input Values: ', inputValues);
   return (
     <Box
       component="form"
@@ -114,14 +138,13 @@ function GameNightForm() {
             objvalue={input}
             handleChange={handleChange}
             index={index}
-            onBlur={() => { console.log('left the input field'); }}
+            onBlur={() => {
+              console.log('left the input field');
+            }}
             handleAddClick={handleAddClick}
           />
         ))}
-        <Button
-          variant="contained"
-          onClick={handleFinalClick}
-        >
+        <Button variant="contained" onClick={handleFinalClick}>
           LET&apos;S PLAY
         </Button>
       </FormControl>
