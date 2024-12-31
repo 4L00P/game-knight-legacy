@@ -25,6 +25,9 @@ const initialInputs = [{
 },
 ];
 
+// Keep array of the collections to be iterated over later
+const inputKeys = ['guests', 'snacks', 'games'];
+
 function GameNightForm() {
   // Initialize the state of the component
   const [formValues, setFormValues] = useState({
@@ -33,12 +36,13 @@ function GameNightForm() {
     snacks: [],
     games: [],
   });
-
+  // State object to hold the input objects from initialInputs above (line 14)
   const [inputValues, setInputValues] = useState(initialInputs);
+
   // Handle changes in the input fields
   const handleChange = (element) => {
-    // Make a copy of the state values => Need to do this because of copy by reference
-    const inputsCopy = inputValues.slice();
+    // Make a copy of the inputValues in state => Need to do this because of copy by reference
+    const inputsCopy = [...inputValues];
     // Access the id and value of the target element
     const { id, value } = element.target;
     console.log('Id and value: ', id, value);
@@ -51,7 +55,17 @@ function GameNightForm() {
       setInputValues(inputsCopy);
       // setFormValues(formValues);
     } else {
-      console.log('Not for the name');
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < inputKeys.length; i++) {
+        if (inputKeys[i] === id) {
+          console.log('id equals the key');
+          // Change the value of the corresponding inputValue state object
+          // i + 1 cause 'name' is removed from inputKeys array
+          inputsCopy[i + 1].value = value;
+          setInputValues(inputsCopy);
+          return;
+        }
+      }
     }
   };
 
@@ -69,6 +83,7 @@ function GameNightForm() {
         console.error('Error POSTing new game night: ', err);
       });
   };
+  console.log(inputValues);
   return (
     <Box
       component="form"
@@ -79,9 +94,10 @@ function GameNightForm() {
       <FormControl>
         {inputValues.map((input, index) => (
           <InputField
-            key={`${input.label}-${index * Math.random()}`}
+            key={`${input.label}`}
             objvalue={input}
-            onChange={handleChange}
+            handleChange={handleChange}
+            index={index}
             onBlur={() => { console.log('left the input field'); }}
           />
         ))}
