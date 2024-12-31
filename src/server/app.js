@@ -10,22 +10,6 @@ const {
   gameNightsRouter,
 } = require('./routes');
 
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
-
-passport.use(new GoogleStrategy(
-  {
-    clientID: GOOGLE_CLIENT_ID,
-    clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: '/redirect/google',
-    scope: ['profile', 'email'],
-  },
-  (accessToken, refreshToken, profile, cb) => {
-    console.log('Access Token:', accessToken);
-    console.log('Refresh:', refreshToken);
-    console.log('Profile:', profile);
-  },
-));
-
 const app = express();
 
 const DIST_DIR = path.resolve(__dirname, '..', '..', 'dist');
@@ -42,15 +26,6 @@ app.use('/api/game-nights', gameNightsRouter);
 /**
  * If React-Router sends a request for a particular webpage, send the index.html in response
  */
-
-app.get('/login/google', passport.authenticate('google'));
-
-app.get('/redirect/google', passport.authenticate('google', {
-  successRedirect: '/',
-  failureRedirect: 'login',
-}), (req, res) => {
-  res.redirect('/');
-});
 
 app.get('*', (req, res) => {
   res.sendFile('index.html', { root: DIST_DIR });
