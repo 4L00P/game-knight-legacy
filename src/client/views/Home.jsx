@@ -17,6 +17,7 @@ const {
 function Home() {
   const [name, setName] = useState('');
   const [games, setGames] = useState([]);
+  const [inputNameError, setInputNameError] = useState(false);
 
   // Re-useable helper to make a request to the server for all games
   const fetchGames = () => {
@@ -32,8 +33,15 @@ function Home() {
   // Sends POST request to add a game to the games collection
   const postGame = () => {
     axios.post('/api/games', { game: { name } })
-      .then(fetchGames)
-      .then(() => setName(''))
+      .then(({ data }) => {
+        if (!data) {
+          setInputNameError(true);
+        } else {
+          setInputNameError(false);
+          fetchGames();
+          setName('');
+        }
+      })
       .catch((err) => {
         console.error('Failed to postGame:', err);
       });
@@ -56,9 +64,11 @@ function Home() {
           Add a Game to your collection:
         </Typography>
         <TextField
+          error={inputNameError}
           label="Board Game Name"
           variant="outlined"
           value={name}
+          helperText={inputNameError ? 'Check the spelling.' : ''}
           onChange={(e) => { setName(e.target.value); }}
           onKeyUp={({ key }) => {
             if (key === 'Enter') {
