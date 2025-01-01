@@ -97,10 +97,19 @@ app.get('/logout', (req, res) => {
   });
 });
 
+// Middleware to verify sessions when a user navigates pages on site
+const verifySession = (req, res, next) => {
+  if (!req.user) {
+    res.redirect('/');
+  } else {
+    next();
+  }
+};
+
 /**
  * If React-Router sends a request for a particular webpage, send the index.html in response
  */
-app.get('*', (req, res) => {
+app.get('*', verifySession, (req, res) => {
   res.sendFile('index.html', { root: DIST_DIR });
 });
 
