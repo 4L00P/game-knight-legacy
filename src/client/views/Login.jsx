@@ -1,25 +1,15 @@
 import React from 'react';
-import axios from 'axios';
+import { Button } from '@mui/material';
 
 function Login() {
-  const googleLogin = () => {
-    axios.get('/auth')
-      .then(() => {
-        console.log('Logged in');
-      })
-      .catch((err) => {
-        console.error('Failed to log in with Google:', err);
-      });
-  };
   return (
     <div>
       <h1>Login Here</h1>
-      <button
-        type="button"
-        onClick={googleLogin}
+      <Button
+        href="/auth"
       >
-        Log In
-      </button>
+        Login with Google
+      </Button>
     </div>
   );
 }
