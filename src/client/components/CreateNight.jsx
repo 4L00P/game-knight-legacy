@@ -12,6 +12,17 @@ import DividedListItem from './DividedListItem';
 
 const { useState } = React;
 
+// Style for divided list
+const style = {
+  p: 0,
+  width: '100%',
+  maxWidth: 360,
+  borderRadius: 2,
+  border: '1px solid',
+  borderColor: 'divider',
+  backgroundColor: 'background.paper',
+};
+
 const initialInputs = [
   {
     label: 'Name',
@@ -131,7 +142,7 @@ function GameNightForm({ closeForm }) {
     // Make sure the collection is not empty
     // Want to render a divided list with a ListItem for each element
     return (
-      <List>
+      <List sx={style}>
         {collection.map((element, index) => (
           // Some List Item Component
           <DividedListItem
