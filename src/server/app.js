@@ -110,6 +110,7 @@ const verifySession = (req, res, next) => {
  * If React-Router sends a request for a particular webpage, send the index.html in response
  */
 app.get('*', verifySession, (req, res) => {
+  console.log('hello');
   res.sendFile('index.html', { root: DIST_DIR });
 });
 
