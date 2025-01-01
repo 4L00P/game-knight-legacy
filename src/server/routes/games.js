@@ -11,6 +11,8 @@ POST '/api/games => Sends request to BGG for info on board game name in req body
 => Stores game info in Database
 */
 gamesRouter.post('/', async (req, res) => {
+  // Grab _id from request's user object
+  const { _id } = req.user;
   // Grab game object from request's body
   const { game } = req.body;
   // Fetch game data from BGG
@@ -44,6 +46,8 @@ gamesRouter.post('/', async (req, res) => {
       maxPlayers,
       playTime,
       minAge,
+      // Saves user's id to Game object for filtered look up later
+      user: _id,
     })
       // On success, send Status: 201
       .then(() => {
