@@ -7,10 +7,10 @@ import Navbar from "../components/Navbar";
 // import { name, members } from '../../server/database/models/Groups';
 
 function CurrentGame() {
-  // tie members to state so we can change based on cancellations and removals.
-  // [ players, SetPlayers ] = useState([]);
-  // tie a variable to state that signifies whether it is that player's turn
-  // [ isTurn, SetIsTurn ] = useState(false);
+  // set a useState function for night name, group, and game.
+  const [ name, SetName ] = useState('');
+  const [ game, SetGame ] = useState('');
+  const [ group, SetGroup ] = useState('');
   /**
    * Game Needs:
    * 1. Array of strings representing the names of each person playing(members);
@@ -33,6 +33,13 @@ function CurrentGame() {
 
   // use set interval to change the game knight colors
 
+  /**
+   * useForm
+   * Make the form first
+   * install react-hooks-form
+   * use in-born register (returns name, ref, onChange, onBlur) property. use spread operator {...register'idName'}
+   */
+
   return (
     <div>
       <Typography variant="h2" align="center">
@@ -42,7 +49,9 @@ function CurrentGame() {
       <Typography variant="h2" align="center">
         TEST GAME!!!
       </Typography>
-      {/* <div className="turn-order-tags">
+      <Typography variant="h4" align="center">Gaia Project</Typography>
+      {/* SAVED FOR TURN ORDER MANIPULATION as a reminder
+      <div className="turn-order-tags">
         <div>John</div>
         <div>Jacob</div>
         <div>Jingleheimer</div>
