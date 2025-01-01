@@ -65,8 +65,10 @@ gamesRouter.post('/', async (req, res) => {
 GET /api/games => Retrieve all games stored in DB
 */
 gamesRouter.get('/', (req, res) => {
+  // Grab the _id from the request's user object
+  const { _id } = req.user;
   // Query the database for all games
-  Games.find({}).sort({ name: 'asc' })
+  Games.find({ user: _id }).sort({ name: 'asc' })
     // Success, set Status: 200 & send array of games
     .then((gamesArr) => {
       res.status(200);
