@@ -1,12 +1,20 @@
 import React from 'react';
-import {
-  InputLabel,
-  Input,
-  TextField,
-} from '@mui/material';
+import { TextField, Button } from '@mui/material';
+import PropTypes from 'prop-types';
 
-function InputField({ objvalue, handleChange, index, onBlur }) {
-  const { label, value, collection, helperText } = objvalue;
+function InputField({
+  objvalue,
+  handleChange,
+  formValues,
+  handleAddClick,
+  createDividedList,
+}) {
+  const {
+    label,
+    value,
+    collection,
+    helperText,
+  } = objvalue;
   return (
     <div className="input">
       <TextField
@@ -16,11 +24,40 @@ function InputField({ objvalue, handleChange, index, onBlur }) {
         variant="outlined"
         helperText={helperText}
         onChange={(element) => handleChange(element)}
-        onBlur={onBlur}
         autoFocus
       />
+      {
+      label === 'Name' ? null : (
+        <Button
+          variant="outlined"
+          size="small"
+          id={collection}
+          onClick={handleAddClick}
+        >
+          +
+        </Button>
+      )
+      }
+      {formValues[collection].length ? createDividedList(formValues[collection]) : null}
     </div>
   );
 }
+
+InputField.propTypes = {
+  objvalue: PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.string,
+    collection: PropTypes.string,
+    helperText: PropTypes.string,
+  }).isRequired,
+  formValues: PropTypes.shape({
+    guests: PropTypes.arrayOf(PropTypes.string),
+    snacks: PropTypes.arrayOf(PropTypes.string),
+    games: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleAddClick: PropTypes.func.isRequired,
+  createDividedList: PropTypes.func.isRequired,
+};
 
 export default InputField;

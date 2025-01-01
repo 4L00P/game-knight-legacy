@@ -1,34 +1,59 @@
 import React from 'react';
-import { useState } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import {
   FormControl,
-  InputLabel,
-  Input,
-  TextField,
   Box,
   Button,
+  List,
 } from '@mui/material';
 import InputField from './InputField';
+import DividedListItem from './DividedListItem';
 
-const initialInputs = [{
-  label: 'Name', value: '', collection: 'name', helperText: 'Name your event',
-},
-{
-  label: 'Guest', value: '', collection: 'guests', helperText: 'Add a guest',
-},
-{
-  label: 'Snack', value: '', collection: 'snacks', helperText: 'Refreshments',
-},
-{
-  label: 'Game', value: '', collection: 'games', helperText: 'What are you playing?',
-},
+const { useState } = React;
+
+// Style for divided list
+const style = {
+  p: 0,
+  width: '100%',
+  maxWidth: 360,
+  borderRadius: 2,
+  border: '1px solid',
+  borderColor: 'divider',
+  backgroundColor: 'background.paper',
+};
+
+const initialInputs = [
+  {
+    label: 'Name',
+    value: '',
+    collection: 'name',
+    helperText: 'Name your event',
+  },
+  {
+    label: 'Guest',
+    value: '',
+    collection: 'guests',
+    helperText: 'Add a guest',
+  },
+  {
+    label: 'Snack',
+    value: '',
+    collection: 'snacks',
+    helperText: 'Refreshments',
+  },
+  {
+    label: 'Game',
+    value: '',
+    collection: 'games',
+    helperText: 'What are you playing?',
+  },
 ];
 
 // Keep array of the collections to be iterated over later
 const inputKeys = ['guests', 'snacks', 'games'];
 
-function GameNightForm() {
+function GameNightForm({ closeForm }) {
   // Initialize the state of the component
   const [formValues, setFormValues] = useState({
     name: '',
@@ -38,6 +63,25 @@ function GameNightForm() {
   });
   // State object to hold the input objects from initialInputs above (line 14)
   const [inputValues, setInputValues] = useState(initialInputs);
+
+  /**
+   * I: Key which should be the id of a collection, the newValue we are setting
+   */
+  // Helper to set the values of inputValues in state
+  const changeInputValue = (key, newValue) => {
+    // Make a copy of the inputValues in state => Need to do this because of copy by reference
+    const inputsCopy = [...inputValues];
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < inputKeys.length; i += 1) {
+      if (inputKeys[i] === key) {
+        // Change the value of the corresponding inputValue state object
+        // i + 1 cause 'name' is removed from inputKeys array
+        inputsCopy[i + 1].value = newValue;
+        setInputValues(inputsCopy);
+        return;
+      }
+    }
+  };
 
   // Handle changes in the input fields
   const handleChange = (element) => {
@@ -54,31 +98,62 @@ function GameNightForm() {
       setInputValues(inputsCopy);
       // setFormValues(formValues);
     } else {
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < inputKeys.length; i++) {
-        if (inputKeys[i] === id) {
-          // Change the value of the corresponding inputValue state object
-          // i + 1 cause 'name' is removed from inputKeys array
-          inputsCopy[i + 1].value = value;
-          setInputValues(inputsCopy);
-          return;
-        }
+      changeInputValue(id, value);
+    }
+  };
+  // Handle the click of the + button
+  const handleAddClick = (element) => {
+    // Grab the id off the element
+    const { id } = element.target;
+    // Make a copy of formValues
+    const formCopy = { ...formValues };
+    // Use inputKeys (line 29) to match the collection we want to add to
+    for (let i = 0; i < inputKeys.length; i += 1) {
+      if (inputKeys[i] === id) {
+        // Grab the value from inputvalues in state at i + 1
+        const currValue = inputValues[i + 1].value;
+        // Push onto formCopy at that id
+        formCopy[id].push(currValue);
+        // Change formValues in state to new formCopy
+        setFormValues(formCopy);
+        // Change the input value to an empty string
+        changeInputValue(id, '');
+        return;
       }
     }
   };
-
-  const handleClick = () => {
+  // Handle the click of the form submit button
+  const handleFinalClick = () => {
     const config = {
       formValues,
     };
     // Send axios POST request to the server
-    axios.post('api/game-nights', config)
-      .then((gameNight) => {
-        console.log('Game night added: ', gameNight);
-      }).catch((err) => {
+    axios
+      .post('api/game-nights', config)
+      .then(closeForm)
+      .catch((err) => {
         console.error('Error POSTing new game night: ', err);
       });
   };
+
+  // Helper function to create divided list when adding to Game Night event
+  const createDividedList = (collection) => {
+    console.log('CreateDividedList called', collection);
+    // Make sure the collection is not empty
+    // Want to render a divided list with a ListItem for each element
+    return (
+      <List sx={style}>
+        {collection.map((element, index) => (
+          // Some List Item Component
+          <DividedListItem
+            key={`${element}-${index * 2}`}
+            element={element}
+          />
+        ))}
+      </List>
+    );
+  };
+
   return (
     <Box
       component="form"
@@ -93,18 +168,21 @@ function GameNightForm() {
             objvalue={input}
             handleChange={handleChange}
             index={index}
-            onBlur={() => { console.log('left the input field'); }}
+            formValues={formValues}
+            handleAddClick={handleAddClick}
+            createDividedList={createDividedList}
           />
         ))}
-        <Button
-          variant="contained"
-          onClick={handleClick}
-        >
+        <Button variant="contained" onClick={handleFinalClick} size="medium">
           LET&apos;S PLAY
         </Button>
       </FormControl>
     </Box>
   );
 }
+
+GameNightForm.propTypes = {
+  closeForm: PropTypes.func.isRequired,
+};
 
 export default GameNightForm;

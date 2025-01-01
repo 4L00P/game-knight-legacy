@@ -31,13 +31,11 @@ function Navbar() {
             Game Nights
           </Button>
           <Button
-            component={Link}
-            to="/currentgame"
             color="inherit"
+            href="/logout"
           >
-            Start Game
+            Logout
           </Button>
-          <Button color="inherit">Logout</Button>
         </Stack>
       </Toolbar>
     </AppBar>
