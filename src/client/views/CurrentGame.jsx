@@ -37,7 +37,8 @@ function CurrentGame() {
    * useForm
    * Make the form first
    * install react-hooks-form
-   * use in-born register (returns name, ref, onChange, onBlur) property. use spread operator {...register'idName'}
+   * use in-born register (returns name, ref, onChange, onBlur) property.
+   *  use spread operator {...register('idName')}
    */
 
   return (
@@ -57,6 +58,14 @@ function CurrentGame() {
         <div>Jingleheimer</div>
         <div>Schmidt</div>
       </div> */}
+      <form>
+        <label htmlFor="name">Game</label>
+        <input type="text" id="name"/>
+        <label htmlFor="player">Add Player</label>
+        <input type="text" id="player"/>
+        <label htmlFor="game">Game</label>
+        <input type="text" id="game"/>
+      </form>
       <div className="player-info-bars">
         <Paper elevation={0} style={{ height: '20px', width: '90px' }}>
           John info
