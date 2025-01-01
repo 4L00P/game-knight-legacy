@@ -61,9 +61,9 @@ passport.use(new GoogleStrategy(
 passport.serializeUser(async (user, done) => {
   try {
     // Get the user _id from Database
-    const userId = await Users.find({ googleId: user.id }, '_id').exec();
-    // Call done with userId; saves userId to req.session.passport
-    done(null, userId);
+    const { _id } = await Users.findOne({ googleId: user.id }, '_id').exec();
+    // Call done with userId (_id); saves userId to req.session.passport.user
+    done(null, _id);
   } catch (err) {
     // Handle errors
     done(err, null);
