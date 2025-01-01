@@ -10,14 +10,6 @@ import {
 import { Link } from 'react-router-dom';
 
 function Navbar() {
-  // Handles logging out of the current session for the user
-  const handleLogout = () => {
-    axios.get('/logout')
-      .catch((err) => {
-        console.error('Failed to logout:', err);
-      });
-  };
-
   return (
     <AppBar position="static">
       <Toolbar>
@@ -41,7 +33,7 @@ function Navbar() {
           </Button>
           <Button
             color="inherit"
-            onClick={handleLogout}
+            href="/logout"
           >
             Logout
           </Button>
