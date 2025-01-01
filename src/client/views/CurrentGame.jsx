@@ -36,31 +36,28 @@ function CurrentGame() {
     // and the padding color to something shimmery
     // when it's not their turn, padding back down to 0, elevation to 1
 
+  // use set interval to change the game knight colors
 
   return (
     <div>
-      <h1>Game Knight Active</h1>
+      <Typography variant="h2" align="center">Game Knight Active</Typography>
       <Navbar />
-      <h1>TEST GAME!!!</h1>
-      <div className="turn-order-tags">
+      <Typography variant="h2" align="center">TEST GAME!!!</Typography>
+      {/* <div className="turn-order-tags">
         <div>John</div>
         <div>Jacob</div>
         <div>Jingleheimer</div>
         <div>Schmidt</div>
-      </div>
+      </div> */}
        <div className="player-info-bars">
         <Paper elevation={0}
-        // sx={
-        //   padding: 2,
-        //   border: "1px solid black",
-        //   margin: 8
-        // }
+        height='20px'
         >John info</Paper>
-        <Paper elevation={8}>Jacob info</Paper>
+        <Paper elevation={8} >Jacob info</Paper>
         <Paper elevation={16}>Jingle info</Paper>
         <Paper elevation={24}>Schmidt info</Paper>
 
-      </div> 
+      </div>
 
     </div>
   );
