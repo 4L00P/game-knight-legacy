@@ -58,13 +58,20 @@ function CurrentGame() {
         <div>Jingleheimer</div>
         <div>Schmidt</div>
       </div> */}
-      <form>
-        <label htmlFor="name">Game</label>
-        <input type="text" id="name"/>
+      <form align="right">
+        <label htmlFor="name">Name</label>
+        <input type="text" id="name" />
+        <button type="submit">Submit</button>
+        </form>
+        <form align="right">
         <label htmlFor="player">Add Player</label>
-        <input type="text" id="player"/>
+        <input type="text" id="player" />
+        <button type="submit">Submit</button>
+          </form>
+          <form align="right">
         <label htmlFor="game">Game</label>
-        <input type="text" id="game"/>
+        <input type="text" id="game" />
+        <button type="submit">Submit</button>
       </form>
       <div className="player-info-bars">
         <Paper elevation={0} style={{ height: '20px', width: '90px' }}>
