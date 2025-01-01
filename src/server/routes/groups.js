@@ -22,15 +22,32 @@ groupsRouter.post('/', (req, res) => {
     res.sendStatus(500);
   });
 });
+groupsRouter.get('/', (req, res) => {
+  Groups.find({})
+    .then((info) => {
+      res.status(200).send('GET request successful');
+    })
+    .catch((err) => {
+      console.error('Could not Get Groups', err);
+      res.sendStatus(500);
+    });
+});
 
 /**
- * Set a patch request to amend new groups schema
+ * Set a patch request to amend new group name
  */
-groupsRouter.patch('/', (req, res) => {
-  const info = req.body;
-  
+groupsRouter.patch('/:id', (req, res) => {
+  const newName = req.body;
 });
+
+
+/**
+ * Set a patch request to add to players
+ */
+
+/**
+ * Set a patch request to add to games(opt. maybe part of old plan)
+ */
   module.exports = {
     groupsRouter,
   };
-// });
