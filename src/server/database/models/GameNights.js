@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const GameNightSchema = {
   name: { type: String, required: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  date: { type: Date, required: true },
+  date: { type: Date, required: false, default: new Date() },
   isComplete: { type: Boolean, default: false },
   isCancelled: { type: Boolean, default: false },
-  guests: { type: [String] },
-  snacks: { type: [String] },
-  games: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Game' }],
+  guests: [{ type: String }],
+  snacks: [{ type: String }],
+  games: [{ type: String }],
   winner: { type: String, default: '' },
 };
 
