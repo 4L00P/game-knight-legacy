@@ -5,8 +5,10 @@ import {
   FormControl,
   Box,
   Button,
+  List,
 } from '@mui/material';
 import InputField from './InputField';
+import DividedListItem from './DividedListItem';
 
 const { useState } = React;
 
@@ -122,6 +124,25 @@ function GameNightForm({ closeForm }) {
         console.error('Error POSTing new game night: ', err);
       });
   };
+
+  // Helper function to create divided list when adding to Game Night event
+  const createDividedList = (collection) => {
+    console.log('CreateDividedList called', collection);
+    // Make sure the collection is not empty
+    // Want to render a divided list with a ListItem for each element
+    return (
+      <List>
+        {collection.map((element, index) => (
+          // Some List Item Component
+          <DividedListItem
+            key={`${element}-${index * 2}`}
+            element={element}
+          />
+        ))}
+      </List>
+    );
+  };
+
   return (
     <Box
       component="form"
@@ -136,7 +157,9 @@ function GameNightForm({ closeForm }) {
             objvalue={input}
             handleChange={handleChange}
             index={index}
+            formValues={formValues}
             handleAddClick={handleAddClick}
+            createDividedList={createDividedList}
           />
         ))}
         <Button variant="contained" onClick={handleFinalClick}>
