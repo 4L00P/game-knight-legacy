@@ -28,7 +28,7 @@ const initialInputs = [
     label: 'Name',
     value: '',
     collection: 'name',
-    helperText: 'Name your even',
+    helperText: 'Name your event',
   },
   {
     label: 'Guest',
@@ -173,7 +173,7 @@ function GameNightForm({ closeForm }) {
             createDividedList={createDividedList}
           />
         ))}
-        <Button variant="contained" onClick={handleFinalClick}>
+        <Button variant="contained" onClick={handleFinalClick} size="medium">
           LET&apos;S PLAY
         </Button>
       </FormControl>
