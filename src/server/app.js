@@ -43,14 +43,20 @@ app.use('/api/groups', groupsRouter);
 app.use('/api/game-nights', gameNightsRouter);
 
 app.get('/logout', (req, res) => {
-  // req.logout();
-  req.session.destroy((err) => {
+  req.logout((err) => {
     if (err) {
-      console.error('Error destroying session:', err);
+      console.error('Failed to logout:', err);
       res.sendStatus(500);
     } else {
-      res.clearCookie('google-auth-session');
-      res.redirect('/');
+      req.session.destroy((error) => {
+        if (error) {
+          console.error('Error destroying session:', error);
+          res.sendStatus(500);
+        } else {
+          res.clearCookie('google-auth-session');
+          res.redirect('/');
+        }
+      });
     }
   });
 });
