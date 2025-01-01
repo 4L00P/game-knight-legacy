@@ -44,6 +44,16 @@ authRouter.get('/failure', (req, res) => {
   res.redirect('/');
 });
 
+/*
+GET /auth/user => Sends back req.user when requested to verify log in
+*/
+authRouter.get('/user', (req, res) => {
+  // Set Status: 200
+  res.status(200);
+  // Send back the req.user object (if it exists; undefined otherwise)
+  res.send(req.user);
+});
+
 module.exports = {
   authRouter,
 };
