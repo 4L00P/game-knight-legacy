@@ -24,7 +24,6 @@ gamesRouter.post('/', async (req, res) => {
     res.send(null);
   // If it's a close match
   } else if (gameInfo.closeMatch) {
-    console.log('Close Match:', gameInfo);
     // Send status 200 & the info for the closeMatch
     res.status(200);
     res.send(gameInfo);
