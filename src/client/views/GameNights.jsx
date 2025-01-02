@@ -58,6 +58,7 @@ function GameNights() {
       && (
         <GameNightForm
           closeForm={handleClick}
+          getGameNights={getGameNights}
         />
       )}
     </div>
