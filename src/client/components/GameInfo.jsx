@@ -17,7 +17,7 @@ import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwo
 
 const { useState } = React;
 
-function GameInfo({ game, getGames }) {
+function GameInfo({ game, getGames, setGamesFilter }) {
   // Destructure important info from the game object
   const {
     _id,
@@ -140,7 +140,13 @@ function GameInfo({ game, getGames }) {
               <Typography variant="subtitle2">Categories:</Typography>
               {
                 categories.map((catName) => (
-                  <Typography variant="subtitle1" key={catName}>{catName}</Typography>
+                  <Typography
+                    variant="subtitle1"
+                    key={catName}
+                    onClick={() => { setGamesFilter({ categories: [catName] }); }}
+                  >
+                    {catName}
+                  </Typography>
                 ))
               }
             </Grid>
@@ -148,7 +154,13 @@ function GameInfo({ game, getGames }) {
               <Typography variant="subtitle2">Mechanics:</Typography>
               {
                 mechanics.map((mechName) => (
-                  <Typography variant="subtitle1" key={mechName}>{mechName}</Typography>
+                  <Typography
+                    variant="subtitle1"
+                    key={mechName}
+                    onClick={() => { setGamesFilter({ mechanics: [mechName] }); }}
+                  >
+                    {mechName}
+                  </Typography>
                 ))
               }
             </Grid>
@@ -255,6 +267,7 @@ GameInfo.propTypes = {
     mechanics: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   getGames: PropTypes.func.isRequired,
+  setGamesFilter: PropTypes.func.isRequired,
 };
 
 export default GameInfo;

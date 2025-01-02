@@ -33,7 +33,7 @@ function Home() {
     Tracks the current filter for the games displayed:
       - Initially set to {} to grab all of a user's games
   */
-  const [gamesFilter, setGamesFilter] = useState({ categories: ['Medieval'] });
+  const [gamesFilter, setGamesFilter] = useState({});
 
   /*
     Sends a GET request for games using a query filter object:
