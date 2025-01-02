@@ -45,7 +45,7 @@ const buildGameObj = (convertedData) => {
   // Build game info object
   // $ => means the data is inside the XML tag
   const bggObj = {
-    id: +($.id),
+    bggId: +($.id),
     type: $.type,
     thumbnail: thumbnail[0],
     image: image[0],
@@ -55,22 +55,46 @@ const buildGameObj = (convertedData) => {
     yearPublished: +(yearpublished[0].$.value),
     minPlayers: +(minplayers[0].$.value),
     maxPlayers: +(maxplayers[0].$.value),
+    // Fill in bestWith & recommendedWith later
+    bestWith: null,
+    recommendedWith: null,
     playTime: +(playingtime[0].$.value),
     minPlayTime: +(minplaytime[0].$.value),
     maxPlayTime: +(maxplaytime[0].$.value),
     minAge: +(minage[0].$.value),
+    // Fill in categories & mechanics later
+    categories: [],
+    mechanics: [],
   };
 
   // If there are any poll results with additional info, they'll be in this array
   const pollSummaryArray = convertedData.items.item[0]['poll-summary'][0].result;
 
-  // If it is an array, iterate through it and create a key for each category
+  // If it is an array, iterate through it and update the key for either best or rec
   if (Array.isArray(pollSummaryArray)) {
     pollSummaryArray.forEach((category) => {
-      bggObj[category.$.name] = category.$.value;
+      if (category.$.value.slice(0, 4) === 'Best') {
+        bggObj.bestWith = category.$.value;
+      } else if (category.$.value.slice(0, 3) === 'Rec') {
+        bggObj.recommendedWith = category.$.value;
+      }
     });
   }
 
+  // If there are any link results with additional info, they'll be in this array
+  const linksArray = convertedData.items.item[0].link;
+
+  // If it is an array, iterate through it and update the array for either categories or mechanics
+  if (Array.isArray(linksArray)) {
+    linksArray.forEach((link) => {
+      if (link.$.type === 'boardgamecategory') {
+        bggObj.categories.push(link.$.value);
+      } else if (link.$.type === 'boardgamemechanic') {
+        bggObj.mechanics.push(link.$.value);
+      }
+    });
+  }
+  console.log(bggObj);
   // Return the object
   return bggObj;
 };
@@ -102,7 +126,7 @@ const buildGamesArray = (convertedData) => (
       id: +(game.$.id),
       type: game.$.type,
       name: game.name ? game.name[0].$.value : null,
-      yearPublished: game.yearpublished ? game.yearpublished[0].$.value : null
+      yearPublished: game.yearpublished ? game.yearpublished[0].$.value : null,
     }
   ))
 );
