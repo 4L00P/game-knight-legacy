@@ -4,6 +4,7 @@ const GameNightSchema = {
   name: { type: String, required: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   date: { type: Date, required: false, default: new Date() },
+  time: { type: String },
   isComplete: { type: Boolean, default: false },
   isCancelled: { type: Boolean, default: false },
   guests: [{ type: String }],
