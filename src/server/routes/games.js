@@ -19,9 +19,15 @@ gamesRouter.post('/', async (req, res) => {
   const gameInfo = await getGameInfoBGG(game.name);
   // If nothing is returned from BGG
   if (!gameInfo) {
-    // Send status 404
+    // Send status 200 & null for an empty response to user
     res.status(200);
     res.send(null);
+  // If it's a close match
+  } else if (gameInfo.closeMatch) {
+    console.log('Close Match:', gameInfo);
+    // Send status 200 & the info for the closeMatch
+    res.status(200);
+    res.send(gameInfo);
   } else {
     // Destructure gameInfo
     const {
