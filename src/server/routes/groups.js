@@ -25,7 +25,10 @@ groupsRouter.post('/', (req, res) => {
   });
 });
 groupsRouter.get('/', (req, res) => {
-  Groups.find({})
+  // find all the groups where the user listed is the user connected to this session...
+  // req.user refers to the entire user object, and that user is the one we're looking to match, so
+  // find all groups where the user matches us
+  Groups.find({ user: req.user })
     .then((info) => {
       res.status(200).send(info);
     })
