@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import moment from 'moment'
 import {
   FormControl,
   Box,
@@ -64,6 +65,8 @@ function GameNightForm({ closeForm, getGameNights }) {
     guests: [],
     snacks: [],
     games: [],
+    date: '',
+    time: '',
   });
   // State object to hold the input objects from initialInputs above (line 14)
   const [inputValues, setInputValues] = useState([
@@ -169,6 +172,26 @@ function GameNightForm({ closeForm, getGameNights }) {
       });
   };
 
+  const handleDateChange = (element) => {
+    // Make a copy of formValues from state
+    const formCopy = { ...formValues };
+    // Grab the date and time off the element
+    const { _d } = element;
+    console.log('Full date: ', _d);
+    // Format the date and time using moment
+    // Pass in the date string with the curr format into moment() and the desired format in .format
+    const date = moment(_d.toString().slice(0, 15), 'ddd MMM DD YYYY').format('dddd, MMMM Do YYYY');
+    const time = moment(_d.toString().slice(16, 24), 'HH:mm:ss').format('h:mm');
+    console.log('Date: ', date);
+    console.log(typeof date);
+    console.log('Time: ', time);
+    console.log(typeof time);
+    // Assign the new date to the copy of formValues
+    formValues.date = date;
+    // Set the new formValues in state
+    // setFormValues(formCopy);
+  };
+
   // Helper function to create divided list when adding to Game Night event
   const createDividedList = (collection) => (
     // Make sure the collection is not empty
@@ -206,6 +229,7 @@ function GameNightForm({ closeForm, getGameNights }) {
         ))}
         <LocalizationProvider dateAdapter={AdapterMoment}>
           <DateTimePicker
+            onChange={handleDateChange}
             label="Select a Date"
           />
         </LocalizationProvider>
