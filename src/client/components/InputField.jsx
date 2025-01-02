@@ -30,7 +30,7 @@ function InputField({
       label === 'Name' ? null : (
         <Button
           variant="outlined"
-          size="small"
+          fontSize="small"
           id={collection}
           onClick={handleAddClick}
         >

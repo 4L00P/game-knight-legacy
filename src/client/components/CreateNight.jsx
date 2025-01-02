@@ -53,7 +53,7 @@ const initialInputs = [
 // Keep array of the collections to be iterated over later
 const inputKeys = ['guests', 'snacks', 'games'];
 
-function GameNightForm({ closeForm }) {
+function GameNightForm({ closeForm, getGameNights }) {
   // Initialize the state of the component
   const [formValues, setFormValues] = useState({
     name: '',
@@ -62,7 +62,32 @@ function GameNightForm({ closeForm }) {
     games: [],
   });
   // State object to hold the input objects from initialInputs above (line 14)
-  const [inputValues, setInputValues] = useState(initialInputs);
+  const [inputValues, setInputValues] = useState([
+    {
+      label: 'Name',
+      value: '',
+      collection: 'name',
+      helperText: 'Name your event',
+    },
+    {
+      label: 'Guest',
+      value: '',
+      collection: 'guests',
+      helperText: 'Add a guest',
+    },
+    {
+      label: 'Snack',
+      value: '',
+      collection: 'snacks',
+      helperText: 'Refreshments',
+    },
+    {
+      label: 'Game',
+      value: '',
+      collection: 'games',
+      helperText: 'What are you playing?',
+    },
+  ]);
 
   /**
    * I: Key which should be the id of a collection, the newValue we are setting
@@ -130,18 +155,21 @@ function GameNightForm({ closeForm }) {
     // Send axios POST request to the server
     axios
       .post('api/game-nights', config)
+      .then(() => {
+        setInputValues(initialInputs);
+      })
       .then(closeForm)
+      .then(getGameNights)
       .catch((err) => {
         console.error('Error POSTing new game night: ', err);
       });
   };
 
   // Helper function to create divided list when adding to Game Night event
-  const createDividedList = (collection) => {
-    console.log('CreateDividedList called', collection);
+  const createDividedList = (collection) => (
     // Make sure the collection is not empty
     // Want to render a divided list with a ListItem for each element
-    return (
+    (
       <List sx={style}>
         {collection.map((element, index) => (
           // Some List Item Component
@@ -151,9 +179,8 @@ function GameNightForm({ closeForm }) {
           />
         ))}
       </List>
-    );
-  };
-
+    )
+  );
   return (
     <Box
       component="form"
@@ -176,6 +203,13 @@ function GameNightForm({ closeForm }) {
         <Button variant="contained" onClick={handleFinalClick} size="medium">
           LET&apos;S PLAY
         </Button>
+        <Button
+          variant="contained"
+          fontSize="small"
+          onClick={closeForm}
+        >
+          Cancel
+        </Button>
       </FormControl>
     </Box>
   );
@@ -183,6 +217,7 @@ function GameNightForm({ closeForm }) {
 
 GameNightForm.propTypes = {
   closeForm: PropTypes.func.isRequired,
+  getGameNights: PropTypes.func.isRequired,
 };
 
 export default GameNightForm;
