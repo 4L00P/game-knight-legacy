@@ -84,8 +84,8 @@ gamesRouter.get('/', (req, res) => {
   const { _id } = req.user;
   // Create find queryFilter object
   const queryFilter = { user: _id };
-  // Grab the categories and mechanics in game object from the request's body
-  const { game } = req.body;
+  // Grab the game object from the request's query
+  const { game } = req.query;
   // Check if you get an object for game
   if (game) {
     // Iterate through the keys on the game object
