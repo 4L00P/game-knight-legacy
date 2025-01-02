@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   List,
+  Typography,
 } from '@mui/material';
 import InputField from './InputField';
 import DividedListItem from './DividedListItem';

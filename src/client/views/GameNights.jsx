@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import Navbar from '../components/Navbar';
 import GameNightForm from '../components/CreateNight';
 import GameNightsList from '../components/GameNightsList';
@@ -42,6 +42,7 @@ function GameNights() {
   return (
     <div>
       <Navbar />
+      <Typography variant="h5">Your Game Nights</Typography>
       <GameNightsList
         gameNights={gameNights}
         getGameNights={getGameNights}
