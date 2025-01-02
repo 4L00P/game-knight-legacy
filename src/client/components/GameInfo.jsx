@@ -27,6 +27,8 @@ function GameInfo({ game, getGames }) {
     maxPlayers,
     playTime,
     minAge,
+    categories,
+    mechanics,
   } = game;
 
   // Create state for updateForm, notes, & rating
@@ -130,6 +132,33 @@ function GameInfo({ game, getGames }) {
         <AccordionSummary
           expandIcon={<ExpandCircleDownTwoToneIcon />}
         >
+          <Typography variant="subtitle2">Categories & Mechanics</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Grid container spacing={2}>
+            <Grid size={3}>
+              <Typography variant="subtitle2">Categories:</Typography>
+              {
+                categories.map((catName) => (
+                  <Typography variant="subtitle1" key={catName}>{catName}</Typography>
+                ))
+              }
+            </Grid>
+            <Grid size={3}>
+              <Typography variant="subtitle2">Mechanics:</Typography>
+              {
+                mechanics.map((mechName) => (
+                  <Typography variant="subtitle1" key={mechName}>{mechName}</Typography>
+                ))
+              }
+            </Grid>
+          </Grid>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandCircleDownTwoToneIcon />}
+        >
           <Typography variant="subtitle2">Rating & Notes:</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -222,6 +251,8 @@ GameInfo.propTypes = {
     minAge: PropTypes.number,
     notes: PropTypes.string,
     rating: PropTypes.number,
+    categories: PropTypes.arrayOf(PropTypes.string),
+    mechanics: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   getGames: PropTypes.func.isRequired,
 };
