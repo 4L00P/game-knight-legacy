@@ -10,6 +10,9 @@ import {
 } from '@mui/material';
 import InputField from './InputField';
 import DividedListItem from './DividedListItem';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 const { useState } = React;
 
@@ -201,6 +204,11 @@ function GameNightForm({ closeForm, getGameNights }) {
             createDividedList={createDividedList}
           />
         ))}
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <DateTimePicker
+            label="Select a Date"
+          />
+        </LocalizationProvider>
         <Button variant="contained" onClick={handleFinalClick} size="medium">
           LET&apos;S PLAY
         </Button>
