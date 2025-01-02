@@ -39,7 +39,6 @@ function InputField({
       )
       }
       {Array.isArray(formValues[collection])
-      && formValues[collection].length
         ? createDividedList(formValues[collection])
         : null}
     </div>
