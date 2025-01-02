@@ -5,6 +5,7 @@ import {
   TextField,
   Typography,
   IconButton,
+  Button,
 } from '@mui/material';
 
 // Icons:
@@ -28,10 +29,23 @@ function Home() {
   const [inputNameError, setInputNameError] = useState(false);
   // Tracks whether these is a close match from a search
   const [closeMatch, setCloseMatch] = useState(null);
+  /*
+    Tracks the current filter for the games displayed:
+      - Initially set to {} to grab all of a user's games
+  */
+  const [gamesFilter, setGamesFilter] = useState({ categories: ['Medieval'] });
 
+  /*
+    Sends a GET request for games using a query filter object:
+      - gamesFilter => An object with these specifications:
+        - key: Matches the name of the field on Games schema
+        - value: Matches the type used for the field
+          * Eg. Fields that use an array need to be an array containing
+            the value you are looking for in the array
+  */
   // Re-useable helper to make a request to the server for all games
   const getGames = () => {
-    axios.get('/api/games')
+    axios.get('/api/games', { params: { game: gamesFilter } })
       .then(({ data }) => {
         setGames(data);
       })
@@ -90,29 +104,15 @@ function Home() {
     setInputNameError(true);
   };
 
-  /*
-    Sends a GET request for games using a query filter object:
-      - query => An object with these specifications:
-        - key: Matches the name of the field on Games schema
-        - value: Matches the type used for the field
-          * Eg. Fields that use an array need to be an array containing
-            the value you are looking for in the array
-  */
-  const getGamesFiltered = (query) => {
-    // params => Puts the { game: query } on req.query for the server handler
-    axios.get('/api/games', { params: { game: query } })
-      .then(({ data }) => {
-        setGames(data);
-      })
-      .catch((err) => {
-        console.error('Failed to getGames from DB:', err);
-      });
-  };
-
   // When component mounts, make a get request for all games in the Games collection
   useEffect(() => {
     getGames();
   }, []);
+
+  // When a gamesFilter is set, make a get request for all games matching the gamesFilter
+  useEffect(() => {
+    getGames();
+  }, [gamesFilter]);
 
   /**
    * TextField notes:
@@ -169,6 +169,26 @@ function Home() {
               >
                 <ThumbDownTwoToneIcon />
               </IconButton>
+            </Box>
+          )
+          : null
+      }
+      {
+        Object.keys(gamesFilter).length
+          ? (
+            <Box
+              sx={{
+                padding: 2,
+              }}
+            >
+              <Typography variant="subtitle2">
+                {`Filtering Board Games by ${gamesFilter[Object.keys(gamesFilter)[0]][0]}`}
+              </Typography>
+              <Button
+                onClick={() => { setGamesFilter({}); }}
+              >
+                REMOVE FILTER
+              </Button>
             </Box>
           )
           : null
