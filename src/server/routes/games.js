@@ -11,6 +11,8 @@ POST '/api/games => Sends request to BGG for info on board game name in req body
 => Stores game info in Database
 */
 gamesRouter.post('/', async (req, res) => {
+  // Grab _id from request's user object
+  const { _id } = req.user;
   // Grab game object from request's body
   const { game } = req.body;
   // Fetch game data from BGG
@@ -44,6 +46,8 @@ gamesRouter.post('/', async (req, res) => {
       maxPlayers,
       playTime,
       minAge,
+      // Saves user's id to Game object for filtered look up later
+      user: _id,
     })
       // On success, send Status: 201
       .then(() => {
@@ -61,8 +65,10 @@ gamesRouter.post('/', async (req, res) => {
 GET /api/games => Retrieve all games stored in DB
 */
 gamesRouter.get('/', (req, res) => {
+  // Grab the _id from the request's user object
+  const { _id } = req.user;
   // Query the database for all games
-  Games.find({}).sort({ name: 'asc' })
+  Games.find({ user: _id }).sort({ name: 'asc' })
     // Success, set Status: 200 & send array of games
     .then((gamesArr) => {
       res.status(200);

@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
+import {
+  Button,
+  Typography,
+  Box,
+} from '@mui/material';
 
 function Login() {
   // Set up the navigate function to navigate user to /home if already logged in
@@ -30,14 +34,25 @@ function Login() {
   useEffect(verifyUserLoggedIn, []);
 
   return (
-    <div>
-      <h1>Login Here</h1>
-      <Button
-        href="/auth"
-      >
-        Login with Google
-      </Button>
-    </div>
+    <Box
+      sx={{
+        paddingTop: 20,
+        textAlign: 'center',
+      }}
+    >
+      <Typography variant="h3">Welcome to</Typography>
+      <Typography variant="h1">Game Knight</Typography>
+      <Typography variant="subtitle1">
+        Start your board game journey here!
+      </Typography>
+      <Box component="section" sx={{ alignContent: 'center' }}>
+        <Button
+          href="/auth"
+        >
+          Login with Google
+        </Button>
+      </Box>
+    </Box>
   );
 }
 
