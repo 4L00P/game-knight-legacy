@@ -4,8 +4,9 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  // AccordionActions,
+  AccordionActions,
   Typography,
+  Button,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
@@ -20,36 +21,46 @@ function GameCatsAndMechsInfo({ categories, mechanics, setGamesFilter }) {
       </AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={2}>
-          <Grid size={3}>
+          <Grid size={6}>
             <Typography variant="subtitle2">Categories:</Typography>
             {
               categories.map((catName) => (
-                <Typography
-                  variant="subtitle1"
+                <Button
+                  variant="text"
                   key={catName}
                   onClick={() => { setGamesFilter({ categories: [catName] }); }}
                 >
                   {catName}
-                </Typography>
+                </Button>
               ))
             }
           </Grid>
-          <Grid size={3}>
+          <Grid size={6}>
             <Typography variant="subtitle2">Mechanics:</Typography>
             {
               mechanics.map((mechName) => (
-                <Typography
-                  variant="subtitle1"
+                <Button
+                  variant="text"
                   key={mechName}
                   onClick={() => { setGamesFilter({ mechanics: [mechName] }); }}
                 >
                   {mechName}
-                </Typography>
+                </Button>
               ))
             }
           </Grid>
         </Grid>
       </AccordionDetails>
+      <AccordionActions
+        style={{ justifyContent: 'center' }}
+      >
+        <Typography
+          variant="subtitle1"
+          style={{ color: 'green' }}
+        >
+          ---- CLICK A CATEGORY OR MECHANIC TO FILTER YOUR COLLECTION ----
+        </Typography>
+      </AccordionActions>
     </Accordion>
   );
 }
