@@ -16,6 +16,7 @@ import Grid from '@mui/material/Grid2';
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 
 // Child components:
+import GameGeneralInfo from './game-info-components/GameGeneralInfo';
 import GameCatsAndMechsInfo from './game-info-components/GameCatsAndMechsInfo';
 import GameDescriptionInfo from './game-info-components/GameDescriptionInfo';
 
@@ -103,33 +104,13 @@ function GameInfo({ game, getGames, setGamesFilter }) {
    */
   return (
     <Box>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandCircleDownTwoToneIcon />}
-        >
-          <Typography variant="subtitle2">General Info:</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Grid container spacing={2}>
-            <Grid size={3}>
-              <Typography variant="subtitle2">Year:</Typography>
-              <Typography variant="subtitle1">{yearPublished}</Typography>
-            </Grid>
-            <Grid size={3}>
-              <Typography variant="subtitle2">Players:</Typography>
-              <Typography variant="subtitle1">{`${minPlayers} - ${maxPlayers}`}</Typography>
-            </Grid>
-            <Grid size={3}>
-              <Typography variant="subtitle2">Playtime:</Typography>
-              <Typography variant="subtitle1">{`${playTime} minutes`}</Typography>
-            </Grid>
-            <Grid size={3}>
-              <Typography variant="subtitle2">Minimum Age:</Typography>
-              <Typography variant="subtitle1">{`${minAge} years old`}</Typography>
-            </Grid>
-          </Grid>
-        </AccordionDetails>
-      </Accordion>
+      <GameGeneralInfo
+        yearPublished={yearPublished}
+        minPlayers={minPlayers}
+        maxPlayers={maxPlayers}
+        playTime={playTime}
+        minAge={minAge}
+      />
 
       <GameCatsAndMechsInfo
         categories={categories}
