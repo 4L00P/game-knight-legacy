@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import {
   ListItem,
   Avatar,
@@ -16,11 +17,24 @@ import NightDetails from './NightDetails';
 function Night({ gameNight, getGameNights }) {
   return (
     <ListItem>
-      <Accordion>
+      <Accordion sx={{ width: 3 / 4 }}>
         <AccordionSummary
           expandIcon={<ExpandCircleDownTwoToneIcon />}
         >
-          <Typography variants="h6">{gameNight.name}</Typography>
+          <Typography variant="h6">{gameNight.name}</Typography>
+          <Typography variant="h6" align="right">
+            {
+              moment(gameNight.fullDate).calendar(
+                null,
+                {
+                  sameDay: '[Today at] h:mm',
+                  nextDay: '[Tomorrow at] h:mm',
+                  nextWeek: '[Next] dddd [at] h:mm',
+                  sameElse: 'MMM',
+                },
+              )
+          }
+          </Typography>
         </AccordionSummary>
         <NightDetails
           gameNight={gameNight}
@@ -34,6 +48,9 @@ Night.propTypes = {
   gameNight: PropTypes.shape({
     name: PropTypes.string,
     guests: PropTypes.arrayOf(PropTypes.string),
+    fullDate: PropTypes.instanceOf(Date),
+    date: PropTypes.string,
+    time: PropTypes.string,
   }).isRequired,
   getGameNights: PropTypes.func.isRequired,
 };
