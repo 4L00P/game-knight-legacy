@@ -15,7 +15,9 @@ import {
 import Grid from '@mui/material/Grid2';
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 
+// Child components:
 import GameCatsAndMechsInfo from './game-info-components/GameCatsAndMechsInfo';
+import GameDescriptionInfo from './game-info-components/GameDescriptionInfo';
 
 function GameInfo({ game, getGames, setGamesFilter }) {
   // Destructure important info from the game object
@@ -198,24 +200,8 @@ function GameInfo({ game, getGames, setGamesFilter }) {
           }
         </AccordionActions>
       </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandCircleDownTwoToneIcon />}
-        >
-          <Typography variant="subtitle2">Description:</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          {description.split('\n').map((line, i) => (
-            <Typography
-              key={`${line.slice(0, 10)} - ${i * Math.random()}`}
-              variant="subtitle1"
-              style={{ paddingTop: 5, paddingBottom: 5 }}
-            >
-              {line}
-            </Typography>
-          ))}
-        </AccordionDetails>
-      </Accordion>
+
+      <GameDescriptionInfo description={description} />
     </Box>
   );
 }
