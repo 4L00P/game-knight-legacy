@@ -63,12 +63,12 @@ function CurrentGame() {
         <input type="text" id="name" />
         <button type="submit">Submit</button>
         </form>
-        <form align="right">
+      <form align="right">
         <label htmlFor="player">Add Player</label>
         <input type="text" id="player" />
         <button type="submit">Submit</button>
-          </form>
-          <form align="right">
+      </form>
+      <form align="right">
         <label htmlFor="game">Game</label>
         <input type="text" id="game" />
         <button type="submit">Submit</button>
