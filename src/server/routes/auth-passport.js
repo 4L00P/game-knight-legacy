@@ -42,10 +42,12 @@ passport.use(new GoogleStrategy(
           googleId: id,
           // emails is an array, use the first email in the array
           email: emails[0].value,
-        });
+        })
+          .then(() => {
+            done(null, profile);
+          });
       }
       // Call done with the profile to execute the next route since this is middleware
-      done(null, profile);
     } catch (err) {
       // Handle errors
       done(err, null);
