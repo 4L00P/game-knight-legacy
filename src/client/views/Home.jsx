@@ -90,6 +90,25 @@ function Home() {
     setInputNameError(true);
   };
 
+  /*
+    Sends a GET request for games using a query filter object:
+      - query => An object with these specifications:
+        - key: Matches the name of the field on Games schema
+        - value: Matches the type used for the field
+          * Eg. Fields that use an array need to be an array containing
+            the value you are looking for in the array
+  */
+  const getGamesFiltered = (query) => {
+    // params => Puts the { game: query } on req.query for the server handler
+    axios.get('/api/games', { params: { game: query } })
+      .then(({ data }) => {
+        setGames(data);
+      })
+      .catch((err) => {
+        console.error('Failed to getGames from DB:', err);
+      });
+  };
+
   // When component mounts, make a get request for all games in the Games collection
   useEffect(() => {
     getGames();
