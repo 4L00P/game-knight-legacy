@@ -28,33 +28,6 @@ const style = {
   backgroundColor: 'background.paper',
 };
 
-const initialInputs = [
-  {
-    label: 'Name',
-    value: '',
-    collection: 'name',
-    helperText: 'Name your event',
-  },
-  {
-    label: 'Guest',
-    value: '',
-    collection: 'guests',
-    helperText: 'Add a guest',
-  },
-  {
-    label: 'Snack',
-    value: '',
-    collection: 'snacks',
-    helperText: 'Refreshments',
-  },
-  {
-    label: 'Game',
-    value: '',
-    collection: 'games',
-    helperText: 'What are you playing?',
-  },
-];
-
 // Keep array of the collections to be iterated over later
 const inputKeys = ['guests', 'snacks', 'games'];
 
