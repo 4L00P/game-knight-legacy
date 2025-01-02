@@ -82,8 +82,23 @@ GET /api/games => Retrieve all games stored in DB
 gamesRouter.get('/', (req, res) => {
   // Grab the _id from the request's user object
   const { _id } = req.user;
+  // Create find queryFilter object
+  const queryFilter = { user: _id };
+  // Grab the categories and mechanics in game object from the request's body
+  const { game } = req.body;
+  // Check if you get an object for game
+  if (game) {
+    // Iterate through the keys on the game object
+    Object.keys(game).forEach((key) => {
+      if (Array.isArray(game[key])) {
+        queryFilter[key] = { $in: game[key] };
+      } else {
+        queryFilter[key] = game[key];
+      }
+    });
+  }
   // Query the database for all games
-  Games.find({ user: _id }).sort({ name: 'asc' })
+  Games.find(queryFilter).sort({ name: 'asc' })
     // Success, set Status: 200 & send array of games
     .then((gamesArr) => {
       res.status(200);
