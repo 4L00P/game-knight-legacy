@@ -25,6 +25,7 @@ gamesRouter.post('/', async (req, res) => {
   } else {
     // Destructure gameInfo
     const {
+      bggId,
       name,
       thumbnail,
       image,
@@ -32,11 +33,16 @@ gamesRouter.post('/', async (req, res) => {
       yearPublished,
       minPlayers,
       maxPlayers,
+      bestWith,
+      recommendedWith,
       playTime,
       minAge,
+      categories,
+      mechanics,
     } = gameInfo;
     // Query database to create a new game object with the game Info
     Games.create({
+      bggId,
       name,
       thumbnail,
       image,
@@ -44,8 +50,12 @@ gamesRouter.post('/', async (req, res) => {
       yearPublished,
       minPlayers,
       maxPlayers,
+      bestWith,
+      recommendedWith,
       playTime,
       minAge,
+      categories,
+      mechanics,
       // Saves user's id to Game object for filtered look up later
       user: _id,
     })
