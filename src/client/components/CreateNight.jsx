@@ -65,8 +65,8 @@ function GameNightForm({ closeForm, getGameNights }) {
     guests: [],
     snacks: [],
     games: [],
-    date: '',
-    time: '',
+    date: null,
+    time: null,
   });
   // State object to hold the input objects from initialInputs above (line 14)
   const [inputValues, setInputValues] = useState([
@@ -177,19 +177,15 @@ function GameNightForm({ closeForm, getGameNights }) {
     const formCopy = { ...formValues };
     // Grab the date and time off the element
     const { _d } = element;
-    console.log('Full date: ', _d);
     // Format the date and time using moment
     // Pass in the date string with the curr format into moment() and the desired format in .format
     const date = moment(_d.toString().slice(0, 15), 'ddd MMM DD YYYY').format('dddd, MMMM Do YYYY');
     const time = moment(_d.toString().slice(16, 24), 'HH:mm:ss').format('h:mm');
-    console.log('Date: ', date);
-    console.log(typeof date);
-    console.log('Time: ', time);
-    console.log(typeof time);
-    // Assign the new date to the copy of formValues
-    formValues.date = date;
+    // Assign the new date and time to the copy of formValues
+    formCopy.date = date;
+    formCopy.time = time;
     // Set the new formValues in state
-    // setFormValues(formCopy);
+    setFormValues(formCopy);
   };
 
   // Helper function to create divided list when adding to Game Night event
