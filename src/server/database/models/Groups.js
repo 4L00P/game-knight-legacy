@@ -5,6 +5,7 @@ const GroupSchema = {
   // user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   players: [{ type: String }],
   game: { type: String },
+
 };
 
 const Groups = mongoose.model('Group', new mongoose.Schema(GroupSchema));

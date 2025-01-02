@@ -11,8 +11,10 @@ const groupsRouter = Router();
  */
 groupsRouter.post('/', (req, res) => {
   // the way we decided this, the request body should be blank, so no info to hold
+  // Create an object wrapping that holds a peice of info to create a group with
+  const { groups } = req.body;
   // just create an empty Groups schema to hold the group
-  Groups.create().then(() => {
+  Groups.create(groups).then(() => {
     // send a success response 201
     res.status(201).send('Successfully created group');
   }).catch((err) => {
@@ -25,7 +27,7 @@ groupsRouter.post('/', (req, res) => {
 groupsRouter.get('/', (req, res) => {
   Groups.find({})
     .then((info) => {
-      res.status(200).send('GET request successful');
+      res.status(200).send(info);
     })
     .catch((err) => {
       console.error('Could not Get Groups', err);
@@ -37,7 +39,14 @@ groupsRouter.get('/', (req, res) => {
  * Set a patch request to amend new group name
  */
 groupsRouter.patch('/:id', (req, res) => {
-  const newName = req.body;
+  const { id } = req.params;
+  const { groups } = req.body;
+  Groups.findByIdAndUpdate(id, groups).then(() => {
+    res.status(200).send('Update Successful');
+  }).catch((err) => {
+    console.error('Could Not patch Group', err);
+    res.sendStatus(500);
+  });
 });
 
 
