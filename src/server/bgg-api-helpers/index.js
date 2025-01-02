@@ -136,22 +136,36 @@ const getGameInfoBGG = async (title) => {
   const gameInfoObj = await axios.get(`https://boardgamegeek.com/xmlapi2/search?query="${title}"`)
     .then(({ data }) => convertXML(data))
     .then(async (result) => {
-      // If no results are found, exit the function.
+      // If no results are found, exit the function by returning null.
       if (!result) {
-        return;
+        return null;
       }
       // Build games array
       const gamesArray = buildGamesArray(result);
-      // Find the board game with the exact title.
-      const exactGame = gamesArray.filter((game) => (
-        game.name.toLowerCase() === title.toLowerCase()
-      ))[0];
-      // If the exact game isn't found, do nothing
-      if (!exactGame) {
-        return;
+      // Reduce the games array down to an exact or close match
+      const possibleMatch = gamesArray.reduce((acc, curr) => {
+        // Exact Match
+        if (curr.name.toLowerCase() === title.toLowerCase()) {
+          return curr;
+        }
+
+        // If it's not exact, check which length is close to the title length
+        const accTitleLengthDiff = Math.abs(acc.name.length - title.length);
+        const currTitleLengthDiff = Math.abs(curr.name.length - title.length);
+        if (currTitleLengthDiff < accTitleLengthDiff) {
+          // If it's closer in length, return the curr
+          return curr;
+        }
+        return acc;
+      });
+      // If the exact game isn't found, return a close match
+      if (!(possibleMatch.name.toLowerCase() === title.toLowerCase())) {
+        // Add a closeMatch property set to true
+        possibleMatch.closeMatch = true;
+        return possibleMatch;
       }
-      // If the exact name is found, fetch the data from BGG.
-      const gameInfo = await getGameInfoByID(exactGame.id);
+      // If the exact name is found, fetch the data from BGG and return it.
+      const gameInfo = await getGameInfoByID(possibleMatch.id);
       return gameInfo;
     })
     .catch((err) => {
