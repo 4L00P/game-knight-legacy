@@ -94,7 +94,7 @@ const buildGameObj = (convertedData) => {
       }
     });
   }
-  console.log(bggObj);
+
   // Return the object
   return bggObj;
 };
@@ -113,7 +113,7 @@ const getGameInfoByID = async (id) => {
       return gameInfoObj;
     })
     .catch((err) => {
-      console.error('ERROR:', err);
+      console.error('BGG HELPER ERROR:', err);
     });
   // Return the gameInfoObj to be used by getGameInfoBGG helper
   return gameInfo;
@@ -155,7 +155,7 @@ const getGameInfoBGG = async (title) => {
       return gameInfo;
     })
     .catch((err) => {
-      console.error('ERROR:', err);
+      console.error('BGG HELPER ERROR:', err);
     });
   // Return the gameInfoObj to be used by server
   return gameInfoObj;
