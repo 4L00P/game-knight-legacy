@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import {
@@ -15,7 +15,7 @@ import {
 import Grid from '@mui/material/Grid2';
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 
-const { useState } = React;
+import GameCatsAndMechs from './game-info-components/GameCatsAndMechs';
 
 function GameInfo({ game, getGames, setGamesFilter }) {
   // Destructure important info from the game object
@@ -128,45 +128,11 @@ function GameInfo({ game, getGames, setGamesFilter }) {
           </Grid>
         </AccordionDetails>
       </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandCircleDownTwoToneIcon />}
-        >
-          <Typography variant="subtitle2">Categories & Mechanics</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Grid container spacing={2}>
-            <Grid size={3}>
-              <Typography variant="subtitle2">Categories:</Typography>
-              {
-                categories.map((catName) => (
-                  <Typography
-                    variant="subtitle1"
-                    key={catName}
-                    onClick={() => { setGamesFilter({ categories: [catName] }); }}
-                  >
-                    {catName}
-                  </Typography>
-                ))
-              }
-            </Grid>
-            <Grid size={3}>
-              <Typography variant="subtitle2">Mechanics:</Typography>
-              {
-                mechanics.map((mechName) => (
-                  <Typography
-                    variant="subtitle1"
-                    key={mechName}
-                    onClick={() => { setGamesFilter({ mechanics: [mechName] }); }}
-                  >
-                    {mechName}
-                  </Typography>
-                ))
-              }
-            </Grid>
-          </Grid>
-        </AccordionDetails>
-      </Accordion>
+      <GameCatsAndMechs
+        categories={categories}
+        mechanics={mechanics}
+        setGamesFilter={setGamesFilter}
+      />
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandCircleDownTwoToneIcon />}
