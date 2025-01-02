@@ -9,6 +9,12 @@ import {
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 
 function GameDescriptionInfo({ description }) {
+  /**
+   * Accordion #4: Description
+   *  - The description can be quite long, so it is contained in its own accordion
+   *  - The description is split by line-breaks and separated into different Typography(s)
+   *    to show the line breaks to the user.
+   */
   return (
     <Accordion>
       <AccordionSummary

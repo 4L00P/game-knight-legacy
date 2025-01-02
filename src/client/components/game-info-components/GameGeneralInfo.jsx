@@ -4,7 +4,6 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  // AccordionActions,
   Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
@@ -17,6 +16,14 @@ function GameGeneralInfo({
   playTime,
   minAge,
 }) {
+  /**
+   * Accordion #1: General Info
+   *  - Contains a grid of information about the game:
+   *    (1) The year it was published
+   *    (2) The number of players that can play the game.
+   *    (3) The average amount of time the game will take to play.
+   *    (4) The minimum age recommended to play the game.
+   */
   return (
     <Accordion>
       <AccordionSummary
