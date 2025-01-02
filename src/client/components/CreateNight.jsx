@@ -138,6 +138,7 @@ function GameNightForm({ closeForm }) {
 
   // Helper function to create divided list when adding to Game Night event
   const createDividedList = (collection) => {
+    debugger;
     console.log('CreateDividedList called', collection);
     // Make sure the collection is not empty
     // Want to render a divided list with a ListItem for each element
