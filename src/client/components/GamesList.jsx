@@ -4,7 +4,7 @@ import { List } from '@mui/material';
 
 import Game from './Game';
 
-function GamesList({ games, getGames }) {
+function GamesList({ games, getGames, setGamesFilter }) {
   /**
    * Map through the games array and return the Game component with a game property
    */
@@ -17,6 +17,7 @@ function GamesList({ games, getGames }) {
             key={_id}
             game={game}
             getGames={getGames}
+            setGamesFilter={setGamesFilter}
           />
         );
       })}
@@ -31,6 +32,7 @@ GamesList.propTypes = {
     }),
   ).isRequired,
   getGames: PropTypes.func.isRequired,
+  setGamesFilter: PropTypes.func.isRequired,
 };
 
 export default GamesList;

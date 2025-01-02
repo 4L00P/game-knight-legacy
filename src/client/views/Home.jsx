@@ -204,6 +204,7 @@ function Home() {
         <GamesList
           games={games}
           getGames={getGames}
+          setGamesFilter={setGamesFilter}
         />
       </Box>
     </>
