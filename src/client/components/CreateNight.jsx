@@ -17,6 +17,32 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 const { useState } = React;
 
+const initialInputs = [
+  {
+    label: 'Name',
+    value: '',
+    collection: 'name',
+    helperText: 'Name your event',
+  },
+  {
+    label: 'Guest',
+    value: '',
+    collection: 'guests',
+    helperText: 'Add a guest',
+  },
+  {
+    label: 'Snack',
+    value: '',
+    collection: 'snacks',
+    helperText: 'Refreshments',
+  },
+  {
+    label: 'Game',
+    value: '',
+    collection: 'games',
+    helperText: 'What are you playing?',
+  },
+];
 // Style for divided list
 const style = {
   p: 0,
@@ -38,10 +64,11 @@ function GameNightForm({ closeForm, getGameNights }) {
     guests: [],
     snacks: [],
     games: [],
+    fullDate: null,
     date: null,
     time: null,
   });
-  // State object to hold the input objects from initialInputs above (line 14)
+  // State object to hold the input objects
   const [inputValues, setInputValues] = useState([
     {
       label: 'Name',
@@ -150,11 +177,13 @@ function GameNightForm({ closeForm, getGameNights }) {
     const formCopy = { ...formValues };
     // Grab the date and time off the element
     const { _d } = element;
+    console.log('Full date: ', _d);
     // Format the date and time using moment
     // Pass in the date string with the curr format into moment() and the desired format in .format
     const date = moment(_d.toString().slice(0, 15), 'ddd MMM DD YYYY').format('dddd, MMMM Do YYYY');
     const time = moment(_d.toString().slice(16, 24), 'HH:mm:ss').format('h:mm');
     // Assign the new date and time to the copy of formValues
+    formCopy.fullDate = _d;
     formCopy.date = date;
     formCopy.time = time;
     // Set the new formValues in state
