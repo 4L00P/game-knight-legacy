@@ -58,21 +58,21 @@ function CurrentGame() {
         <div>Jingleheimer</div>
         <div>Schmidt</div>
       </div> */}
-      <form>
+      <form align="right">
         <label htmlFor="name">
           Name
           <input type="text" id="name" />
         </label>
         <button type="submit">Submit</button>
       </form>
-      <form>
+      <form align="right">
         <label htmlFor="player">
           Add Player
           <input type="text" id="player" />
         </label>
         <button type="submit">Submit</button>
       </form>
-      <form>
+      <form align="right">
         <label htmlFor="game">
           Game
           <input type="text" id="game" />
