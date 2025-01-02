@@ -10,7 +10,7 @@ import {
 import Grid from '@mui/material/Grid2';
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 
-function GameCatsAndMechs({ categories, mechanics, setGamesFilter }) {
+function GameCatsAndMechsInfo({ categories, mechanics, setGamesFilter }) {
   return (
     <Accordion>
       <AccordionSummary
@@ -54,10 +54,10 @@ function GameCatsAndMechs({ categories, mechanics, setGamesFilter }) {
   );
 }
 
-GameCatsAndMechs.propTypes = {
+GameCatsAndMechsInfo.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   mechanics: PropTypes.arrayOf(PropTypes.string).isRequired,
   setGamesFilter: PropTypes.func.isRequired,
 };
 
-export default GameCatsAndMechs;
+export default GameCatsAndMechsInfo;

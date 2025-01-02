@@ -15,7 +15,7 @@ import {
 import Grid from '@mui/material/Grid2';
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 
-import GameCatsAndMechs from './game-info-components/GameCatsAndMechs';
+import GameCatsAndMechsInfo from './game-info-components/GameCatsAndMechsInfo';
 
 function GameInfo({ game, getGames, setGamesFilter }) {
   // Destructure important info from the game object
@@ -128,11 +128,13 @@ function GameInfo({ game, getGames, setGamesFilter }) {
           </Grid>
         </AccordionDetails>
       </Accordion>
-      <GameCatsAndMechs
+
+      <GameCatsAndMechsInfo
         categories={categories}
         mechanics={mechanics}
         setGamesFilter={setGamesFilter}
       />
+
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandCircleDownTwoToneIcon />}
