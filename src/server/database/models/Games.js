@@ -10,7 +10,7 @@ const GameSchema = {
   minPlayers: { type: Number },
   maxPlayers: { type: Number },
   bestWith: { type: String },
-  recommendWith: { type: String },
+  recommendedWith: { type: String },
   playTime: { type: Number },
   minAge: { type: Number },
   categories: { type: [String] },
