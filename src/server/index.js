@@ -1,12 +1,11 @@
 const path = require('path');
 require('./database');
 const dotenv = require('dotenv');
-const database = require('./database');
 
 // Loads the .env information into process.env (Do this before requiring app)
 // This is how we'll hide our .env info
-
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+
 const { app } = require('./app');
 
 // Set PUBLIC_IP_ADDRESS in .env file
