@@ -22,11 +22,20 @@ function Groups() {
    * 2. group maker form
    * 2a. Create the form on a separate component.
    */
+  const getGroups = () => {
+const id = 
+    axios.get(`/${id}`).then((groupsArr) => {
+        console.log(groupsArr);
+    })
+    .catch((err) => {
+      console.error('Could not Get groups', err);
+    });
+  };
   return (
 
     <div>
       <Navbar />
-      <GroupForm />
+      <GroupForm getGroups={getGroups} />
     </div>
   );
 }

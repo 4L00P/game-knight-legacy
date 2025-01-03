@@ -1,7 +1,11 @@
 import React from "react";
 import { FormControl } from "@mui/material";
+import axios from 'axios';
 
-export default function GroupForm() {
+export default function GroupForm(props) {
+
+  const { getGroups } = props;
+
   const submitGroup = (e) => {
     // to prevent the page from sending a get request
     e.preventDefault();
@@ -11,8 +15,17 @@ export default function GroupForm() {
     // set a variable to represent the FromEntries method
     // that pulls and contains the values from FormData
     const payload = Object.fromEntries(formData);
+    // create an object that holds the form values as value to a key called groups
+    const groupObj = {
+      groups: payload,
+    };
     // send an axios post request that will post all the info we have and
-    console.log(payload);
+    axios.post('api/groups', groupObj).then((group) => {
+      // send a get request from a callback
+      console.log(group);
+    }).catch((err) => {
+      console.error('Unable to Post group', err);
+    });
 
   };
 
