@@ -26,7 +26,7 @@ function CalendarField({ formValues, setFormValues, handleFinalClick, closeForm 
   };
   return (
     <>
-      <Grid size={4}>
+      <Grid size={5}>
         <LocalizationProvider dateAdapter={AdapterMoment}>
           <DateTimePicker
             onChange={handleDateChange}
@@ -35,7 +35,7 @@ function CalendarField({ formValues, setFormValues, handleFinalClick, closeForm 
           />
         </LocalizationProvider>
       </Grid>
-      <Grid size={4}>
+      <Grid size={3}>
         <Button
           variant="contained"
           onClick={handleFinalClick}
