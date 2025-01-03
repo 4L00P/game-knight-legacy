@@ -177,23 +177,6 @@ function GameNightForm({ closeForm, getGameNights }) {
       });
   };
 
-  const handleDateChange = (element) => {
-    // Make a copy of formValues from state
-    const formCopy = { ...formValues };
-    // Grab the date and time off the element
-    const { _d } = element;
-    // Format the date and time using moment
-    // Pass in the date string with the curr format into moment() and the desired format in .format
-    const date = moment(_d.toString().slice(0, 15), 'ddd MMM DD YYYY').format('dddd, MMMM Do YYYY');
-    const time = moment(_d.toString().slice(16, 24), 'HH:mm:ss').format('h:mm');
-    // Assign the new date and time to the copy of formValues
-    formCopy.fullDate = _d;
-    formCopy.date = date;
-    formCopy.time = time;
-    // Set the new formValues in state
-    setFormValues(formCopy);
-  };
-
   // Helper function to create divided list when adding to Game Night event
   const createDividedList = (collection, collectionName) => (
     // Want to render a divided list with a ListItem for each element
@@ -235,32 +218,14 @@ function GameNightForm({ closeForm, getGameNights }) {
               handleChange={handleChange}
               index={index}
               formValues={formValues}
+              setFormValues={setFormValues}
               handleAddClick={handleAddClick}
               createDividedList={createDividedList}
+              handleFinalClick={handleFinalClick}
+              closeForm={closeForm}
             />
           ))}
-          <LocalizationProvider dateAdapter={AdapterMoment}>
-            <DateTimePicker
-              onChange={handleDateChange}
-              label="Select a Date"
-              sx={{ pb: 2 }}
-            />
-          </LocalizationProvider>
         </Grid>
-        <Button
-          variant="contained"
-          onClick={handleFinalClick}
-          size="small"
-        >
-          LET&apos;S PLAY
-        </Button>
-        <Button
-          variant="contained"
-          onClick={closeForm}
-          size="small"
-        >
-          Cancel
-        </Button>
       </FormControl>
     </Box>
   );

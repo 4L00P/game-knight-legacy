@@ -1,11 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import Grid from '@mui/material/Grid2';
+import { Button } from '@mui/material';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-function CalendarField() {
+function CalendarField({ formValues, setFormValues, handleFinalClick, closeForm }) {
   const handleDateChange = (element) => {
     // Make a copy of formValues from state
     const formCopy = { ...formValues };
@@ -23,16 +25,41 @@ function CalendarField() {
     setFormValues(formCopy);
   };
   return (
-    <Grid>
-      <LocalizationProvider dateAdapter={AdapterMoment}>
-        <DateTimePicker
-          onChange={handleDateChange}
-          label="Select a Date"
-          sx={{ pb: 2 }}
-        />
-      </LocalizationProvider>
-    </Grid>
+    <>
+      <Grid size={4}>
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <DateTimePicker
+            onChange={handleDateChange}
+            label="Select a Date"
+            sx={{ pb: 2 }}
+          />
+        </LocalizationProvider>
+      </Grid>
+      <Grid size={4}>
+        <Button
+          variant="contained"
+          onClick={handleFinalClick}
+          size="small"
+        >
+          LET&apos;S PLAY
+        </Button>
+        <Button
+          variant="contained"
+          onClick={closeForm}
+          size="small"
+        >
+          Cancel
+        </Button>
+      </Grid>
+    </>
   );
 }
+
+CalendarField.propTypes = {
+  formValues: PropTypes.shape({}).isRequired,
+  setFormValues: PropTypes.func.isRequired,
+  handleFinalClick: PropTypes.func.isRequired,
+  closeForm: PropTypes.func.isRequired,
+};
 
 export default CalendarField;
