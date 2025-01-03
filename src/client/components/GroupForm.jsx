@@ -1,11 +1,11 @@
-import React from "react";
-import { FormControl } from "@mui/material";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
-export default function GroupForm(props) {
-
+function GroupForm(props) {
   const { getGroups } = props;
-
+  // useEffect(() => getGroups, []);
+  
   const submitGroup = (e) => {
     // to prevent the page from sending a get request
     e.preventDefault();
@@ -23,12 +23,12 @@ export default function GroupForm(props) {
     axios.post('api/groups', groupObj).then((group) => {
       // send a get request from a callback
       console.log(group);
+      return getGroups;
     }).catch((err) => {
       console.error('Unable to Post group', err);
     });
-
   };
-
+  
   return (
     <form onSubmit={submitGroup}>
       <label htmlFor="group-name-form" id="group-name-form">
@@ -47,3 +47,8 @@ export default function GroupForm(props) {
     </form>
   );
 }
+GroupForm.PropTypes = {
+  getGroups: PropTypes.func.isRequired,
+};
+
+export default GroupForm;

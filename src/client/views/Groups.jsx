@@ -1,8 +1,10 @@
-import React from 'react';
-import axios from 'axios';
-import { FormControl } from '@mui/material';
-import Navbar from '../components/Navbar';
-import GroupForm from '../components/GroupForm';
+import React, { useEffect } from "react";
+import axios from "axios";
+import { Card, Grid2, Typography } from "@mui/material";
+import Navbar from "../components/Navbar";
+import GroupForm from "../components/GroupForm";
+
+const Grid = Grid2;
 
 function Groups() {
   // This'll be a page where groups are created and named,
@@ -22,17 +24,22 @@ function Groups() {
    * 2. group maker form
    * 2a. Create the form on a separate component.
    */
-  const getGroups = () => {
-const id = 
-    axios.get(`/${id}`).then((groupsArr) => {
-        console.log(groupsArr);
-    })
-    .catch((err) => {
-      console.error('Could not Get groups', err);
-    });
-  };
+  function getGroups() {
+    axios
+      .get("/api/groups")
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.error("Could not Get groups", err);
+      });
+  }
+  useEffect(getGroups, []);
+  /**
+   * Rendering Navbar, then the Form component, followed by a grid
+   * structure of groups that user owns on cards
+   */
   return (
-
     <div>
       <Navbar />
       <GroupForm getGroups={getGroups} />
