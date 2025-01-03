@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Grid2, Typography } from "@mui/material";
 import Navbar from "../components/Navbar";
@@ -12,10 +12,8 @@ function Groups() {
   // as well as a page where a user's created groups can be seen
   // perhaps also the groups the user currently belongs to?(backlog)
   // this page only exists to fill out forms and show existing groups,
-  // so state should be set as each form category
-  // const [players, setPlayers] = useState([]);
-  // const [name, setName] = useState('');
-  // const [game, setGame] = useState([]);
+  // set groups to state.
+  const [groups, setGroups] = useState([]);
   /**
    * Page Needs
    * 1. List of groups(Perhaps accordian'd)
@@ -30,30 +28,10 @@ function Groups() {
       .get("/api/groups")
       .then(({ data }) => {
         console.log(data);
-        return (
-          <ul>
-            {data.map((group) => {
-              const {
-                _id,
-                name,
-                players,
-                games,
-              } = group;
-              return (
-                <Group
-                  key={_id}
-                  name={name}
-                  players={players}
-                  games={games}
-                />
-              );
-            })}
-          </ul>
-        );
+        setGroups(data);
       })
       .catch((err) => {
         console.error("Could not Get groups", err);
-
       });
   }
   useEffect(getGroups, []);
@@ -65,6 +43,24 @@ function Groups() {
     <div>
       <Navbar />
       <GroupForm getGroups={getGroups} />
+      <ul>
+        {groups.map((group) => {
+          const {
+            _id,
+            name,
+            players,
+            games,
+          } = group;
+          return (
+            <Group
+              key={_id}
+              name={name}
+              players={players}
+              games={games}
+            />
+          );
+        })}
+      </ul>
     </div>
   );
 }

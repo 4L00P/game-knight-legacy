@@ -28,7 +28,6 @@ function GroupForm(props) {
       console.error('Unable to Post group', err);
     });
   };
-  
   return (
     <form onSubmit={submitGroup}>
       <label htmlFor="group-name-form" id="group-name-form">

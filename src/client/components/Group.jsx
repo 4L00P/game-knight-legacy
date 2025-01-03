@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types'
 import { Card, Typography, Grid2 } from '@mui/material';
 
-function Group({ key, name, players, games }) {
+function Group({ key,
+  name,
+  players,
+  games }) {
   return (
     <li>{name}</li>
-  ); 
-
+  );
 }
 
 Group.propTypes = {
