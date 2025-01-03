@@ -29,8 +29,8 @@ function Night({ gameNight, getGameNights }) {
                 {
                   sameDay: '[Today at] h:mm',
                   nextDay: '[Tomorrow at] h:mm',
-                  nextWeek: '[Next] dddd [at] h:mm',
-                  sameElse: 'MMM',
+                  nextWeek: 'dddd [at] h:mm',
+                  sameElse: 'dddd, MMMM Do',
                 },
               )
           }
