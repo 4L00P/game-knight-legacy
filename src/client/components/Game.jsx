@@ -17,7 +17,7 @@ import GameInfo from './GameInfo';
 
 const { useState } = React;
 
-function Game({ game, getGames }) {
+function Game({ game, getGames, setGamesFilter }) {
   // Destructure name & thumbnail from the game object
   const { _id, name, thumbnail } = game;
   // showGameInfo will determine whether or not the additional information is rendered to the page
@@ -59,7 +59,17 @@ function Game({ game, getGames }) {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {showGameInfo ? <GameInfo game={game} getGames={getGames} /> : null}
+          {
+            showGameInfo
+              ? (
+                <GameInfo
+                  game={game}
+                  getGames={getGames}
+                  setGamesFilter={setGamesFilter}
+                />
+              )
+              : null
+          }
         </AccordionDetails>
         <AccordionActions>
           <Button
@@ -81,6 +91,7 @@ Game.propTypes = {
     thumbnail: PropTypes.string,
   }).isRequired,
   getGames: PropTypes.func.isRequired,
+  setGamesFilter: PropTypes.func.isRequired,
 };
 
 export default Game;

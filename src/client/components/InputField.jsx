@@ -30,7 +30,7 @@ function InputField({
       label === 'Name' ? null : (
         <Button
           variant="outlined"
-          size="small"
+          fontSize="small"
           id={collection}
           onClick={handleAddClick}
         >
@@ -38,7 +38,9 @@ function InputField({
         </Button>
       )
       }
-      {formValues[collection].length ? createDividedList(formValues[collection]) : null}
+      {Array.isArray(formValues[collection])
+        ? createDividedList(formValues[collection], collection)
+        : null}
     </div>
   );
 }

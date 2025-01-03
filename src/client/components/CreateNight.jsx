@@ -1,27 +1,21 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import moment from 'moment'
 import {
   FormControl,
   Box,
   Button,
   List,
+  Typography,
 } from '@mui/material';
 import InputField from './InputField';
 import DividedListItem from './DividedListItem';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 const { useState } = React;
-
-// Style for divided list
-const style = {
-  p: 0,
-  width: '100%',
-  maxWidth: 360,
-  borderRadius: 2,
-  border: '1px solid',
-  borderColor: 'divider',
-  backgroundColor: 'background.paper',
-};
 
 const initialInputs = [
   {
@@ -49,20 +43,58 @@ const initialInputs = [
     helperText: 'What are you playing?',
   },
 ];
+// Style for divided list
+const style = {
+  p: 0,
+  width: '100%',
+  maxWidth: 360,
+  borderRadius: 2,
+  border: '1px solid',
+  borderColor: 'divider',
+  backgroundColor: 'background.paper',
+};
 
 // Keep array of the collections to be iterated over later
 const inputKeys = ['guests', 'snacks', 'games'];
 
-function GameNightForm({ closeForm }) {
+function GameNightForm({ closeForm, getGameNights }) {
   // Initialize the state of the component
   const [formValues, setFormValues] = useState({
     name: '',
     guests: [],
     snacks: [],
     games: [],
+    fullDate: null,
+    date: null,
+    time: null,
   });
-  // State object to hold the input objects from initialInputs above (line 14)
-  const [inputValues, setInputValues] = useState(initialInputs);
+  // State object to hold the input objects
+  const [inputValues, setInputValues] = useState([
+    {
+      label: 'Name',
+      value: '',
+      collection: 'name',
+      helperText: 'Name your event',
+    },
+    {
+      label: 'Guest',
+      value: '',
+      collection: 'guests',
+      helperText: 'Add a guest',
+    },
+    {
+      label: 'Snack',
+      value: '',
+      collection: 'snacks',
+      helperText: 'Refreshments',
+    },
+    {
+      label: 'Game',
+      value: '',
+      collection: 'games',
+      helperText: 'What are you playing?',
+    },
+  ]);
 
   /**
    * I: Key which should be the id of a collection, the newValue we are setting
@@ -130,30 +162,52 @@ function GameNightForm({ closeForm }) {
     // Send axios POST request to the server
     axios
       .post('api/game-nights', config)
+      .then(() => {
+        setInputValues(initialInputs);
+      })
       .then(closeForm)
+      .then(getGameNights)
       .catch((err) => {
         console.error('Error POSTing new game night: ', err);
       });
   };
 
+  const handleDateChange = (element) => {
+    // Make a copy of formValues from state
+    const formCopy = { ...formValues };
+    // Grab the date and time off the element
+    const { _d } = element;
+    // Format the date and time using moment
+    // Pass in the date string with the curr format into moment() and the desired format in .format
+    const date = moment(_d.toString().slice(0, 15), 'ddd MMM DD YYYY').format('dddd, MMMM Do YYYY');
+    const time = moment(_d.toString().slice(16, 24), 'HH:mm:ss').format('h:mm');
+    // Assign the new date and time to the copy of formValues
+    formCopy.fullDate = _d;
+    formCopy.date = date;
+    formCopy.time = time;
+    // Set the new formValues in state
+    setFormValues(formCopy);
+  };
+
   // Helper function to create divided list when adding to Game Night event
-  const createDividedList = (collection) => {
-    console.log('CreateDividedList called', collection);
-    // Make sure the collection is not empty
+  const createDividedList = (collection, collectionName) => (
     // Want to render a divided list with a ListItem for each element
-    return (
+    (
       <List sx={style}>
         {collection.map((element, index) => (
           // Some List Item Component
           <DividedListItem
             key={`${element}-${index * 2}`}
             element={element}
+            index={index}
+            collectionName={collectionName}
+            formValues={formValues}
+            setFormValues={setFormValues}
           />
         ))}
       </List>
-    );
-  };
-
+    )
+  );
   return (
     <Box
       component="form"
@@ -173,8 +227,21 @@ function GameNightForm({ closeForm }) {
             createDividedList={createDividedList}
           />
         ))}
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <DateTimePicker
+            onChange={handleDateChange}
+            label="Select a Date"
+          />
+        </LocalizationProvider>
         <Button variant="contained" onClick={handleFinalClick} size="medium">
           LET&apos;S PLAY
+        </Button>
+        <Button
+          variant="contained"
+          fontSize="small"
+          onClick={closeForm}
+        >
+          Cancel
         </Button>
       </FormControl>
     </Box>
@@ -183,6 +250,7 @@ function GameNightForm({ closeForm }) {
 
 GameNightForm.propTypes = {
   closeForm: PropTypes.func.isRequired,
+  getGameNights: PropTypes.func.isRequired,
 };
 
 export default GameNightForm;
