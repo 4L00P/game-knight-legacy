@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const GameNightSchema = {
   name: { type: String, required: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  date: { type: Date, required: false, default: new Date() },
+  fullDate: { type: Date },
+  date: { type: String },
+  time: { type: String },
   isComplete: { type: Boolean, default: false },
   isCancelled: { type: Boolean, default: false },
   guests: [{ type: String }],
