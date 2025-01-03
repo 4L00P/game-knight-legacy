@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Button, Typography } from '@mui/material';
 import Navbar from '../components/Navbar';
-import GameNightForm from '../components/CreateNight';
+import GameNightForm from '../components/GameNightForm';
 import GameNightsList from '../components/GameNightsList';
 
 const {

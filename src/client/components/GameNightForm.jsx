@@ -9,11 +9,12 @@ import {
   List,
   Typography,
 } from '@mui/material';
-import InputField from './InputField';
-import DividedListItem from './DividedListItem';
+import Grid from '@mui/material/Grid2';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import InputField from './InputField';
+import DividedListItem from './DividedListItem';
 
 const { useState } = React;
 
@@ -144,6 +145,10 @@ function GameNightForm({ closeForm, getGameNights }) {
       if (inputKeys[i] === id) {
         // Grab the value from inputvalues in state at i + 1
         const currValue = inputValues[i + 1].value;
+        // Make sure there is actual value before posting
+        if (!currValue) {
+          return;
+        }
         // Push onto formCopy at that id
         formCopy[id].push(currValue);
         // Change formValues in state to new formCopy
@@ -172,23 +177,6 @@ function GameNightForm({ closeForm, getGameNights }) {
       });
   };
 
-  const handleDateChange = (element) => {
-    // Make a copy of formValues from state
-    const formCopy = { ...formValues };
-    // Grab the date and time off the element
-    const { _d } = element;
-    // Format the date and time using moment
-    // Pass in the date string with the curr format into moment() and the desired format in .format
-    const date = moment(_d.toString().slice(0, 15), 'ddd MMM DD YYYY').format('dddd, MMMM Do YYYY');
-    const time = moment(_d.toString().slice(16, 24), 'HH:mm:ss').format('h:mm');
-    // Assign the new date and time to the copy of formValues
-    formCopy.fullDate = _d;
-    formCopy.date = date;
-    formCopy.time = time;
-    // Set the new formValues in state
-    setFormValues(formCopy);
-  };
-
   // Helper function to create divided list when adding to Game Night event
   const createDividedList = (collection, collectionName) => (
     // Want to render a divided list with a ListItem for each element
@@ -203,6 +191,7 @@ function GameNightForm({ closeForm, getGameNights }) {
             collectionName={collectionName}
             formValues={formValues}
             setFormValues={setFormValues}
+            changeInputValue={changeInputValue}
           />
         ))}
       </List>
@@ -211,38 +200,32 @@ function GameNightForm({ closeForm, getGameNights }) {
   return (
     <Box
       component="form"
-      sx={{ '& > :not(style)': { m: 1 } }}
       noValidate
       autoComplete="off"
     >
-      <FormControl>
-        {inputValues.map((input, index) => (
-          <InputField
-            key={`${input.label}`}
-            objvalue={input}
-            handleChange={handleChange}
-            index={index}
-            formValues={formValues}
-            handleAddClick={handleAddClick}
-            createDividedList={createDividedList}
-          />
-        ))}
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <DateTimePicker
-            onChange={handleDateChange}
-            label="Select a Date"
-          />
-        </LocalizationProvider>
-        <Button variant="contained" onClick={handleFinalClick} size="medium">
-          LET&apos;S PLAY
-        </Button>
-        <Button
-          variant="contained"
-          fontSize="small"
-          onClick={closeForm}
-        >
-          Cancel
-        </Button>
+      <FormControl sx={{
+        border: 1,
+        borderRadius: '10px',
+        p: 2,
+        maxWidth: 3 / 5,
+      }}
+      >
+        <Grid container spacing={4}>
+          {inputValues.map((input, index) => (
+            <InputField
+              key={`${input.label}`}
+              objvalue={input}
+              handleChange={handleChange}
+              index={index}
+              formValues={formValues}
+              setFormValues={setFormValues}
+              handleAddClick={handleAddClick}
+              createDividedList={createDividedList}
+              handleFinalClick={handleFinalClick}
+              closeForm={closeForm}
+            />
+          ))}
+        </Grid>
       </FormControl>
     </Box>
   );
