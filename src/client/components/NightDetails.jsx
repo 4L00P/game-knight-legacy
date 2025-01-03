@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import {
   AccordionDetails,
+  Button,
   List,
   ListItem,
   Typography,
@@ -34,6 +36,9 @@ function NightDetails({ gameNight }) {
           {createList('Games', gameNight.games)}
         </Grid>
       </Grid>
+      {moment(gameNight.fullDate).isAfter(moment())
+        ? <Button variant="contained">Cancel</Button>
+        : null}
     </AccordionDetails>
   );
 }
@@ -43,6 +48,7 @@ NightDetails.propTypes = {
     guests: PropTypes.arrayOf(PropTypes.string),
     snacks: PropTypes.arrayOf(PropTypes.string),
     games: PropTypes.arrayOf(PropTypes.string),
+    fullDate: PropTypes.instanceOf(Date),
   }).isRequired,
 };
 
