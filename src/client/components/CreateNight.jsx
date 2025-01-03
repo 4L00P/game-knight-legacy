@@ -144,6 +144,10 @@ function GameNightForm({ closeForm, getGameNights }) {
       if (inputKeys[i] === id) {
         // Grab the value from inputvalues in state at i + 1
         const currValue = inputValues[i + 1].value;
+        // Make sure there is actual value before posting
+        if (!currValue) {
+          return;
+        }
         // Push onto formCopy at that id
         formCopy[id].push(currValue);
         // Change formValues in state to new formCopy
