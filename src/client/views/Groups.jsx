@@ -3,6 +3,7 @@ import axios from "axios";
 import { Card, Grid2, Typography } from "@mui/material";
 import Navbar from "../components/Navbar";
 import GroupForm from "../components/GroupForm";
+import Group from '../components/Group';
 
 const Grid = Grid2;
 
@@ -29,9 +30,30 @@ function Groups() {
       .get("/api/groups")
       .then(({ data }) => {
         console.log(data);
+        return (
+          <ul>
+            {data.map((group) => {
+              const {
+                _id,
+                name,
+                players,
+                games,
+              } = group;
+              return (
+                <Group
+                  key={_id}
+                  name={name}
+                  players={players}
+                  games={games}
+                />
+              );
+            })}
+          </ul>
+        );
       })
       .catch((err) => {
         console.error("Could not Get groups", err);
+
       });
   }
   useEffect(getGroups, []);
