@@ -8,10 +8,30 @@ import {
   List,
   ListItem,
   Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
+const { useState } = React;
+
 function NightDetails({ gameNight, getGameNights }) {
+  // Set state value for opening and closing dialog
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  // Open the dialog box
+  const handleClickOpen = () => {
+    // Chan ge the state value to true
+    setDialogOpen(true);
+  };
+  // Close the Dialog box
+  const handleClose = () => {
+    // Change the state value to false
+    setDialogOpen(false);
+  };
   // Helper function to create a list from props arrays
   const createList = (label, prop, index) => (
     <List>
@@ -60,15 +80,30 @@ function NightDetails({ gameNight, getGameNights }) {
               Cancel
             </Button>
           )
-          : null}
+          : <Typography variant="body" sx={{ marginRight: 'auto' }}>This event has concluded</Typography>}
         <Button
           variant="contained"
           size="small"
-          onClick={handleNightDelete}
+          onClick={handleClickOpen}
         >
           Delete
         </Button>
       </Grid>
+      <Dialog open={dialogOpen} onClose={handleClose}>
+        <DialogTitle>
+          Delete Your Event
+          {` ${gameNight.name}`}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this event? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleNightDelete}>Delete</Button>
+        </DialogActions>
+      </Dialog>
     </AccordionDetails>
   );
 }
@@ -76,6 +111,7 @@ function NightDetails({ gameNight, getGameNights }) {
 NightDetails.propTypes = {
   gameNight: PropTypes.shape({
     _id: PropTypes.string,
+    name: PropTypes.string,
     guests: PropTypes.arrayOf(PropTypes.string),
     snacks: PropTypes.arrayOf(PropTypes.string),
     games: PropTypes.arrayOf(PropTypes.string),
