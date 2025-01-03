@@ -41,6 +41,7 @@ function Night({ gameNight, getGameNights }) {
         </AccordionSummary>
         <NightDetails
           gameNight={gameNight}
+          getGameNights={getGameNights}
         />
       </Accordion>
     </ListItem>
