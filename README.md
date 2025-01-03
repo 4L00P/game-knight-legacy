@@ -52,25 +52,94 @@ All other dependencies are included in the package.json can be installed with th
 
 ### Scripts available in the package.json:
 
-`start` :
+`start` : Starts your server with nodemon for development.
 
-`build` :
+`build` : Starts the webpack script to transpile your files; watches for changes for development.
 
-`dev:update` :
+`dev:update` : Reinstalls dependencies if you are working on the project's dependencies.
 
-The following scripts are used for a production build after initially installing dependencies:
+**The following scripts are used for a production build after initially installing dependencies:**
 
-`prod:update` :
+`prod:update` : Reinstalls dependencies for production if you are worked on the project's dependencies in development.
 
-`prod:build` :
+`prod:build` : Runs the webpack script once to prepare the files to server to the user.
 
-`prod:start` :
+`prod:start` : Starts the server with node for production.
 
 ## Google OAuth Steps
 Game Knight authenticates user login using passport.js with the Google OAuth 2.0 Strategy. This means you'll need to create credentials with Google [here](https://console.cloud.google.com/apis/credentials). When you create credentials for an OAuth client ID, select "Web application" for your application type, use the URI "http://localhost:8000" for your authorized JavaScript origin to develop locally, and use the URI "http://localhost:8000/auth/callback" for your authorized redirect URI for Google's Authentication send a response back to your server.
 Add similar URIs for your production build.
 
+Once you have your OAuth 2.0 Client ID, locate you Client ID and Client secret because you'll need them in you .env file.
+
+In this repo, you'll find a file called .env-example. Be sure to copy this file as .env. In the newly created .env, you'll enter the following:
+- `GOOGLE_CLIENT_ID` : The client ID from your Google OAuth Client ID
+- `GOOGLE_CLIENT_SECRET` : The client secret from your Google OAuth Client ID
+- `SESSION_SECRET` : A hard to guess secret string for your Express sessions.
+- `DOMAIN_NAME` : The domain name of your server. If your using a local development environment, I suggest putting 127.0.0.1.
+- `PORT` : The port defaults to 8000 if this isn't here, but if you'd like to use a different port, you can put it here.
+
 ## Architecture Diagrams
 
+### Client-side Component Tree
+We are making use of React-Router. The routes are defined in `./src/client/App.jsx`. Each route is assigned a "view", which we have stored in the `./src/client/views/` directory. Each view makes use of different components found in the `./src/client/components/` directory, which may contain further nested directories for the organization of components.
+
+The following is a break down of each view:
+`Login` : This view is the landing page for Game Knight. Users will login here.
+
+`Home` : This view shows the user their board game collection. This view uses the following components (indentation denotes children):
+- NavBar
+- GamesList
+  - Game
+    - GameInfo
+      - GameGeneralInfo
+      - GameCatsAndMechsInfo
+      - GameRatingAndNotesInfo
+      - GameDescriptionInfo
+
+`GameNights` : This views shows the user game nights they've planned. This view uses the following components (indentation denotes children):
+- NavBar
+- GameNightsList
+  - Night
+    - NightDetails
+- *GameNightForm* (File currently called CreateNight)
+  - DividedListItem
+  - InputField
+
+`Groups` : This view shows the user groups they've created. This view uses the following components (indentation denotes children):
+
+- NavBar
+
+`CurrentGame` : This view allows the user to select a group to use helpful features to facilitate game play. This view uses the following components (indentation denotes children):
+
+- NavBar
+
+### Server Routes
+All endpoints can be found in the initial express app found at `./src/server/app.js` and different routers found in the `./src/server/routes/` directory. The Express server uses the following endpoints:
+
+- `/auth` : This route holds all authentication endpoints to facilitate the Google login process
+  - `/auth/user` : This endpoint sends back user info from the current session.
+- `/api/games` : This route holds all interactions with the Games collection.
+  - POST `/`
+  - GET `/`
+  - DELETE `/:id`
+  - PATCH `/:id`
+- `/api/game-nights` : This route holds all interactions with the GameNights collection.
+  - GET `/`
+  - POST `/`
+- `/api/groups` : This route holds all interactions with the Groups collection.
+  - POST `/`
+  - GET `/`
+  - PATCH `/:id`
+- `/logout` : This endpoint logs the user out of their current session and clears their cookie.
+- `*` : This endpoint facilitates all React-Router requests to the server. Using a custom verifySession middleware to check that a user has signed in properly to be able to navigate the site.
+
+### Database Schemas
+We are using MongoDB with the Mongoose ODM. You can find schemas in the ./src/server/database/models directory. At this moment, we have the following collections:
+- Users
+- Games
+- GameNights
+- Groups
 
 ## Future
+> ... any ideas we like from our backlog we can leave here ...
