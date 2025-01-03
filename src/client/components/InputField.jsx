@@ -15,6 +15,15 @@ function InputField({
     collection,
     helperText,
   } = objvalue;
+
+  // Allow enter to add to list
+  const handleEnter = (element) => {
+    const { key } = element;
+    if (key === 'Enter') {
+      handleAddClick(element);
+    }
+  };
+
   return (
     <div className="input">
       <TextField
@@ -24,6 +33,7 @@ function InputField({
         variant="outlined"
         helperText={helperText}
         onChange={(element) => handleChange(element)}
+        onKeyUp={handleEnter}
         autoFocus
       />
       {
