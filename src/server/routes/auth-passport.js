@@ -34,6 +34,7 @@ passport.use(new GoogleStrategy(
       // Check for a user in the Database Users collection
       if (await Users.findOne({ googleId: id }).exec()) {
         console.log('User already exists.');
+        done(null, profile);
       } else {
         console.log('User doesn\'t exist yet. Adding them to the Users collection');
         // Create a user if there isn't one in the Database Users collection
@@ -42,10 +43,12 @@ passport.use(new GoogleStrategy(
           googleId: id,
           // emails is an array, use the first email in the array
           email: emails[0].value,
-        });
+        })
+          .then(() => {
+            done(null, profile);
+          });
       }
       // Call done with the profile to execute the next route since this is middleware
-      done(null, profile);
     } catch (err) {
       // Handle errors
       done(err, null);

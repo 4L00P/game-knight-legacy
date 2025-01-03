@@ -19,12 +19,18 @@ gamesRouter.post('/', async (req, res) => {
   const gameInfo = await getGameInfoBGG(game.name);
   // If nothing is returned from BGG
   if (!gameInfo) {
-    // Send status 404
+    // Send status 200 & null for an empty response to user
     res.status(200);
     res.send(null);
+  // If it's a close match
+  } else if (gameInfo.closeMatch) {
+    // Send status 200 & the info for the closeMatch
+    res.status(200);
+    res.send(gameInfo);
   } else {
     // Destructure gameInfo
     const {
+      bggId,
       name,
       thumbnail,
       image,
@@ -32,11 +38,16 @@ gamesRouter.post('/', async (req, res) => {
       yearPublished,
       minPlayers,
       maxPlayers,
+      bestWith,
+      recommendedWith,
       playTime,
       minAge,
+      categories,
+      mechanics,
     } = gameInfo;
     // Query database to create a new game object with the game Info
     Games.create({
+      bggId,
       name,
       thumbnail,
       image,
@@ -44,8 +55,12 @@ gamesRouter.post('/', async (req, res) => {
       yearPublished,
       minPlayers,
       maxPlayers,
+      bestWith,
+      recommendedWith,
       playTime,
       minAge,
+      categories,
+      mechanics,
       // Saves user's id to Game object for filtered look up later
       user: _id,
     })
@@ -67,8 +82,23 @@ GET /api/games => Retrieve all games stored in DB
 gamesRouter.get('/', (req, res) => {
   // Grab the _id from the request's user object
   const { _id } = req.user;
+  // Create find queryFilter object
+  const queryFilter = { user: _id };
+  // Grab the game object from the request's query
+  const { game } = req.query;
+  // Check if you get an object for game
+  if (game) {
+    // Iterate through the keys on the game object
+    Object.keys(game).forEach((key) => {
+      if (Array.isArray(game[key])) {
+        queryFilter[key] = { $in: game[key] };
+      } else {
+        queryFilter[key] = game[key];
+      }
+    });
+  }
   // Query the database for all games
-  Games.find({ user: _id }).sort({ name: 'asc' })
+  Games.find(queryFilter).sort({ name: 'asc' })
     // Success, set Status: 200 & send array of games
     .then((gamesArr) => {
       res.status(200);
