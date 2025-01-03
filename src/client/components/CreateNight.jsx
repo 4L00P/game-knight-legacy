@@ -177,7 +177,6 @@ function GameNightForm({ closeForm, getGameNights }) {
     const formCopy = { ...formValues };
     // Grab the date and time off the element
     const { _d } = element;
-    console.log('Full date: ', _d);
     // Format the date and time using moment
     // Pass in the date string with the curr format into moment() and the desired format in .format
     const date = moment(_d.toString().slice(0, 15), 'ddd MMM DD YYYY').format('dddd, MMMM Do YYYY');
@@ -191,8 +190,7 @@ function GameNightForm({ closeForm, getGameNights }) {
   };
 
   // Helper function to create divided list when adding to Game Night event
-  const createDividedList = (collection) => (
-    // Make sure the collection is not empty
+  const createDividedList = (collection, collectionName) => (
     // Want to render a divided list with a ListItem for each element
     (
       <List sx={style}>
@@ -201,6 +199,10 @@ function GameNightForm({ closeForm, getGameNights }) {
           <DividedListItem
             key={`${element}-${index * 2}`}
             element={element}
+            index={index}
+            collectionName={collectionName}
+            formValues={formValues}
+            setFormValues={setFormValues}
           />
         ))}
       </List>

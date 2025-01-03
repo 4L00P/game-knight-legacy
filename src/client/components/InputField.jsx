@@ -39,7 +39,7 @@ function InputField({
       )
       }
       {Array.isArray(formValues[collection])
-        ? createDividedList(formValues[collection])
+        ? createDividedList(formValues[collection], collection)
         : null}
     </div>
   );
