@@ -53,6 +53,7 @@ function Groups() {
           } = group;
           return (
             <Group
+              group={group}
               key={_id}
               name={name}
               players={players}
