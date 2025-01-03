@@ -85,6 +85,7 @@ In this repo, you'll find a file called .env-example. Be sure to copy this file 
 We are making use of React-Router. The routes are defined in `./src/client/App.jsx`. Each route is assigned a "view", which we have stored in the `./src/client/views/` directory. Each view makes use of different components found in the `./src/client/components/` directory, which may contain further nested directories for the organization of components.
 
 The following is a break down of each view:
+
 `Login` : This view is the landing page for Game Knight. Users will login here.
 
 `Home` : This view shows the user their board game collection. This view uses the following components (indentation denotes children):
@@ -135,7 +136,7 @@ All endpoints can be found in the initial express app found at `./src/server/app
 - `*` : This endpoint facilitates all React-Router requests to the server. Using a custom verifySession middleware to check that a user has signed in properly to be able to navigate the site.
 
 ### Database Schemas
-We are using MongoDB with the Mongoose ODM. You can find schemas in the ./src/server/database/models directory. At this moment, we have the following collections:
+We are using MongoDB with the Mongoose ODM. You can find schemas in the `./src/server/database/models` directory. At this moment, we have the following collections:
 - Users
 - Games
 - GameNights
