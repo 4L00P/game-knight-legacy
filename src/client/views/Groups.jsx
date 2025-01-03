@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import { FormControl } from '@mui/material';
 import Navbar from '../components/Navbar';
+import GroupForm from '../components/GroupForm';
 
 function Groups() {
   // This'll be a page where groups are created and named,
@@ -18,26 +20,13 @@ function Groups() {
    * 1b. Add an editing option to change info on a group
    * 1c. A separate delete option that only deletes players, not the entire group
    * 2. group maker form
-   * 2a. Set up a useForm hook that will handle form info after making the form labels.
+   * 2a. Create the form on a separate component.
    */
   return (
+
     <div>
       <Navbar />
-      <form>
-        <label htmlFor="group-form-name" id="group-form-name">
-          Group Name
-          <input type="text" />
-        </label>
-        <label htmlFor="group-form-players" id="group-form-players">
-          Player List
-          <input type="text" />
-        </label>
-        <label htmlFor="group-form-game" id="group-form-game">
-          Game List
-          <input type="text" />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
+      <GroupForm />
     </div>
   );
 }
