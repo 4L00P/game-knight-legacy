@@ -1,6 +1,7 @@
 import React from 'react';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Box } from '@mui/material';
 import PropTypes from 'prop-types';
+import Grid from '@mui/material/Grid2';
 
 function InputField({
   objvalue,
@@ -25,33 +26,40 @@ function InputField({
   };
 
   return (
-    <div className="input">
-      <TextField
-        label={label}
-        id={collection}
-        value={value}
-        variant="outlined"
-        helperText={helperText}
-        onChange={(element) => handleChange(element)}
-        onKeyUp={handleEnter}
-        autoFocus
-      />
-      {
-      label === 'Name' ? null : (
-        <Button
-          variant="outlined"
-          fontSize="small"
+    <Grid
+      size={label === 'Name' ? 12 : 4}
+    >
+      <Box>
+        <TextField
+          label={label}
           id={collection}
-          onClick={handleAddClick}
-        >
-          +
-        </Button>
-      )
-      }
-      {Array.isArray(formValues[collection])
-        ? createDividedList(formValues[collection], collection)
-        : null}
-    </div>
+          value={value}
+          variant="outlined"
+          helperText={helperText}
+          required={label === 'Name'}
+          onChange={(element) => handleChange(element)}
+          onKeyUp={handleEnter}
+          autoFocus
+        />
+        {
+        label === 'Name' ? null : (
+          <Button
+            variant="text"
+            maxHeight={5}
+            maxWidth={5}
+            fontSize="small"
+            id={collection}
+            onClick={handleAddClick}
+          >
+            {`+ ${label}`}
+          </Button>
+        )
+    }
+        {Array.isArray(formValues[collection])
+          ? createDividedList(formValues[collection], collection)
+          : null}
+      </Box>
+    </Grid>
   );
 }
 

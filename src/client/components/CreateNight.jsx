@@ -9,6 +9,7 @@ import {
   List,
   Typography,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -216,35 +217,47 @@ function GameNightForm({ closeForm, getGameNights }) {
   return (
     <Box
       component="form"
-      sx={{ '& > :not(style)': { m: 1 } }}
       noValidate
       autoComplete="off"
     >
-      <FormControl>
-        {inputValues.map((input, index) => (
-          <InputField
-            key={`${input.label}`}
-            objvalue={input}
-            handleChange={handleChange}
-            index={index}
-            formValues={formValues}
-            handleAddClick={handleAddClick}
-            createDividedList={createDividedList}
-          />
-        ))}
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <DateTimePicker
-            onChange={handleDateChange}
-            label="Select a Date"
-          />
-        </LocalizationProvider>
-        <Button variant="contained" onClick={handleFinalClick} size="medium">
+      <FormControl sx={{
+        border: 1,
+        borderRadius: '10px',
+        p: 2,
+        maxWidth: 3 / 5,
+      }}
+      >
+        <Grid container spacing={4}>
+          {inputValues.map((input, index) => (
+            <InputField
+              key={`${input.label}`}
+              objvalue={input}
+              handleChange={handleChange}
+              index={index}
+              formValues={formValues}
+              handleAddClick={handleAddClick}
+              createDividedList={createDividedList}
+            />
+          ))}
+          <LocalizationProvider dateAdapter={AdapterMoment}>
+            <DateTimePicker
+              onChange={handleDateChange}
+              label="Select a Date"
+              sx={{ pb: 2 }}
+            />
+          </LocalizationProvider>
+        </Grid>
+        <Button
+          variant="contained"
+          onClick={handleFinalClick}
+          size="small"
+        >
           LET&apos;S PLAY
         </Button>
         <Button
           variant="contained"
-          fontSize="small"
           onClick={closeForm}
+          size="small"
         >
           Cancel
         </Button>
