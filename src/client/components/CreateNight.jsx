@@ -207,6 +207,7 @@ function GameNightForm({ closeForm, getGameNights }) {
             collectionName={collectionName}
             formValues={formValues}
             setFormValues={setFormValues}
+            changeInputValue={changeInputValue}
           />
         ))}
       </List>
