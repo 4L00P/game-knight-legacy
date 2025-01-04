@@ -65,6 +65,8 @@ GameInfo.propTypes = {
     yearPublished: PropTypes.number,
     minPlayers: PropTypes.number,
     maxPlayers: PropTypes.number,
+    bestWith: PropTypes.string,
+    recommendedWith: PropTypes.string,
     playTime: PropTypes.number,
     minAge: PropTypes.number,
     notes: PropTypes.string,
