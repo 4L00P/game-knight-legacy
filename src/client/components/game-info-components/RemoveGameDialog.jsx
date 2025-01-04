@@ -13,7 +13,7 @@ function DeleteGameDialog({
   openRemoveDialog,
   deleteGame,
   handleRemoveClick,
-  gameName,
+  name,
 }) {
   return (
     <Dialog
@@ -24,7 +24,7 @@ function DeleteGameDialog({
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          {`Content - ${gameName}`}
+          {`Content - ${name}`}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
@@ -50,7 +50,7 @@ DeleteGameDialog.propTypes = {
   openRemoveDialog: PropTypes.bool.isRequired,
   deleteGame: PropTypes.func.isRequired,
   handleRemoveClick: PropTypes.func.isRequired,
-  gameName: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default DeleteGameDialog;
