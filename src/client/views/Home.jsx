@@ -55,6 +55,14 @@ function Home() {
       });
   };
 
+  // Handles setting inputNameError's state for only three seconds
+  const handleSetInputNameError = () => {
+    setInputNameError(true);
+    setTimeout(() => {
+      setInputNameError(false);
+    }, 3000);
+  };
+
   /*
     Sends POST request to add a game to the games collection:
       - You must pass the gameName into the function to avoid resetting
@@ -64,11 +72,11 @@ function Home() {
     axios.post('/api/games', { game: { name: gameName } })
       .then(({ data }) => {
         /*
-          If no data is in the response, setInputNameError to true:
+          If no data is in the response, setInputNameError to true using handleSetInputError:
           This warns user that they have spelt the name of the board game incorrectly
         */
         if (!data) {
-          setInputNameError(true);
+          handleSetInputNameError();
         /*
           Otherwise, (1) setInputNameError to false to hide warning
           (2) fetchGames to render the newly added game
@@ -101,8 +109,11 @@ function Home() {
   const handleNoCloseMatchClick = () => {
     // Set closeMatch state to null
     setCloseMatch(null);
-    // Set inputNameError state to true to warn user to check spelling
-    setInputNameError(true);
+    /*
+      Set inputNameError state to true to warn user to check spelling
+      using handleSetInputNameError
+    */
+    handleSetInputNameError();
   };
 
   // When component mounts, make a get request for all games in the Games collection
@@ -132,7 +143,7 @@ function Home() {
           padding: 2,
         }}
       >
-        <Grid size={4}>
+        <Grid>
           <Typography variant="h6" style={{ paddingBottom: 10 }}>
             Add a Game to your collection:
           </Typography>
@@ -154,9 +165,8 @@ function Home() {
           closeMatch
             ? (
               <Grid
-                size={8}
                 sx={{
-                  padding: 2,
+                  pl: 2,
                 }}
               >
                 <Typography variant="h6">
