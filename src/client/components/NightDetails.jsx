@@ -69,7 +69,7 @@ function NightDetails({ gameNight, getGameNights }) {
     // Build config to send in request
     const config = { patchValue: { isCancelled: !isCancelled } };
     // Make an axios patch request to cancel the gameNight
-    axios.patch(`/api/gameNights/${_id}`, config)
+    axios.patch(`/api/game-nights/${_id}`, config)
       .then(() => {
         console.log('Cancelled the event');
       })

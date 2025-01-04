@@ -45,6 +45,22 @@ gameNightsRouter.delete('/:id', (req, res) => {
       res.sendStatus(500);
     });
 });
+
+gameNightsRouter.patch('/:id', (req, res) => {
+  // Grab the id from req params
+  const { id } = req.params;
+  // Grab the config from the req body
+  const { patchValue } = req.body;
+  // Query the database to update the event with the correct id
+  GameNights.findByIdAndUpdate(id, patchValue)
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.error('Error cancelling event in the database: ', err);
+      res.sendStatus(500);
+    });
+});
 module.exports = {
   gameNightsRouter,
 };
