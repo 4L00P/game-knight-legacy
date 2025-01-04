@@ -95,17 +95,35 @@ function NightDetails({ gameNight, getGameNights }) {
           {createList('Games', gameNight.games)}
         </Grid>
         {moment(gameNight.fullDate).isAfter(moment())
-          ? (
-            <Button
-              variant="contained"
-              size="small"
-              sx={{ marginRight: 'auto' }}
-              onClick={handleCancelOpen}
-            >
-              Cancel Event
-            </Button>
-          )
-          : <Typography variant="subtitle2" sx={{ marginRight: 'auto' }}>Winner:</Typography>}
+        && !gameNight.isCancelled
+        && (
+          <Button
+            variant="contained"
+            size="small"
+            sx={{ marginRight: 'auto' }}
+            onClick={handleCancelOpen}
+          >
+            Cancel Event
+          </Button>
+        )}
+        {moment(gameNight.fullDate).isAfter(moment())
+        && gameNight.isCancelled
+        && (
+          <Button
+            variant="contained"
+            size="small"
+            sx={{ marginRight: 'auto' }}
+            onClick={handleCancelClick}
+          >
+            Uncancel
+          </Button>
+        )}
+        {moment(gameNight.fullDate).isBefore(moment())
+        && !gameNight.isCancelled
+        && <Typography variant="subtitle2" sx={{ marginRight: 'auto' }}>Winner:</Typography>}
+        {moment(gameNight.fullDate).isBefore(moment())
+        && gameNight.isCancelled
+        && <Typography variant="subtitle2" sx={{ marginRight: 'auto' }} />}
         <Button
           variant="contained"
           size="small"
