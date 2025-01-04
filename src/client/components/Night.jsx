@@ -27,6 +27,10 @@ function Night({ gameNight, getGameNights }) {
     // Grab the new name and the event id
     const { _id } = gameNight;
     const { value } = element.target;
+    // Make sure the value is not empty
+    if (!value) {
+      return;
+    }
     // Build config to send
     const config = {
       newDocument: { name: value },
