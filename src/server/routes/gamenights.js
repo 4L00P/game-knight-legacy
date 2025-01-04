@@ -22,7 +22,6 @@ gameNightsRouter.get('/', (req, res) => {
 gameNightsRouter.post('/', (req, res) => {
   // Grab the request body
   const { formValues } = req.body;
-  console.log('FormValues: ', formValues);
   // Add the new gamenight to the database
   GameNights.create(formValues).then((event) => {
     // Send back the proper status codes
