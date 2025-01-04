@@ -100,7 +100,7 @@ function NightDetails({ gameNight, getGameNights }) {
         <Grid size={4}>
           {createList('Snacks', gameNight.snacks)}
         </Grid>
-        <Grid>
+        <Grid size={12}>
           <Box>
             <Typography variant="body1">{`Date: ${moment(gameNight.fullDate).format('MMM Do')}`}</Typography>
             <Typography variant="body1">{`Time: ${gameNight.time}`}</Typography>
