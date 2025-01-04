@@ -13,8 +13,10 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Stack,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import DividedListItem from './DividedListItem';
 
 const { useState } = React;
 
@@ -23,7 +25,7 @@ function NightDetails({ gameNight, getGameNights }) {
   const [deleting, setDeleting] = useState(false);
   // Set sate value for opening and closing deleting dialog
   const [cancelling, setCancelling] = useState(false);
-
+  const [formValues, setFormValues] = useState(gameNight);
   // Functions to open and close delete dialog box
   const handleDeleteOpen = () => {
     // Change the state value to true
@@ -88,11 +90,14 @@ function NightDetails({ gameNight, getGameNights }) {
   return (
     <AccordionDetails>
       <Grid container spacing={2}>
-        <Grid size={6}>
+        <Grid size={4}>
           {createList('Guests', gameNight.guests)}
         </Grid>
-        <Grid size={6}>
+        <Grid size={4}>
           {createList('Games', gameNight.games)}
+        </Grid>
+        <Grid size={4}>
+          {createList('Snacks', gameNight.snacks)}
         </Grid>
         {moment(gameNight.fullDate).isAfter(moment())
         && !gameNight.isCancelled
