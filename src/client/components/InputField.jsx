@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid2';
 import CalendarField from './CalendarField';
 
+const { useState } = React;
 function InputField({
   objvalue,
   handleChange,
@@ -21,11 +22,22 @@ function InputField({
     helperText,
   } = objvalue;
 
+  // Create state value to hold error field for Name input
+  const [showError, setShowError] = useState(false);
   // Allow enter to add to list
   const handleEnter = (element) => {
     const { key } = element;
     if (key === 'Enter') {
       handleAddClick(element);
+    }
+  };
+
+  // Function to check the value of the Name field in formValues
+  const checkNameVal = () => {
+    if (!formValues.name) {
+      setShowError(true);
+    } else {
+      handleFinalClick();
     }
   };
 
@@ -42,6 +54,7 @@ function InputField({
             required={label === 'Name'}
             onChange={(element) => handleChange(element)}
             onKeyUp={handleEnter}
+            error={label === 'Name' ? showError : false}
             autoFocus
           />
           {
@@ -66,7 +79,7 @@ function InputField({
           <CalendarField
             formValues={formValues}
             setFormValues={setFormValues}
-            handleFinalClick={handleFinalClick}
+            handleFinalClick={checkNameVal}
             closeForm={closeForm}
           />
         )
@@ -83,6 +96,7 @@ InputField.propTypes = {
     helperText: PropTypes.string,
   }).isRequired,
   formValues: PropTypes.shape({
+    name: PropTypes.string,
     guests: PropTypes.arrayOf(PropTypes.string),
     snacks: PropTypes.arrayOf(PropTypes.string),
     games: PropTypes.arrayOf(PropTypes.string),

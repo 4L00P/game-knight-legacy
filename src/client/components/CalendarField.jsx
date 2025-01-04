@@ -7,7 +7,12 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-function CalendarField({ formValues, setFormValues, handleFinalClick, closeForm }) {
+function CalendarField({
+  formValues,
+  setFormValues,
+  handleFinalClick,
+  closeForm,
+}) {
   const handleDateChange = (element) => {
     // Make a copy of formValues from state
     const formCopy = { ...formValues };
