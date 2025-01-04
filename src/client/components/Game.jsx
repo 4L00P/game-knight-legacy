@@ -55,6 +55,9 @@ function Game({ game, getGames, setGamesFilter }) {
     <ListItem>
       <Accordion
         className="outer-accordion"
+        sx={{
+          width: 0.6,
+        }}
       >
         <AccordionSummary
           expandIcon={<ExpandCircleDownTwoToneIcon />}
