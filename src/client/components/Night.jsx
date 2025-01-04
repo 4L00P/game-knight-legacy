@@ -12,10 +12,11 @@ import {
 } from '@mui/material';
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 import NightDetails from './NightDetails';
+import CalendarField from './CalendarField';
 
 const { useState } = React;
 function Night({ gameNight, getGameNights }) {
-  // Set state value for editing an event
+  // Set state values for editing an event
   const [editingName, setEditingName] = useState(false);
   const [event, setEvent] = useState(gameNight);
 
@@ -77,7 +78,7 @@ function Night({ gameNight, getGameNights }) {
               ? (
                 <Typography
                   variant="h6"
-                  sx={{ marginRight: 'auto', '&:hover': { color: 'grey' } }}
+                  sx={{ marginRight: 'auto', '&:hover': { color: 'white' } }}
                   onClick={() => { setEditingName(true); }}
                 >
                   {gameNight.name}
@@ -95,20 +96,20 @@ function Night({ gameNight, getGameNights }) {
               )
 }
           <Typography
-            sx={{ paddingRight: 2.5 }}
+            sx={{ paddingRight: 2.5, '&:hover': { color: 'white' } }}
           >
             {
-            gameNight.isCancelled
-              ? 'Cancelled'
-              : moment(gameNight.fullDate).calendar(
-                null,
-                {
-                  sameDay: '[Today at] h:mm',
-                  nextDay: '[Tomorrow at] h:mm',
-                  nextWeek: 'dddd [at] h:mm',
-                  sameElse: 'dddd, MMMM Do',
-                },
-              )
+                gameNight.isCancelled
+                  ? 'Cancelled'
+                  : moment(gameNight.fullDate).calendar(
+                    null,
+                    {
+                      sameDay: '[Today at] h:mm a',
+                      nextDay: '[Tomorrow at] h:mm a',
+                      nextWeek: 'dddd [at] h:mm a',
+                      sameElse: 'dddd, MMMM Do',
+                    },
+                  )
           }
           </Typography>
         </AccordionSummary>

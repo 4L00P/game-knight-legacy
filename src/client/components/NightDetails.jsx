@@ -103,7 +103,7 @@ function NightDetails({ gameNight, getGameNights }) {
         <Grid size={12}>
           <Box>
             <Typography variant="body1">{`Date: ${moment(gameNight.fullDate).format('MMM Do')}`}</Typography>
-            <Typography variant="body1">{`Time: ${gameNight.time}`}</Typography>
+            <Typography variant="body1">{`Time: ${moment(gameNight.fullDate).format('h:mm a')}`}</Typography>
           </Box>
         </Grid>
         {moment(gameNight.fullDate).isAfter(moment())
