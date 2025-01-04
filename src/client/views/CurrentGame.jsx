@@ -1,16 +1,20 @@
 import React from "react";
 import { useState } from "react";
-
-import { Stack, Typography, Paper, ListItem } from "@mui/material";
+// import { Grid } from 'gridv2';
+import { Grid2,
+  Typography,
+  Paper,
+  Card } from "@mui/material";
 
 import Navbar from "../components/Navbar";
 // import { name, members } from '../../server/database/models/Groups';
+const Grid = Grid2;
 
 function CurrentGame() {
   // set a useState function for night name, group, and game.
-  const [ name, SetName ] = useState('');
-  const [ game, SetGame ] = useState('');
-  const [ group, SetGroup ] = useState('');
+  // const [name, SetName] = useState("");
+  // const [game, SetGame] = useState("");
+  // const [group, SetGroup] = useState("");
   /**
    * Game Needs:
    * 1. Array of strings representing the names of each person playing(members);
@@ -50,7 +54,9 @@ function CurrentGame() {
       <Typography variant="h2" align="center">
         TEST GAME!!!
       </Typography>
-      <Typography variant="h4" align="center">Gaia Project</Typography>
+      <Typography variant="h4" align="center">
+        Gaia Project
+      </Typography>
       {/* SAVED FOR TURN ORDER MANIPULATION as a reminder
       <div className="turn-order-tags">
         <div>John</div>
@@ -59,28 +65,53 @@ function CurrentGame() {
         <div>Schmidt</div>
       </div> */}
       <form align="right">
-        <label htmlFor="name">Name</label>
-        <input type="text" id="name" />
-        <button type="submit">Submit</button>
-        </form>
-      <form align="right">
-        <label htmlFor="player">Add Player</label>
-        <input type="text" id="player" />
+        <label htmlFor="name">
+          Name
+          <input type="text" id="name" />
+        </label>
         <button type="submit">Submit</button>
       </form>
       <form align="right">
-        <label htmlFor="game">Game</label>
-        <input type="text" id="game" />
+        <label htmlFor="player">
+          Add Player
+          <input type="text" id="player" />
+        </label>
         <button type="submit">Submit</button>
       </form>
-      <div className="player-info-bars">
-        <Paper elevation={0} style={{ height: '20px', width: '90px' }}>
-          John info
-        </Paper>
-        <Paper elevation={8}>Jacob info</Paper>
-        <Paper elevation={16}>Jingle info</Paper>
-        <Paper elevation={24}>Schmidt info</Paper>
-      </div>
+      <form align="right">
+        <label htmlFor="game">
+          Game
+          <input type="text" id="game" />
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+
+      <Grid container spacing={1}>
+        <Grid size={3}>
+          <item>John info</item>
+          {/* </Card> */}
+        </Grid>
+
+        {/* <Card elevation={24} style={{ height: "120px", width: "120px" }}> */}
+        <item>Jacobs verbose info</item>
+        {/* </Card> */}
+        <Grid size={3}>
+          {/* <Card elevation={24} style={{ height: "120px", width: "120px" }}> */}
+          <item>Janes verbose info</item>
+          {/* </Card> */}
+        </Grid>
+
+        <Grid size={3}>
+          {/* <Card elevation={24} style={{ height: "120px", width: "120px" }}> */}
+          <item>Judos verbose info</item>
+          {/* </Card> */}
+        </Grid>
+
+        <Grid size={3}>{/* </Paper> */}</Grid>
+
+        {/* <Paper elevation={16}>Jingle info</Paper> */}
+        {/* <Paper elevation={24}>Schmidt info</Paper> */}
+      </Grid>
     </div>
   );
 }
