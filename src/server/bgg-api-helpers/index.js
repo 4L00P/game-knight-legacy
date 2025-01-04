@@ -186,4 +186,5 @@ const getGameInfoBGG = async (title) => {
 
 module.exports = {
   getGameInfoBGG, // Main search function for BGG, can be used with async/await
+  getGameInfoByID, // Secondary search for closeMatch search, can be used with async/await
 };
