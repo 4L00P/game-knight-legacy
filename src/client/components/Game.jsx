@@ -65,8 +65,11 @@ function Game({ game, getGames, setGamesFilter }) {
         >
           <Avatar src={thumbnail} />
           <Typography
-            variant="subtitle2"
-            style={{ padding: 8 }}
+            variant="h6"
+            sx={{
+              pl: 2,
+              pt: 0.4,
+            }}
           >
             {name}
           </Typography>

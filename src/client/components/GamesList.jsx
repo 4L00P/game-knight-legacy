@@ -9,7 +9,13 @@ function GamesList({ games, getGames, setGamesFilter }) {
    * Map through the games array and return the Game component with a game property
    */
   return (
-    <List>
+    <List
+      sx={{
+        maxHeight: 365,
+        position: 'relative',
+        overflow: 'auto',
+      }}
+    >
       {games.map((game) => {
         const { _id } = game;
         return (

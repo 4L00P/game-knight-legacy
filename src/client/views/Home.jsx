@@ -6,6 +6,7 @@ import {
   Typography,
   IconButton,
   Button,
+  Container,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
@@ -199,11 +200,19 @@ function Home() {
           <Typography variant="h4">
             Board Games Collection:
           </Typography>
-          <GamesList
-            games={games}
-            getGames={getGames}
-            setGamesFilter={setGamesFilter}
-          />
+          <Container
+            sx={{
+              border: 1,
+              borderRadius: 3,
+              p: 1,
+            }}
+          >
+            <GamesList
+              games={games}
+              getGames={getGames}
+              setGamesFilter={setGamesFilter}
+            />
+          </Container>
         </Grid>
         <Grid
           size={4}
