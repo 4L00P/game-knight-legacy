@@ -16,6 +16,8 @@ function GameInfo({ game, getGames, setGamesFilter }) {
     yearPublished,
     minPlayers,
     maxPlayers,
+    bestWith,
+    recommendedWith,
     playTime,
     minAge,
     notes,
@@ -32,6 +34,8 @@ function GameInfo({ game, getGames, setGamesFilter }) {
         maxPlayers={maxPlayers}
         playTime={playTime}
         minAge={minAge}
+        bestWith={bestWith}
+        recommendedWith={recommendedWith}
       />
 
       <GameCatsAndMechsInfo
