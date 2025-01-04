@@ -27,7 +27,9 @@ function Night({ gameNight, getGameNights }) {
             sx={{ paddingRight: 2.5 }}
           >
             {
-              moment(gameNight.fullDate).calendar(
+            gameNight.isCancelled
+              ? 'Cancelled'
+              : moment(gameNight.fullDate).calendar(
                 null,
                 {
                   sameDay: '[Today at] h:mm',
@@ -55,6 +57,7 @@ Night.propTypes = {
     fullDate: PropTypes.instanceOf(Date),
     date: PropTypes.string,
     time: PropTypes.string,
+    isCancelled: PropTypes.bool,
   }).isRequired,
   getGameNights: PropTypes.func.isRequired,
 };
