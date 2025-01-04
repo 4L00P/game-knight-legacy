@@ -48,7 +48,7 @@ function Groups() {
       <Grid container spacing={2}>
 
       {groups.map((group) => {
-        const { _id, name, players, games } = group;
+        const { _id, name, players } = group;
         console.log(players.length);
         return (
           <Group
@@ -57,7 +57,6 @@ function Groups() {
           group={group}
           name={name}
           players={players}
-          games={games}
           getGroups={getGroups}
           />
           

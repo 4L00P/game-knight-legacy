@@ -38,10 +38,6 @@ function GroupForm(props) {
         Player List
         <input name="players" type="text" />
       </label>
-      <label htmlFor="group-form-game" id="group-form-game">
-        Game List
-        <input name="games" type="text" />
-      </label>
       <button type="submit">Submit</button>
     </form>
   );
