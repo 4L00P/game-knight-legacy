@@ -16,6 +16,7 @@ function DividedListItem({
   collectionName,
   formValues,
   setFormValues,
+  changeInputValue,
 }) {
 // Handle delete of element in event being created
   const handleDeleteClick = () => {
@@ -27,11 +28,22 @@ function DividedListItem({
     setFormValues(formCopy);
   };
 
+  // Allow editing of inserted elements
+  const handleEditClick = () => {
+    // Remove the element from the list
+    handleDeleteClick();
+    // Have the value appear back in the input field
+    // Use the collectionName and the element (the value of the list item)
+    changeInputValue(collectionName, element);
+  };
+
   return (
     <div>
       <ListItem>
         <ListItemText primary={element} />
-        <IconButton>
+        <IconButton
+          onClick={handleEditClick}
+        >
           <EditIcon fontSize="small" />
         </IconButton>
         <IconButton
@@ -55,6 +67,7 @@ DividedListItem.propTypes = {
     games: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   setFormValues: PropTypes.func.isRequired,
+  changeInputValue: PropTypes.func.isRequired,
 };
 
 export default DividedListItem;

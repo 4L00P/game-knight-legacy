@@ -32,6 +32,20 @@ gameNightsRouter.post('/', (req, res) => {
     res.sendStatus(500);
   });
 });
+
+gameNightsRouter.delete('/:id', (req, res) => {
+  // Grab the id from the req params
+  const { id } = req.params;
+  // Delete the event from the database
+  GameNights.findByIdAndDelete(id)
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.error('Error deleting the event: ', err);
+      res.sendStatus(500);
+    });
+});
 module.exports = {
   gameNightsRouter,
 };

@@ -22,9 +22,9 @@ function Night({ gameNight, getGameNights }) {
           expandIcon={<ExpandCircleDownTwoToneIcon />}
           justify="space-between"
         >
-          <Typography variant="h6" sx={{ width: 3 / 4 }}>{gameNight.name}</Typography>
+          <Typography variant="h6" sx={{ marginRight: 'auto' }}>{gameNight.name}</Typography>
           <Typography
-            align="right"
+            sx={{ paddingRight: 2.5 }}
           >
             {
               moment(gameNight.fullDate).calendar(
@@ -41,6 +41,7 @@ function Night({ gameNight, getGameNights }) {
         </AccordionSummary>
         <NightDetails
           gameNight={gameNight}
+          getGameNights={getGameNights}
         />
       </Accordion>
     </ListItem>
