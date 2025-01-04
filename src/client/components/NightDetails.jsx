@@ -60,9 +60,25 @@ function NightDetails({ gameNight, getGameNights }) {
         console.error('Error deleting event: ', err);
       });
   };
+
+  // Handle click to cancel an event
+  const handleCancelClick = () => {
+    console.log(gameNight);
+    // Grab the _id and isCancelled fields from the gameNight prop
+    const { _id, isCancelled } = gameNight;
+    // Build config to send in request
+    const config = { patchValue: { isCancelled: !isCancelled } };
+    // Make an axios patch request to cancel the gameNight
+    axios.patch(`/api/gameNights/${_id}`, config)
+      .then(() => {
+        console.log('Cancelled the event');
+      })
+      .catch((err) => {
+        console.error('Error canceling the event: ', err);
+      });
+  };
   return (
     <AccordionDetails>
-      <Typography variant="subtitle2">Winner:</Typography>
       <Grid container spacing={2}>
         <Grid size={6}>
           {createList('Guests', gameNight.guests)}
@@ -76,11 +92,12 @@ function NightDetails({ gameNight, getGameNights }) {
               variant="contained"
               size="small"
               sx={{ marginRight: 'auto' }}
+              onClick={handleCancelClick}
             >
               Cancel
             </Button>
           )
-          : <Typography variant="body" sx={{ marginRight: 'auto' }}>This event has concluded</Typography>}
+          : <Typography variant="subtitle2" sx={{ marginRight: 'auto' }}>Winner:</Typography>}
         <Button
           variant="contained"
           size="small"
@@ -116,6 +133,7 @@ NightDetails.propTypes = {
     snacks: PropTypes.arrayOf(PropTypes.string),
     games: PropTypes.arrayOf(PropTypes.string),
     fullDate: PropTypes.instanceOf(Date),
+    isCancelled: PropTypes.bool,
   }).isRequired,
   getGameNights: PropTypes.func.isRequired,
 };
