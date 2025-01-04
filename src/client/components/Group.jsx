@@ -16,6 +16,7 @@ function Group({ id, name, players, getGroups }) {
         console.error("Unable to Delete group", err);
       });
   }
+  function moveGroup() {}
   return (
     <Grid item size={3}>
         <Card
@@ -29,6 +30,7 @@ function Group({ id, name, players, getGroups }) {
           <button type="button" onClick={deleteGroup}>
             DELETE GROUP
           </button>
+          <button type="button" onClick={moveGroup}>Start a game with this group!</button>
         </Card>
     </Grid>
   );
@@ -36,7 +38,7 @@ function Group({ id, name, players, getGroups }) {
 Group.propTypes = {
   name: PropTypes.string.isRequired,
   players: PropTypes.arrayOf(PropTypes.string).isRequired,
-  id: PropTypes.number.isRequired, 
+  id: PropTypes.number.isRequired,
   getGroups: PropTypes.func.isRequired,
 };
 export default Group;
