@@ -22,9 +22,12 @@ function GameGeneralInfo({
    * Accordion #1: General Info
    *  - Contains a grid of information about the game:
    *    (1) The year it was published
-   *    (2) The number of players that can play the game.
-   *    (3) The average amount of time the game will take to play.
-   *    (4) The minimum age recommended to play the game.
+   *    (2) The average amount of time the game will take to play.
+   *    (3) The minimum age recommended to play the game.
+   *    (4) The number of players that can play the game.
+   *    (5) The best number of players to play with
+   *    (6) The recommended number of players to play with.
+   *  - All data here is conditionally shown if there is data from BGG available
    */
   return (
     <Accordion>
