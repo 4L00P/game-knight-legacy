@@ -14,6 +14,7 @@ import {
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 
 import GameInfo from './GameInfo';
+import RemoveGameDialog from './game-info-components/RemoveGameDialog';
 
 const { useState } = React;
 
@@ -22,6 +23,8 @@ function Game({ game, getGames, setGamesFilter }) {
   const { _id, name, thumbnail } = game;
   // showGameInfo will determine whether or not the additional information is rendered to the page
   const [showGameInfo, setShowGameInfo] = useState(false);
+  // Will track the state of the delete dialog window when a user goes to delete a game
+  const [openRemoveDialog, setOpenRemoveDialog] = useState(false);
 
   // Send DELETE request to /api/games/:id to remove game from DB
   const deleteGame = () => {
@@ -32,6 +35,11 @@ function Game({ game, getGames, setGamesFilter }) {
       .catch((err) => {
         console.error('Failed to deleteGame:', err);
       });
+  };
+
+  // Handles clicking the Remove button to open the remove game dialog
+  const handleRemoveClick = () => {
+    setOpenRemoveDialog(!openRemoveDialog);
   };
 
   /**
@@ -76,10 +84,15 @@ function Game({ game, getGames, setGamesFilter }) {
         <AccordionActions>
           <Button
             className="delete-button"
-            onClick={deleteGame}
+            onClick={handleRemoveClick}
           >
             REMOVE
           </Button>
+          <RemoveGameDialog
+            openRemoveDialog={openRemoveDialog}
+            deleteGame={deleteGame}
+            handleRemoveClick={handleRemoveClick}
+          />
         </AccordionActions>
       </Accordion>
     </ListItem>
