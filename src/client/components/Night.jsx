@@ -17,9 +17,11 @@ const { useState } = React;
 function Night({ gameNight, getGameNights }) {
   // Set state value for editing an event
   const [editingName, setEditingName] = useState(false);
+  const [event, setEvent] = useState(gameNight);
 
   // PATCH edited event name
   const patchName = (element) => {
+    console.log('PatchName called');
     // Change the editingName value in state
     setEditingName(false);
     // Grab the new name and the event id
@@ -27,7 +29,7 @@ function Night({ gameNight, getGameNights }) {
     const { value } = element.target;
     // Build config to send
     const config = {
-      newName: { name: value },
+      newDocument: { name: value },
     };
     // Send an axios PATCH req
     axios.patch(`/api/game-nights/${_id}`, config)
@@ -36,6 +38,18 @@ function Night({ gameNight, getGameNights }) {
       .catch((err) => {
         console.error('Error patching event name: ', err);
       });
+  };
+
+  // Handle change in textField
+  const handleChange = (element) => {
+    // Grab the new value
+    const { value } = element.target;
+    // Make a copy of the evenet object from state
+    const eventCopy = { ...event };
+    // Change the name in gameNight to value
+    eventCopy.name = value;
+    // Change the state of event to the new object
+    setEvent(eventCopy);
   };
   return (
     <ListItem>
@@ -56,8 +70,9 @@ function Night({ gameNight, getGameNights }) {
                 </Typography>
               ) : (
                 <TextField
-                  value={gameNight.name}
+                  value={event.name}
                   sx={{ marginRight: 'auto' }}
+                  onChange={handleChange}
                   onBlur={(element) => { patchName(element); }}
                   autoFocus
                 />

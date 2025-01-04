@@ -78,7 +78,7 @@ function NightDetails({ gameNight, getGameNights }) {
     // Grab the _id and isCancelled fields from the gameNight prop
     const { _id, isCancelled } = gameNight;
     // Build config to send in request
-    const config = { patchValue: { isCancelled: !isCancelled } };
+    const config = { newDocument: { isCancelled: !isCancelled } };
     // Make an axios patch request to cancel the gameNight
     axios.patch(`/api/game-nights/${_id}`, config)
       .then(getGameNights)
