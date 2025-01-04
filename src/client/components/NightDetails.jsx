@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import {
   AccordionDetails,
+  Box,
   Button,
   List,
   ListItem,
@@ -99,6 +100,12 @@ function NightDetails({ gameNight, getGameNights }) {
         <Grid size={4}>
           {createList('Snacks', gameNight.snacks)}
         </Grid>
+        <Grid>
+          <Box>
+            <Typography variant="body1">{`Date: ${moment(gameNight.fullDate).format('MMM Do')}`}</Typography>
+            <Typography variant="body1">{`Time: ${gameNight.time}`}</Typography>
+          </Box>
+        </Grid>
         {moment(gameNight.fullDate).isAfter(moment())
         && !gameNight.isCancelled
         && (
@@ -179,6 +186,8 @@ NightDetails.propTypes = {
     snacks: PropTypes.arrayOf(PropTypes.string),
     games: PropTypes.arrayOf(PropTypes.string),
     fullDate: PropTypes.instanceOf(Date),
+    date: PropTypes.string,
+    time: PropTypes.string,
     isCancelled: PropTypes.bool,
   }).isRequired,
   getGameNights: PropTypes.func.isRequired,
