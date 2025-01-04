@@ -8,6 +8,7 @@ import {
   Button,
   List,
   ListItem,
+  TextField,
   Typography,
   Dialog,
   DialogActions,
@@ -17,16 +18,17 @@ import {
   Stack,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import DividedListItem from './DividedListItem';
+import DateEdit from './DateEdit';
 
 const { useState } = React;
 
 function NightDetails({ gameNight, getGameNights }) {
-  // Set state value for opening and closing deleting dialog
+  // Set sate value for opening and closing deleting/cancelling dialog
   const [deleting, setDeleting] = useState(false);
-  // Set sate value for opening and closing deleting dialog
   const [cancelling, setCancelling] = useState(false);
-  const [formValues, setFormValues] = useState(gameNight);
+  // Set state values to track if date and time are being edited
+  const [editingDate, setEditingDate] = useState(false);
+  const [editingTime, setEditingTime] = useState(false);
   // Functions to open and close delete dialog box
   const handleDeleteOpen = () => {
     // Change the state value to true
@@ -102,8 +104,48 @@ function NightDetails({ gameNight, getGameNights }) {
         </Grid>
         <Grid size={12}>
           <Box>
-            <Typography variant="body1">{`Date: ${moment(gameNight.fullDate).format('MMM Do')}`}</Typography>
-            <Typography variant="body1">{`Time: ${moment(gameNight.fullDate).format('h:mm a')}`}</Typography>
+            <Typography
+              variant="body1"
+              onClick={() => { setEditingDate(true); }}
+              sx={{ '&:hover': { color: 'white' } }}
+            >
+              Date:
+            </Typography>
+            { editingDate
+              ? (
+                <DateEdit
+                  gameNight={gameNight}
+                  getGameNights={getGameNights}
+                  editingDate={editingDate}
+                  editingTime={editingTime}
+                  setEditingDate={setEditingDate}
+                  setEditingTime={setEditingTime}
+                  placeHolder="MM/DD/YY"
+                  blurEvent={() => { setEditingDate(false); }}
+                />
+              )
+              : <Typography variant="body1">{`${moment(gameNight.fullDate).format('MMM Do')}`}</Typography>}
+            <Typography
+              variant="body1"
+              onClick={() => { setEditingTime(true); }}
+              sx={{ '&:hover': { color: 'white' } }}
+            >
+              Time:
+            </Typography>
+            { editingTime
+              ? (
+                <DateEdit
+                  gameNight={gameNight}
+                  getGameNights={getGameNights}
+                  editingDate={editingDate}
+                  editingTime={editingTime}
+                  setEditingDate={setEditingDate}
+                  setEditingTime={setEditingTime}
+                  placeHolder=""
+                  blurEvent={() => { setEditingTime(false); }}
+                />
+              )
+              : <Typography>{`${moment(gameNight.fullDate).format('h:mm a')}`}</Typography>}
           </Box>
         </Grid>
         {moment(gameNight.fullDate).isAfter(moment())

@@ -15,7 +15,8 @@ function DateEdit({
   editingTime,
   setEditingDate,
   setEditingTime,
-  label,
+  placeHolder,
+  blurEvent,
 }) {
   // PATCH the date or time in the database
   const patchEventDate = (element) => {
@@ -25,20 +26,26 @@ function DateEdit({
     // Grab the id from gameNight and value from the element
       const { _id } = gameNight;
       const { value } = element.target;
-      // Set the values of the new fullDate and date for the database using moment
-      const fullDate = moment(value, 'MM/DD/YY').format();
-      const date = moment(value, 'MM/DD/YY').format('dddd, MMMM Do YYYY');
-      // Build the config based on field
-      const config = {
-        newDocument: {
-          fullDate,
-          date,
-        },
-      };
+      // Check editingDate and editingTime values to know what config to send
+      const config = editingDate
+        ? {
+          newDocument: {
+            fullDate: moment(`${value} ${gameNight.time}`, 'MM/DD/YY h:mm').format(),
+            date: moment(value, 'MM/DD/YY').format('dddd, MMMM Do YYYY'),
+          },
+        }
+        : {
+          newDocument: {
+            fullDate: moment(`${gameNight.date} ${value}`, 'dddd, MMMM Do YYYY h:mm').format(),
+            time: value,
+          },
+        };
+      console.log('Config: ', config);
       // Make axios patch request with the id
       axios.patch(`/api/game-nights/${_id}`, config)
         .then(getGameNights)
         .then(() => { setEditingDate(false); })
+        .then(() => { setEditingTime(false); })
         .catch((err) => {
           console.error('Error patching the date: ', err);
         });
@@ -46,9 +53,11 @@ function DateEdit({
   };
   return (
     <TextField
-      placeholder={label}
+      placeholder={placeHolder}
       helperText="Enter to save"
       onKeyUp={patchEventDate}
+      onBlur={blurEvent}
+      autoFocus
       sx={{
         width: 115,
         '& .MuiInputBase-root': {
@@ -61,14 +70,16 @@ function DateEdit({
 
 DateEdit.propTypes = {
   gameNight: PropTypes.shape({
-
+    date: PropTypes.string,
+    time: PropTypes.string,
   }).isRequired,
   getGameNights: PropTypes.func.isRequired,
   editingDate: PropTypes.bool.isRequired,
   editingTime: PropTypes.bool.isRequired,
   setEditingDate: PropTypes.func.isRequired,
   setEditingTime: PropTypes.func.isRequired,
-  label: PropTypes.string.isRequired,
+  placeHolder: PropTypes.string.isRequired,
+  blurEvent: PropTypes.func.isRequired,
 };
 
 export default DateEdit;
