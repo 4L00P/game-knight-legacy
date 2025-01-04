@@ -16,7 +16,9 @@ function GameDescriptionInfo({ description }) {
    *    to show the line breaks to the user.
    */
   return (
-    <Accordion>
+    <Accordion
+      className="inner-accordion"
+    >
       <AccordionSummary
         expandIcon={<ExpandCircleDownTwoToneIcon />}
       >

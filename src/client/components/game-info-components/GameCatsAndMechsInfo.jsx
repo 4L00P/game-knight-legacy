@@ -13,7 +13,9 @@ import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwo
 
 function GameCatsAndMechsInfo({ categories, mechanics, setGamesFilter }) {
   return (
-    <Accordion>
+    <Accordion
+      className="inner-accordion"
+    >
       <AccordionSummary
         expandIcon={<ExpandCircleDownTwoToneIcon />}
       >

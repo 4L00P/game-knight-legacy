@@ -4,7 +4,7 @@ const appTheme = createTheme({
   // Affects the color scheme of the site
   palette: {
     primary: {
-      main: '#A523A5',
+      main: '#0FD4FF',
       /**
        * Other Color Tokens:
        *  - light
@@ -12,9 +12,9 @@ const appTheme = createTheme({
        *  - contrastText
        */
     },
-    // secondary: {
-
-    // },
+    secondary: {
+      main: '#FB7509',
+    },
     update: {
       main: '#30BB60',
     },
@@ -75,7 +75,7 @@ const appTheme = createTheme({
       styleOverrides: {
         root: {
           // All accordions use this background color by default
-          backgroundColor: '#DD8888',
+          backgroundColor: '#0FD4FF',
           /*
             If you want to override styles based on a specific prop,
             you can use the 'variants' key in the particular slot that contains
@@ -85,12 +85,8 @@ const appTheme = createTheme({
           variants: [
             // These background colors are used if the className prop on the accordion matches
             {
-              props: { className: 'outer-accordion' },
-              style: { backgroundColor: '#A5E590' },
-            },
-            {
               props: { className: 'inner-accordion' },
-              style: { backgroundColor: '#BB99BB' },
+              style: { backgroundColor: '#FB7509' },
             },
           ],
         },
