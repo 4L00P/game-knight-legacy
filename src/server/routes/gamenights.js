@@ -50,9 +50,9 @@ gameNightsRouter.patch('/:id', (req, res) => {
   // Grab the id from req params
   const { id } = req.params;
   // Grab the config from the req body
-  const { patchValue } = req.body;
+  const { newDocument } = req.body;
   // Query the database to update the event with the correct id
-  GameNights.findByIdAndUpdate(id, patchValue)
+  GameNights.findByIdAndUpdate(id, newDocument)
     .then(() => {
       res.sendStatus(200);
     })
@@ -61,6 +61,7 @@ gameNightsRouter.patch('/:id', (req, res) => {
       res.sendStatus(500);
     });
 });
+
 module.exports = {
   gameNightsRouter,
 };
