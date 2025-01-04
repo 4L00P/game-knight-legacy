@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Card, Typography, Grid2 } from "@mui/material";
-import axios from 'axios';
+import axios from "axios";
 
 function Group({ id, name, players, games, getGroups }) {
   function deleteGroup() {
@@ -14,12 +14,14 @@ function Group({ id, name, players, games, getGroups }) {
       .catch((err) => {
         console.error("Unable to Delete group", err);
       });
-    }
-    return (
+  }
+  return (
+    <Grid2 size={3}>
+    <item>
       <Card
         elevation={10}
         style={{ height: "120px", width: "120px", padding: "14px" }}
-      >
+        >
         <div>{name}</div>
         <div>{players}</div>
         <div>{games}</div>
@@ -27,7 +29,9 @@ function Group({ id, name, players, games, getGroups }) {
           DELETE
         </button>
       </Card>
-    );
+    </item>
+        </Grid2>
+  );
 }
 Group.propTypes = {
   name: PropTypes.string.isRequired,

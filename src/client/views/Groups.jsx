@@ -45,20 +45,25 @@ function Groups() {
     <div>
       <Navbar />
       <GroupForm getGroups={getGroups} />
+      <Grid container spacing={2}>
+
       {groups.map((group) => {
         const { _id, name, players, games } = group;
+        console.log(players.length);
         return (
           <Group
-            id={_id}
-            group={group}
-            key={_id}
-            name={name}
-            players={players}
-            games={games}
-            getGroups={getGroups}
+          id={_id}
+          key={_id}
+          group={group}
+          name={name}
+          players={players}
+          games={games}
+          getGroups={getGroups}
           />
+          
         );
       })}
+      </Grid>
     </div>
   );
 }
