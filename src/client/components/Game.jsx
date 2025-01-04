@@ -92,6 +92,7 @@ function Game({ game, getGames, setGamesFilter }) {
             openRemoveDialog={openRemoveDialog}
             deleteGame={deleteGame}
             handleRemoveClick={handleRemoveClick}
+            gameName={name}
           />
         </AccordionActions>
       </Accordion>
