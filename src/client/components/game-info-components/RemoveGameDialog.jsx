@@ -20,11 +20,11 @@ function DeleteGameDialog({
       open={openRemoveDialog}
     >
       <DialogTitle>
-        Title
+        Remove Board Game
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          {`Content - ${name}`}
+          {`Are you sure you want to remove ${name} from your collection?`}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
