@@ -3,7 +3,7 @@ import axios from "axios";
 import { Card, Grid2, Typography } from "@mui/material";
 import Navbar from "../components/Navbar";
 import GroupForm from "../components/GroupForm";
-import Group from '../components/Group';
+import Group from "../components/Group";
 
 const Grid = Grid2;
 
@@ -34,34 +34,31 @@ function Groups() {
         console.error("Could not Get groups", err);
       });
   }
+
   useEffect(getGroups, []);
   /**
    * Rendering Navbar, then the Form component, followed by a grid
    * structure of groups that user owns on cards
    */
+  console.log('Groups:', groups)
   return (
     <div>
       <Navbar />
       <GroupForm getGroups={getGroups} />
-      <ul>
-        {groups.map((group) => {
-          const {
-            _id,
-            name,
-            players,
-            games,
-          } = group;
-          return (
-            <Group
-              group={group}
-              key={_id}
-              name={name}
-              players={players}
-              games={games}
-            />
-          );
-        })}
-      </ul>
+      {groups.map((group) => {
+        const { _id, name, players, games } = group;
+        return (
+          <Group
+            id={_id}
+            group={group}
+            key={_id}
+            name={name}
+            players={players}
+            games={games}
+            getGroups={getGroups}
+          />
+        );
+      })}
     </div>
   );
 }

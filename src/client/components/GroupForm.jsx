@@ -23,7 +23,7 @@ function GroupForm(props) {
     axios.post('api/groups', groupObj).then((group) => {
       // send a get request from a callback
       console.log(group);
-      return getGroups;
+      getGroups();
     }).catch((err) => {
       console.error('Unable to Post group', err);
     });
