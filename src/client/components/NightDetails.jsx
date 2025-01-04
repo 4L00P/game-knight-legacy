@@ -19,18 +19,28 @@ import Grid from '@mui/material/Grid2';
 const { useState } = React;
 
 function NightDetails({ gameNight, getGameNights }) {
-  // Set state value for opening and closing dialog
-  const [dialogOpen, setDialogOpen] = useState(false);
+  // Set state value for opening and closing deleting dialog
+  const [deleting, setDeleting] = useState(false);
+  // Set sate value for opening and closing deleting dialog
+  const [cancelling, setCancelling] = useState(false);
 
-  // Open the dialog box
-  const handleClickOpen = () => {
-    // Chan ge the state value to true
-    setDialogOpen(true);
+  // Functions to open and close delete dialog box
+  const handleDeleteOpen = () => {
+    // Change the state value to true
+    setDeleting(true);
   };
-  // Close the Dialog box
-  const handleClose = () => {
+  const handleDeleteClose = () => {
     // Change the state value to false
-    setDialogOpen(false);
+    setDeleting(false);
+  };
+  // Functions to open and close cancel dialog box
+  const handleCancelOpen = () => {
+    // Set cancelling state value to true
+    setCancelling(true);
+  };
+  const handleCancelClose = () => {
+    // Set cancelling state value to false
+    setCancelling(false);
   };
   // Helper function to create a list from props arrays
   const createList = (label, prop, index) => (
@@ -63,7 +73,6 @@ function NightDetails({ gameNight, getGameNights }) {
 
   // Handle click to cancel an event
   const handleCancelClick = () => {
-    console.log(gameNight);
     // Grab the _id and isCancelled fields from the gameNight prop
     const { _id, isCancelled } = gameNight;
     // Build config to send in request
@@ -71,6 +80,7 @@ function NightDetails({ gameNight, getGameNights }) {
     // Make an axios patch request to cancel the gameNight
     axios.patch(`/api/game-nights/${_id}`, config)
       .then(getGameNights)
+      .then(() => { setCancelling(false); })
       .catch((err) => {
         console.error('Error canceling the event: ', err);
       });
@@ -90,21 +100,21 @@ function NightDetails({ gameNight, getGameNights }) {
               variant="contained"
               size="small"
               sx={{ marginRight: 'auto' }}
-              onClick={handleCancelClick}
+              onClick={handleCancelOpen}
             >
-              Cancel
+              Cancel Event
             </Button>
           )
           : <Typography variant="subtitle2" sx={{ marginRight: 'auto' }}>Winner:</Typography>}
         <Button
           variant="contained"
           size="small"
-          onClick={handleClickOpen}
+          onClick={handleDeleteOpen}
         >
           Delete
         </Button>
       </Grid>
-      <Dialog open={dialogOpen} onClose={handleClose}>
+      <Dialog open={deleting} onClose={handleDeleteClose}>
         <DialogTitle>
           Delete Your Event
           {` ${gameNight.name}`}
@@ -115,8 +125,23 @@ function NightDetails({ gameNight, getGameNights }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleDeleteClose}>Cancel</Button>
           <Button onClick={handleNightDelete}>Delete</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={cancelling} onClose={handleCancelClose}>
+        <DialogTitle>
+          Cancel Event
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to cancel your event
+            {gameNight.name}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelClose}>No</Button>
+          <Button onClick={handleCancelClick}>Yes</Button>
         </DialogActions>
       </Dialog>
     </AccordionDetails>

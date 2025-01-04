@@ -3,11 +3,8 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import {
   ListItem,
-  Avatar,
   Accordion,
   AccordionSummary,
-  AccordionDetails,
-  AccordionActions,
   Button,
   Typography,
 } from '@mui/material';
