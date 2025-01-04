@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Card, Typography, Grid2 } from "@mui/material";
 import axios from "axios";
 
+const Grid = Grid2;
 function Group({ id, name, players, getGroups }) {
   function deleteGroup() {
     // run axios delete with the _id from the key prop
@@ -16,26 +17,26 @@ function Group({ id, name, players, getGroups }) {
       });
   }
   return (
-    <Grid2 size={3}>
-      <item>
+    <Grid item size={3}>
         <Card
           elevation={10}
-          style={{ height: "120px", width: "120px", padding: "14px" }}
+          style={{ height: "200px", width: "200px", padding: "14px" }}
         >
-          <div>{name}</div>
-          <div>{players}</div>
+          <Typography>{name}</Typography>
+          <button type="button">Edit Name</button>
+          <Typography>{players.join(',')}</Typography>
+          <button type="button">Edit Players</button>
           <button type="button" onClick={deleteGroup}>
-            DELETE
+            DELETE GROUP
           </button>
         </Card>
-      </item>
-    </Grid2>
+    </Grid>
   );
 }
 Group.propTypes = {
   name: PropTypes.string.isRequired,
   players: PropTypes.arrayOf(PropTypes.string).isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired, 
   getGroups: PropTypes.func.isRequired,
 };
 export default Group;

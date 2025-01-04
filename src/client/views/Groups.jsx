@@ -40,28 +40,28 @@ function Groups() {
    * Rendering Navbar, then the Form component, followed by a grid
    * structure of groups that user owns on cards
    */
-  console.log('Groups:', groups)
+  console.log("Groups:", groups);
   return (
     <div>
       <Navbar />
       <GroupForm getGroups={getGroups} />
+      <Typography>Your Groups</Typography>
       <Grid container spacing={2}>
-
-      {groups.map((group) => {
-        const { _id, name, players } = group;
-        console.log(players.length);
-        return (
-          <Group
-          id={_id}
-          key={_id}
-          group={group}
-          name={name}
-          players={players}
-          getGroups={getGroups}
-          />
-          
-        );
-      })}
+        {groups.map((group) => {
+          const { _id, name, players } = group;
+          console.log(players.length);
+          return (
+            <Grid key={_id} item size={3}>
+              <Group
+                id={_id}
+                group={group}
+                name={name}
+                players={players}
+                getGroups={getGroups}
+              />
+            </Grid>
+          );
+        })}
       </Grid>
     </div>
   );
