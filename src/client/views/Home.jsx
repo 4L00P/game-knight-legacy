@@ -141,19 +141,29 @@ function Home() {
         container
         spacing={2}
         sx={{
-          padding: 2,
+          pl: 2,
+          pt: 2,
         }}
       >
-        <Grid>
-          <Typography variant="h6" style={{ paddingBottom: 10 }}>
-            Add a Game to your collection:
+        <Grid size={3}>
+          <Typography variant="h6">
+            Add a Board Game:
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              fontSize: 12,
+              pb: 0.75,
+            }}
+          >
+            Searches Board Game Geeks for details.
           </Typography>
           <TextField
             error={inputNameError}
             label="Board Game Name"
             variant="outlined"
             value={name}
-            helperText={inputNameError ? 'Check the spelling.' : 'Press \'Enter\' to submit.'}
+            helperText={inputNameError ? 'Check the spelling.' : 'Press \'Enter\' to add board game.'}
             onChange={(e) => { setName(e.target.value); }}
             onKeyUp={({ key }) => {
               if (key === 'Enter') {
@@ -166,6 +176,7 @@ function Home() {
           closeMatch
             ? (
               <Grid
+                size={9}
                 sx={{
                   pl: 2,
                 }}
@@ -194,16 +205,24 @@ function Home() {
         <Grid
           size={8}
           sx={{
-            padding: 2,
+            pl: 2,
+            pt: 1,
           }}
         >
-          <Typography variant="h4">
+          <Typography
+            variant="h4"
+            sx={{
+              pb: 1,
+            }}
+          >
             Board Games Collection:
           </Typography>
           <Container
             sx={{
               border: 1,
+              borderWidth: 2,
               borderRadius: 3,
+              boxShadow: '0 0 15px 5px #48abe0',
               p: 1,
             }}
           >

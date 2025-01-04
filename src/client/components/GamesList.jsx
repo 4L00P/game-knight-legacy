@@ -14,6 +14,18 @@ function GamesList({ games, getGames, setGamesFilter }) {
         maxHeight: 365,
         position: 'relative',
         overflow: 'auto',
+        '&::-webkit-scrollbar': {
+          width: '1em',
+        },
+        '&::-webkit-scrollbar-track': {
+          boxShadow: 'inset 0 0 6px rgba(23, 154, 23, 0)',
+          webkitBoxShadow: 'inset 0 0 6px rgba(29, 179, 37, 0)',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: 'rgba(9, 188, 36, 0.1)',
+          outline: '3px solid green',
+          borderRadius: 5,
+        },
       }}
     >
       {games.map((game) => {
