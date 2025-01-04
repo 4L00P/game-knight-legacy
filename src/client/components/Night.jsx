@@ -51,6 +51,16 @@ function Night({ gameNight, getGameNights }) {
     // Change the state of event to the new object
     setEvent(eventCopy);
   };
+  // Allow enter click to patch name
+  const handleEnterClick = (element) => {
+    // Destructure the key from the element
+    const { key } = element;
+    // Check if the key is enter
+    if (key === 'Enter') {
+      // Call function to PATCH name
+      patchName(element);
+    }
+  };
   return (
     <ListItem>
       <Accordion sx={{ width: 3 / 4 }}>
@@ -74,6 +84,8 @@ function Night({ gameNight, getGameNights }) {
                   sx={{ marginRight: 'auto' }}
                   onChange={handleChange}
                   onBlur={(element) => { patchName(element); }}
+                  onKeyUp={handleEnterClick}
+                  helperText="Hit enter to save"
                   autoFocus
                 />
               )
