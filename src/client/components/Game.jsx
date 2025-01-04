@@ -56,7 +56,7 @@ function Game({ game, getGames, setGamesFilter }) {
       <Accordion
         className="outer-accordion"
         sx={{
-          width: 0.6,
+          width: 1,
         }}
       >
         <AccordionSummary
