@@ -45,7 +45,9 @@ function Game({ game, getGames, setGamesFilter }) {
    */
   return (
     <ListItem>
-      <Accordion>
+      <Accordion
+        className="outer-accordion"
+      >
         <AccordionSummary
           expandIcon={<ExpandCircleDownTwoToneIcon />}
           onClick={() => { setShowGameInfo(!showGameInfo); }}

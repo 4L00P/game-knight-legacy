@@ -75,7 +75,9 @@ function GameRatingAndNotesInfo({
    *  - A SAVE action will save changes to the database
    */
   return (
-    <Accordion>
+    <Accordion
+      className="inner-accordion"
+    >
       <AccordionSummary
         expandIcon={<ExpandCircleDownTwoToneIcon />}
       >
@@ -130,6 +132,7 @@ function GameRatingAndNotesInfo({
           : (
             <Button
               className="update-button"
+              color="update"
               onClick={handleUpdateFormStatusToggle}
             >
               UPDATE
