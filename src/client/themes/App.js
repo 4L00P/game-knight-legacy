@@ -12,8 +12,11 @@ const appTheme = createTheme({
        *  - contrastText
        */
     },
-    secondary: {
-      main: '#24B478',
+    // secondary: {
+
+    // },
+    update: {
+      main: '#30BB60',
     },
     /**
      * Other Default Colors:
@@ -29,7 +32,7 @@ const appTheme = createTheme({
   },
   // Affects Typography throughout the site
   typography: {
-    // fontFamily: `font`,`font`,`font`
+    // fontFamily: 'Grandstander Variable',
     // fontSize: 16,
     /**
      * Typography variants can be customized individually:
@@ -67,6 +70,32 @@ const appTheme = createTheme({
      * Used to customize a component's styles, default props, and more by using
      * its component key inside the theme.
      */
+    // Affects all Accordion components from Material UI:
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          // All accordions use this background color by default
+          backgroundColor: '#DD8888',
+          /*
+            If you want to override styles based on a specific prop,
+            you can use the 'variants' key in the particular slot that contains
+            'props' and 'style' keys. When the component's 'props' matches, the
+            'style' will be applied.
+          */
+          variants: [
+            // These background colors are used if the className prop on the accordion matches
+            {
+              props: { className: 'outer-accordion' },
+              style: { backgroundColor: '#A5E590' },
+            },
+            {
+              props: { className: 'inner-accordion' },
+              style: { backgroundColor: '#BB99BB' },
+            },
+          ],
+        },
+      },
+    },
   },
 });
 
