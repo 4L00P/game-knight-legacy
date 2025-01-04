@@ -69,8 +69,8 @@ function Home() {
       - You must pass the gameName into the function to avoid resetting
         state for suggested games
   */
-  const postGame = (gameName) => {
-    axios.post('/api/games', { game: { name: gameName } })
+  const postGame = (gameObj) => {
+    axios.post('/api/games', { game: gameObj })
       .then(({ data }) => {
         /*
           If no data is in the response, setInputNameError to true using handleSetInputError:
@@ -101,7 +101,7 @@ function Home() {
   // Handles the yes choice for a close match
   const handleYesCloseMatchClick = () => {
     // Make a postGame request for the closeMatch
-    postGame(closeMatch.name);
+    postGame({ bggId: closeMatch.bggId });
     // Set closeMatch state back to null
     setCloseMatch(null);
   };
@@ -167,7 +167,7 @@ function Home() {
             onChange={(e) => { setName(e.target.value); }}
             onKeyUp={({ key }) => {
               if (key === 'Enter') {
-                postGame(name);
+                postGame({ name });
               }
             }}
           />
