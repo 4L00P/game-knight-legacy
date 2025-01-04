@@ -6,7 +6,9 @@ import {
   Typography,
   IconButton,
   Button,
+  Container,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 
 // Icons:
 import ThumbUpTwoToneIcon from '@mui/icons-material/ThumbUpTwoTone';
@@ -54,6 +56,14 @@ function Home() {
       });
   };
 
+  // Handles setting inputNameError's state for only three seconds
+  const handleSetInputNameError = () => {
+    setInputNameError(true);
+    setTimeout(() => {
+      setInputNameError(false);
+    }, 3000);
+  };
+
   /*
     Sends POST request to add a game to the games collection:
       - You must pass the gameName into the function to avoid resetting
@@ -63,11 +73,11 @@ function Home() {
     axios.post('/api/games', { game: { name: gameName } })
       .then(({ data }) => {
         /*
-          If no data is in the response, setInputNameError to true:
+          If no data is in the response, setInputNameError to true using handleSetInputError:
           This warns user that they have spelt the name of the board game incorrectly
         */
         if (!data) {
-          setInputNameError(true);
+          handleSetInputNameError();
         /*
           Otherwise, (1) setInputNameError to false to hide warning
           (2) fetchGames to render the newly added game
@@ -100,8 +110,11 @@ function Home() {
   const handleNoCloseMatchClick = () => {
     // Set closeMatch state to null
     setCloseMatch(null);
-    // Set inputNameError state to true to warn user to check spelling
-    setInputNameError(true);
+    /*
+      Set inputNameError state to true to warn user to check spelling
+      using handleSetInputNameError
+    */
+    handleSetInputNameError();
   };
 
   // When component mounts, make a get request for all games in the Games collection
@@ -124,89 +137,142 @@ function Home() {
   return (
     <>
       <Navbar />
-      <Box
+      <Grid
+        container
+        spacing={2}
         sx={{
-          padding: 2,
+          pl: 2,
+          pt: 2,
         }}
       >
-        <Typography variant="h6" style={{ paddingBottom: 10 }}>
-          Add a Game to your collection:
-        </Typography>
-        <TextField
-          error={inputNameError}
-          label="Board Game Name"
-          variant="outlined"
-          value={name}
-          helperText={inputNameError ? 'Check the spelling.' : 'Press \'Enter\' to submit.'}
-          onChange={(e) => { setName(e.target.value); }}
-          onKeyUp={({ key }) => {
-            if (key === 'Enter') {
-              postGame(name);
-            }
+        <Grid size={3}>
+          <Typography variant="h6">
+            Add a Board Game:
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              fontSize: 12,
+              pb: 0.75,
+            }}
+          >
+            Searches Board Game Geeks for details.
+          </Typography>
+          <TextField
+            error={inputNameError}
+            label="Board Game Name"
+            variant="outlined"
+            value={name}
+            helperText={inputNameError ? 'Check the spelling.' : 'Press \'Enter\' to add board game.'}
+            onChange={(e) => { setName(e.target.value); }}
+            onKeyUp={({ key }) => {
+              if (key === 'Enter') {
+                postGame(name);
+              }
+            }}
+          />
+        </Grid>
+        {
+          closeMatch
+            ? (
+              <Grid
+                size={9}
+                sx={{
+                  pl: 2,
+                }}
+              >
+                <Typography variant="h6">
+                  {`Did you mean ${closeMatch.name} - ${closeMatch.yearPublished}?`}
+                </Typography>
+                <IconButton
+                  color="green"
+                  onClick={handleYesCloseMatchClick}
+                >
+                  <ThumbUpTwoToneIcon />
+                </IconButton>
+                <IconButton
+                  color="red"
+                  onClick={handleNoCloseMatchClick}
+                >
+                  <ThumbDownTwoToneIcon />
+                </IconButton>
+              </Grid>
+            )
+            : null
+        }
+      </Grid>
+      <Grid container spacing={2}>
+        <Grid
+          size={8}
+          sx={{
+            pl: 2,
+            pt: 1,
           }}
-        />
-      </Box>
-      {
-        closeMatch
-          ? (
-            <Box
-              sx={{
-                padding: 2,
-              }}
-            >
-              <Typography variant="h6">
-                {`Did you mean ${closeMatch.name} - ${closeMatch.yearPublished}?`}
-              </Typography>
-              <IconButton
-                color="green"
-                onClick={handleYesCloseMatchClick}
-              >
-                <ThumbUpTwoToneIcon />
-              </IconButton>
-              <IconButton
-                color="red"
-                onClick={handleNoCloseMatchClick}
-              >
-                <ThumbDownTwoToneIcon />
-              </IconButton>
-            </Box>
-          )
-          : null
-      }
-      {
-        Object.keys(gamesFilter).length
-          ? (
-            <Box
-              sx={{
-                padding: 2,
-              }}
-            >
-              <Typography variant="subtitle2">
-                {`Filtering Board Games by ${gamesFilter[Object.keys(gamesFilter)[0]][0]}`}
-              </Typography>
-              <Button
-                onClick={() => { setGamesFilter({}); }}
-              >
-                REMOVE FILTER
-              </Button>
-            </Box>
-          )
-          : null
-      }
-      <Box
-        sx={{
-          padding: 2,
-        }}
-      >
-        <Typography variant="h4">
-          Board Games Collection:
-        </Typography>
-        <GamesList
-          games={games}
-          getGames={getGames}
-          setGamesFilter={setGamesFilter}
-        />
-      </Box>
+        >
+          <Typography
+            variant="h4"
+            sx={{
+              pb: 1,
+            }}
+          >
+            Board Games Collection:
+          </Typography>
+          <Container
+            sx={{
+              border: 1,
+              borderWidth: 2,
+              borderRadius: 3,
+              boxShadow: '0 0 15px 5px #48abe0',
+              p: 1,
+            }}
+          >
+            <GamesList
+              games={games}
+              getGames={getGames}
+              setGamesFilter={setGamesFilter}
+            />
+          </Container>
+        </Grid>
+        <Grid
+          size={4}
+          sx={{
+            padding: 2,
+          }}
+        >
+          <Box
+            sx={{
+              pb: 2,
+            }}
+          >
+            <Typography variant="h4">Collection Size:</Typography>
+            <Typography variant="h1">{games.length}</Typography>
+            {
+              Object.keys(gamesFilter).length
+                ? <Typography variant="subtitle2">*With Filter</Typography>
+                : null
+            }
+          </Box>
+          {
+            Object.keys(gamesFilter).length
+              ? (
+                <Box>
+                  <Typography variant="h5">
+                    Filtering by:
+                  </Typography>
+                  <Typography variant="h6">
+                    {`"${gamesFilter[Object.keys(gamesFilter)[0]][0]}"`}
+                  </Typography>
+                  <Button
+                    onClick={() => { setGamesFilter({}); }}
+                  >
+                    REMOVE FILTER
+                  </Button>
+                </Box>
+              )
+              : null
+            }
+        </Grid>
+      </Grid>
     </>
   );
 }

@@ -16,6 +16,8 @@ function GameInfo({ game, getGames, setGamesFilter }) {
     yearPublished,
     minPlayers,
     maxPlayers,
+    bestWith,
+    recommendedWith,
     playTime,
     minAge,
     notes,
@@ -32,6 +34,8 @@ function GameInfo({ game, getGames, setGamesFilter }) {
         maxPlayers={maxPlayers}
         playTime={playTime}
         minAge={minAge}
+        bestWith={bestWith}
+        recommendedWith={recommendedWith}
       />
 
       <GameCatsAndMechsInfo
@@ -61,6 +65,8 @@ GameInfo.propTypes = {
     yearPublished: PropTypes.number,
     minPlayers: PropTypes.number,
     maxPlayers: PropTypes.number,
+    bestWith: PropTypes.string,
+    recommendedWith: PropTypes.string,
     playTime: PropTypes.number,
     minAge: PropTypes.number,
     notes: PropTypes.string,
