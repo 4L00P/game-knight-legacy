@@ -32,7 +32,7 @@ const appTheme = createTheme({
   },
   // Affects Typography throughout the site
   typography: {
-    // fontFamily: 'Grandstander Variable',
+    fontFamily: 'Fredoka Variable, sans-serif',
     // fontSize: 16,
     /**
      * Typography variants can be customized individually:
@@ -97,7 +97,7 @@ const appTheme = createTheme({
     MuiAccordionDetails: {
       styleOverrides: {
         root: {
-          backgroundColor: '#BDF5FF',
+          backgroundColor: '#ABF1FD',
           variants: [
             {
               props: { className: 'inner-accordion-details' },

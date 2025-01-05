@@ -220,10 +220,13 @@ function Home() {
           <Container
             sx={{
               border: 1,
-              borderWidth: 2,
+              borderColor: '#72BBE0',
+              borderWidth: 5,
               borderRadius: 3,
-              boxShadow: '0 0 15px 5px #48abe0',
-              p: 1,
+              boxShadow: '0 0 15px 5px #48ABE0',
+              backgroundColor: '#CDF5FF',
+              pt: 1,
+              pb: 1,
             }}
           >
             <GamesList
