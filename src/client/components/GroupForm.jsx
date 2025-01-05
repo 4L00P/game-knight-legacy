@@ -15,6 +15,8 @@ function GroupForm(props) {
     // set a variable to represent the FromEntries method
     // that pulls and contains the values from FormData
     const payload = Object.fromEntries(formData);
+    
+    payload.players = payload.players.split(',').map((name) => name.trim());
     // create an object that holds the form values as value to a key called groups
     const groupObj = {
       groups: payload,
@@ -37,10 +39,6 @@ function GroupForm(props) {
       <label htmlFor="group-form-players" id="group-form-players">
         Player List
         <input name="players" type="text" />
-      </label>
-      <label htmlFor="group-form-game" id="group-form-game">
-        Game List
-        <input name="games" type="text" />
       </label>
       <button type="submit">Submit</button>
     </form>

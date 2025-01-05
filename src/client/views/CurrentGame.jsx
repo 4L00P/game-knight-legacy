@@ -1,20 +1,34 @@
-import React from "react";
-import { useState } from "react";
-// import { Grid } from 'gridv2';
-import { Grid2,
-  Typography,
-  Paper,
-  Card } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Grid2, Typography, Paper, Card, List, ListItem } from "@mui/material";
+import PlayerList from '../components/PlayerList';
+import axios from 'axios';
+import PlayerCard from '../components/PlayerCard';
 
 import Navbar from "../components/Navbar";
 // import { name, members } from '../../server/database/models/Groups';
 const Grid = Grid2;
 
 function CurrentGame() {
-  // set a useState function for night name, group, and game.
-  // const [name, SetName] = useState("");
-  // const [game, SetGame] = useState("");
-  // const [group, SetGroup] = useState("");
+  // set a useState function for night name, players, and game.
+  const [name, setName] = useState("");
+  const [game, setGame] = useState("");
+  const [groups, setGroups] = useState([]);
+  const [players, setPlayers] = useState([]);
+
+  function getGroups() {
+    axios
+      .get("/api/groups")
+      .then(({ data }) => {
+        console.log(data);
+        setGroups(data);
+      })
+      .catch((err) => {
+        console.error("Could not Get groups", err);
+      });
+  }
+   function moveGroupToPage(group) {
+    setPlayers(group.players);
+   }
   /**
    * Game Needs:
    * 1. Array of strings representing the names of each person playing(members);
@@ -25,11 +39,17 @@ function CurrentGame() {
    * 3. a timeout form and function that says when to alert a player that they're taking too long
    *  (maybe toggle the consequences. alert, move to next player);
    */
-  // when you press start game, you get a filter with all gamenights set for today.
-  // Picking one(even if there's only one), starts the get/post process.
-  // set the middle player indicators(with vp/hp) on a Paper surface.
-  // add square corners <paper square>person</paper> or square=`${true}`
-  // make the papers vertical, not horizontal. and long, possibly
+  // We can have the buttons from other pages get or href here,
+  // then seed the data that was on the card they used to get here.
+  // If info the card has matches the need, fill the form with it.
+  //  if not, leave a form for them to add the info
+  // Maybe make the forms themselves collapsable?
+  // Game name populates top-ish
+  // players populate the mid to bottom turn order area
+
+  // Maybe I should make a helper function to navigate here from the other pages with an onclick
+
+  // set the middle player indicators(with vp/hp) on a surface.
   // Have the elevation change from 1 to 24 depending on whether it is their turn
   // if it's their turn, crank the padding up to 16 or so, the elevation to 24,
   // and the padding color to something shimmery
@@ -38,13 +58,13 @@ function CurrentGame() {
   // use set interval to change the game knight colors
 
   /**
-   * useForm
-   * Make the form first
-   * install react-hooks-form
-   * use in-born register (returns name, ref, onChange, onBlur) property.
-   *  use spread operator {...register('idName')}
+   * Need a "PlayerCard" component with editable vp and hp spots(inc+dec arrows, too)
+   * Turn order.
+   * 1. Put list of players into an array. Give each player an additional attribute(isTurn)
+   * 2. Have the array shift so the name in front goes to the back and everyone else moves up one
    */
 
+  useEffect(getGroups, []);
   return (
     <div>
       <Typography variant="h2" align="center">
@@ -54,20 +74,20 @@ function CurrentGame() {
       <Typography variant="h2" align="center">
         TEST GAME!!!
       </Typography>
+      <form align="center">
+        <label htmlFor="name">
+          Add Name
+          <input type="text" id="name" />
+        </label>
+        <button type="submit">Submit</button>
+      </form>
       <Typography variant="h4" align="center">
         Gaia Project
       </Typography>
-      {/* SAVED FOR TURN ORDER MANIPULATION as a reminder
-      <div className="turn-order-tags">
-        <div>John</div>
-        <div>Jacob</div>
-        <div>Jingleheimer</div>
-        <div>Schmidt</div>
-      </div> */}
-      <form align="right">
-        <label htmlFor="name">
-          Name
-          <input type="text" id="name" />
+      <form align="center">
+        <label htmlFor="game">
+          Add Game
+          <input type="text" id="game" />
         </label>
         <button type="submit">Submit</button>
       </form>
@@ -78,39 +98,37 @@ function CurrentGame() {
         </label>
         <button type="submit">Submit</button>
       </form>
-      <form align="right">
-        <label htmlFor="game">
-          Game
-          <input type="text" id="game" />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
 
-      <Grid container spacing={1}>
-        <Grid size={3}>
-          <item>John info</item>
-          {/* </Card> */}
+      <List>
+        {groups.map((group) => {
+          const { players, name, isTurn } = group;
+          return (
+            <ListItem key={group._id} onClick={() => moveGroupToPage(group)}>
+              <PlayerList players={players}
+              group={group}
+              name={name}
+              />
+            </ListItem>
+          );
+        })}
+      </List>
+      <Grid container spacing={2}>
+
+        {/* This will be dynamical PlayerCard in the future. Remember VP, HP, Maybe MP */}
+        <Grid size={4}>
+          {players.map((player) => {
+            console.log(player);
+            return (
+              <PlayerCard
+              key={player}
+              player={player}
+              isTurn={false}
+              VP={0}
+              HP={0}
+              />
+            );
+          })}
         </Grid>
-
-        {/* <Card elevation={24} style={{ height: "120px", width: "120px" }}> */}
-        <item>Jacobs verbose info</item>
-        {/* </Card> */}
-        <Grid size={3}>
-          {/* <Card elevation={24} style={{ height: "120px", width: "120px" }}> */}
-          <item>Janes verbose info</item>
-          {/* </Card> */}
-        </Grid>
-
-        <Grid size={3}>
-          {/* <Card elevation={24} style={{ height: "120px", width: "120px" }}> */}
-          <item>Judos verbose info</item>
-          {/* </Card> */}
-        </Grid>
-
-        <Grid size={3}>{/* </Paper> */}</Grid>
-
-        {/* <Paper elevation={16}>Jingle info</Paper> */}
-        {/* <Paper elevation={24}>Schmidt info</Paper> */}
       </Grid>
     </div>
   );
