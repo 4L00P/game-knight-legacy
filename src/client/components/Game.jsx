@@ -14,6 +14,7 @@ import {
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 
 import GameInfo from './GameInfo';
+import RemoveGameDialog from './game-info-components/RemoveGameDialog';
 
 const { useState } = React;
 
@@ -22,6 +23,8 @@ function Game({ game, getGames, setGamesFilter }) {
   const { _id, name, thumbnail } = game;
   // showGameInfo will determine whether or not the additional information is rendered to the page
   const [showGameInfo, setShowGameInfo] = useState(false);
+  // Will track the state of the delete dialog window when a user goes to delete a game
+  const [openRemoveDialog, setOpenRemoveDialog] = useState(false);
 
   // Send DELETE request to /api/games/:id to remove game from DB
   const deleteGame = () => {
@@ -32,6 +35,11 @@ function Game({ game, getGames, setGamesFilter }) {
       .catch((err) => {
         console.error('Failed to deleteGame:', err);
       });
+  };
+
+  // Handles clicking the Remove button to open the remove game dialog
+  const handleRemoveClick = () => {
+    setOpenRemoveDialog(!openRemoveDialog);
   };
 
   /**
@@ -47,6 +55,9 @@ function Game({ game, getGames, setGamesFilter }) {
     <ListItem>
       <Accordion
         className="outer-accordion"
+        sx={{
+          width: 1,
+        }}
       >
         <AccordionSummary
           expandIcon={<ExpandCircleDownTwoToneIcon />}
@@ -54,8 +65,11 @@ function Game({ game, getGames, setGamesFilter }) {
         >
           <Avatar src={thumbnail} />
           <Typography
-            variant="subtitle2"
-            style={{ padding: 8 }}
+            variant="h6"
+            sx={{
+              pl: 2,
+              pt: 0.4,
+            }}
           >
             {name}
           </Typography>
@@ -76,10 +90,16 @@ function Game({ game, getGames, setGamesFilter }) {
         <AccordionActions>
           <Button
             className="delete-button"
-            onClick={deleteGame}
+            onClick={handleRemoveClick}
           >
             REMOVE
           </Button>
+          <RemoveGameDialog
+            openRemoveDialog={openRemoveDialog}
+            deleteGame={deleteGame}
+            handleRemoveClick={handleRemoveClick}
+            name={name}
+          />
         </AccordionActions>
       </Accordion>
     </ListItem>

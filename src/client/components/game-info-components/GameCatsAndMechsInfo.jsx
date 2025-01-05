@@ -58,7 +58,7 @@ function GameCatsAndMechsInfo({ categories, mechanics, setGamesFilter }) {
           variant="subtitle1"
           style={{ color: 'green' }}
         >
-          ---- CLICK A CATEGORY OR MECHANIC TO FILTER YOUR COLLECTION ----
+          ---- CLICK A CATEGORY/MECHANIC TO FILTER YOUR COLLECTION ----
         </Typography>
       </AccordionActions>
     </Accordion>
