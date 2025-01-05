@@ -60,7 +60,6 @@ function GameCatsAndMechsInfo({ categories, mechanics, setGamesFilter }) {
       >
         <Typography
           variant="subtitle1"
-          style={{ color: 'green' }}
         >
           ---- CLICK A CATEGORY/MECHANIC TO FILTER YOUR COLLECTION ----
         </Typography>

@@ -90,6 +90,7 @@ function Game({ game, getGames, setGamesFilter }) {
         <AccordionActions>
           <Button
             className="delete-button"
+            color="remove"
             onClick={handleRemoveClick}
           >
             REMOVE

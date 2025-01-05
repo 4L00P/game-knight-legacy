@@ -34,6 +34,7 @@ function DeleteGameDialog({
           Cancel
         </Button>
         <Button
+          color="remove"
           onClick={() => {
             handleRemoveClick();
             deleteGame();
