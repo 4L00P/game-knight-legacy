@@ -6,7 +6,7 @@ import {
   Divider,
 } from '@mui/material';
 
-function EventItem() {
+function EventItem({ value }) {
   return (
     <>
       <Typography
@@ -19,5 +19,9 @@ function EventItem() {
     </>
   );
 }
+
+EventItem.propTypes = {
+  value: PropTypes.string.isRequired,
+};
 
 export default EventItem;

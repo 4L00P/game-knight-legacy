@@ -8,6 +8,7 @@ import {
   Button,
   List,
   ListItem,
+  Divider,
   TextField,
   Typography,
   Dialog,
@@ -19,6 +20,7 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import DateEdit from './DateEdit';
+import EventItem from './EventItem';
 
 const { useState } = React;
 
@@ -49,16 +51,16 @@ function NightDetails({ gameNight, getGameNights }) {
   };
   // Helper function to create a list from props arrays
   const createList = (label, prop, index) => (
-    <List>
-      <Typography variant="body">{`${label}:`}</Typography>
-      {prop.map((value) => (
-        <ListItem
-          key={`${value}-${index * 2}`}
-        >
-          <Typography variant="subtitle2">{value}</Typography>
-        </ListItem>
-      ))}
-    </List>
+    <Stack>
+      <List>
+        <Typography variant="body">{`${label}:`}</Typography>
+        {prop.map((value) => (
+          <EventItem
+            value={value}
+          />
+        ))}
+      </List>
+    </Stack>
   );
 
   // Handle deletion of a gameNight from the database
