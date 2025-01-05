@@ -12,17 +12,17 @@ import {
 } from '@mui/material';
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 import NightDetails from './NightDetails';
-import CalendarField from './CalendarField';
 
 const { useState } = React;
 function Night({ gameNight, getGameNights }) {
   // Set state values for editing an event
   const [editingName, setEditingName] = useState(false);
   const [event, setEvent] = useState(gameNight);
+  // Set state value for if the accordion is open
+  const [openAccordion, setOpenAccordion] = useState(false);
 
   // PATCH edited event name
   const patchName = (element) => {
-    console.log('PatchName called');
     // Change the editingName value in state
     setEditingName(false);
     // Grab the new name and the event id
@@ -57,18 +57,28 @@ function Night({ gameNight, getGameNights }) {
     setEvent(eventCopy);
   };
   // Allow enter click to patch name
-  const handleEnterClick = (element) => {
+  const handleKeyClick = (element) => {
     // Destructure the key from the element
     const { key } = element;
     // Check if the key is enter
     if (key === 'Enter') {
       // Call function to PATCH name
       patchName(element);
+    } else if (key === ' ') {
+      // Set open accordion value in state to true
+      setOpenAccordion(true);
+    } else if (key === 'Escape') {
+      // Leave name edit mode
+      setEditingName(false);
     }
   };
   return (
     <ListItem>
-      <Accordion sx={{ width: 3 / 4 }}>
+      <Accordion
+        expanded={openAccordion}
+        onClick={handleKeyClick}
+        sx={{ width: 3 / 4 }}
+      >
         <AccordionSummary
           expandIcon={<ExpandCircleDownTwoToneIcon />}
           justify="space-between"
@@ -88,8 +98,9 @@ function Night({ gameNight, getGameNights }) {
                   value={event.name}
                   sx={{ marginRight: 'auto' }}
                   onChange={handleChange}
-                  onBlur={(element) => { patchName(element); }}
-                  onKeyUp={handleEnterClick}
+                  onBlur={() => { setEditingName(false); }}
+                  onFocus={() => { setOpenAccordion(true); }}
+                  onKeyUp={handleKeyClick}
                   helperText="Hit enter to save"
                   autoFocus
                 />
