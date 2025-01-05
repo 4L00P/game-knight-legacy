@@ -1,7 +1,8 @@
-import React from "react";
-import { useState } from "react";
-// import { Grid } from 'gridv2';
-import { Grid2, Typography, Paper, Card } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Grid2, Typography, Paper, Card, List, ListItem } from "@mui/material";
+import PlayerList from '../components/PlayerList';
+import axios from 'axios';
+import PlayerCard from '../components/PlayerCard';
 
 import Navbar from "../components/Navbar";
 // import { name, members } from '../../server/database/models/Groups';
@@ -9,9 +10,25 @@ const Grid = Grid2;
 
 function CurrentGame() {
   // set a useState function for night name, players, and game.
-  const [name, SetName] = useState('');
-  const [game, SetGame] = useState('');
-  const [players, Setplayers] = useState([]);
+  const [name, setName] = useState("");
+  const [game, setGame] = useState("");
+  const [groups, setGroups] = useState([]);
+  const [players, setPlayers] = useState([]);
+
+  function getGroups() {
+    axios
+      .get("/api/groups")
+      .then(({ data }) => {
+        console.log(data);
+        setGroups(data);
+      })
+      .catch((err) => {
+        console.error("Could not Get groups", err);
+      });
+  }
+   function moveGroupToPage(group) {
+    setPlayers(group.players);
+   }
   /**
    * Game Needs:
    * 1. Array of strings representing the names of each person playing(members);
@@ -47,6 +64,7 @@ function CurrentGame() {
    * 2. Have the array shift so the name in front goes to the back and everyone else moves up one
    */
 
+  useEffect(getGroups, []);
   return (
     <div>
       <Typography variant="h2" align="center">
@@ -80,24 +98,36 @@ function CurrentGame() {
         </label>
         <button type="submit">Submit</button>
       </form>
+
+      <List>
+        {groups.map((group) => {
+          const { players, name, isTurn } = group;
+          return (
+            <ListItem key={group._id} onClick={() => moveGroupToPage(group)}>
+              <PlayerList players={players}
+              group={group}
+              name={name}
+              />
+            </ListItem>
+          );
+        })}
+      </List>
       <Grid container spacing={2}>
-{/* This will be dynamical PlayerCard in the future. Remember VP, HP, Maybe MP */}
-        <Grid size={4}>
-          <Card elevation={24} style={{ height: "400px", width: "250px", boxShadow: "15px" }}>
-            John info
-          </Card>
-        </Grid>
 
+        {/* This will be dynamical PlayerCard in the future. Remember VP, HP, Maybe MP */}
         <Grid size={4}>
-            <Card elevation={24} style={{ height: "400px", width: "250px" }}>
-              Janes verbose info
-            </Card>
-        </Grid>
-
-        <Grid size={3}>
-            <Card elevation={24} style={{ height: "400px", width: "250px" }}>
-              Judos verbose info
-            </Card>
+          {players.map((player) => {
+            console.log(player);
+            return (
+              <PlayerCard
+              key={player}
+              player={player}
+              isTurn={false}
+              VP={0}
+              HP={0}
+              />
+            );
+          })}
         </Grid>
       </Grid>
     </div>
