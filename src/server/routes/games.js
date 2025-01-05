@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getGameInfoBGG } = require('../bgg-api-helpers');
+const { getGameInfoBGG, getGameInfoByID } = require('../bgg-api-helpers');
 const { Games } = require('../database');
 
 const gamesRouter = Router();
@@ -15,64 +15,73 @@ gamesRouter.post('/', async (req, res) => {
   const { _id } = req.user;
   // Grab game object from request's body
   const { game } = req.body;
-  // Fetch game data from BGG
-  const gameInfo = await getGameInfoBGG(game.name);
-  // If nothing is returned from BGG
-  if (!gameInfo) {
-    // Send status 200 & null for an empty response to user
-    res.status(200);
-    res.send(null);
-  // If it's a close match
-  } else if (gameInfo.closeMatch) {
-    // Send status 200 & the info for the closeMatch
-    res.status(200);
-    res.send(gameInfo);
+  // If neither a name or a bggId are on the game object
+  if (!(game.name || game.bggId)) {
+    // Send Status: 404
+    res.sendStatus(404);
   } else {
-    // Destructure gameInfo
-    const {
-      bggId,
-      name,
-      thumbnail,
-      image,
-      description,
-      yearPublished,
-      minPlayers,
-      maxPlayers,
-      bestWith,
-      recommendedWith,
-      playTime,
-      minAge,
-      categories,
-      mechanics,
-    } = gameInfo;
-    // Query database to create a new game object with the game Info
-    Games.create({
-      bggId,
-      name,
-      thumbnail,
-      image,
-      description,
-      yearPublished,
-      minPlayers,
-      maxPlayers,
-      bestWith,
-      recommendedWith,
-      playTime,
-      minAge,
-      categories,
-      mechanics,
-      // Saves user's id to Game object for filtered look up later
-      user: _id,
-    })
-      // On success, send Status: 201
-      .then(() => {
-        res.sendStatus(201);
+    const gameInfo = game.name
+      // If name is supplied, find by name
+      ? await getGameInfoBGG(game.name)
+      // If bggId is supplied, find by ID
+      : await getGameInfoByID(game.bggId);
+    // If nothing is returned from BGG
+    if (!gameInfo) {
+      // Send status 200 & null for an empty response to user
+      res.status(200);
+      res.send(null);
+    // If it's a close match
+    } else if (gameInfo.closeMatch) {
+      // Send status 200 & the info for the closeMatch
+      res.status(200);
+      res.send(gameInfo);
+    } else {
+      // Destructure gameInfo
+      const {
+        bggId,
+        name,
+        thumbnail,
+        image,
+        description,
+        yearPublished,
+        minPlayers,
+        maxPlayers,
+        bestWith,
+        recommendedWith,
+        playTime,
+        minAge,
+        categories,
+        mechanics,
+      } = gameInfo;
+      // Query database to create a new game object with the game Info
+      Games.create({
+        bggId,
+        name,
+        thumbnail,
+        image,
+        description,
+        yearPublished,
+        minPlayers,
+        maxPlayers,
+        bestWith,
+        recommendedWith,
+        playTime,
+        minAge,
+        categories,
+        mechanics,
+        // Saves user's id to Game object for filtered look up later
+        user: _id,
       })
-      // On failure, log error and send Status: 500
-      .catch((err) => {
-        console.error('Failed to create new game object:', err);
-        res.sendStatus(500);
-      });
+        // On success, send Status: 201
+        .then(() => {
+          res.sendStatus(201);
+        })
+        // On failure, log error and send Status: 500
+        .catch((err) => {
+          console.error('Failed to create new game object:', err);
+          res.sendStatus(500);
+        });
+    }
   }
 });
 

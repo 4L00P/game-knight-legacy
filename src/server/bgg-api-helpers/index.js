@@ -127,7 +127,7 @@ const buildGamesArray = (convertedData) => (
   // Build an array of game objects from the data returned from BGG
   convertedData.items.item.map((game) => (
     {
-      id: +(game.$.id),
+      bggId: +(game.$.id),
       type: game.$.type,
       name: game.name ? game.name[0].$.value : null,
       yearPublished: game.yearpublished ? game.yearpublished[0].$.value : null,
@@ -174,7 +174,7 @@ const getGameInfoBGG = async (title) => {
         return possibleMatch;
       }
       // If the exact name is found, fetch the data from BGG and return it.
-      const gameInfo = await getGameInfoByID(possibleMatch.id);
+      const gameInfo = await getGameInfoByID(possibleMatch.bggId);
       return gameInfo;
     })
     .catch((err) => {
@@ -186,4 +186,5 @@ const getGameInfoBGG = async (title) => {
 
 module.exports = {
   getGameInfoBGG, // Main search function for BGG, can be used with async/await
+  getGameInfoByID, // Secondary search for closeMatch search, can be used with async/await
 };

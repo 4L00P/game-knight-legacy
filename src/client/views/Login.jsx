@@ -40,14 +40,35 @@ function Login() {
         textAlign: 'center',
       }}
     >
-      <Typography variant="h3">Welcome to</Typography>
-      <Typography variant="h1">Game Knight</Typography>
-      <Typography variant="subtitle1">
+      <Typography
+        variant="h2"
+        sx={{
+          fontFamily: 'Tourney Variable',
+        }}
+      >
+        Welcome to
+      </Typography>
+      <Typography
+        sx={{
+          fontFamily: 'Tourney Variable',
+          fontSize: 128,
+        }}
+      >
+        Game Knight
+      </Typography>
+      <Typography variant="h5">
         Start your board game journey here!
       </Typography>
-      <Box component="section" sx={{ alignContent: 'center' }}>
+      <Box
+        component="section"
+        sx={{
+          alignContent: 'center',
+          pt: 2,
+        }}
+      >
         <Button
           href="/auth"
+          color="secondary"
         >
           Login with Google
         </Button>

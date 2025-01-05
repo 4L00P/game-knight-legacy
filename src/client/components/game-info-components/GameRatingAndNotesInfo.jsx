@@ -12,6 +12,9 @@ import {
   Button,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import { styled } from '@mui/material/styles';
+import CasinoIcon from '@mui/icons-material/Casino';
+import CasinoOutlinedIcon from '@mui/icons-material/CasinoOutlined';
 import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwoTone';
 
 function GameRatingAndNotesInfo({
@@ -66,6 +69,15 @@ function GameRatingAndNotesInfo({
     }
   };
 
+  const StyledRating = styled(Rating)({
+    '& .MuiRating-iconFilled': {
+      color: '#ff6d75',
+    },
+    '& .MuiRating-iconHover': {
+      color: '#ff3d47',
+    },
+  });
+
   /**
    * Accordion #3: Rating & Notes
    *  - Contains a grid of information that the user can update:
@@ -83,16 +95,20 @@ function GameRatingAndNotesInfo({
       >
         <Typography variant="subtitle2">Rating & Notes:</Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails
+        className="inner-accordion-details"
+      >
         <Grid container spacing={2}>
           <Grid size={3}>
             <Typography variant="subtitle2">Rating:</Typography>
-            <Rating
+            <StyledRating
               readOnly={!updateFormStatus}
               value={formRating}
               onClick={handleRatingClick}
               precision={0.5}
               max={5}
+              icon={<CasinoIcon />}
+              emptyIcon={<CasinoOutlinedIcon />}
             />
           </Grid>
           <Grid size={9}>
@@ -121,6 +137,7 @@ function GameRatingAndNotesInfo({
           ? (
             <Button
               className="update-button"
+              color="update"
               onClick={() => {
                 patchRatingNotes();
                 handleUpdateFormStatusToggle();

@@ -13,13 +13,17 @@ import ExpandCircleDownTwoToneIcon from '@mui/icons-material/ExpandCircleDownTwo
 
 function GameCatsAndMechsInfo({ categories, mechanics, setGamesFilter }) {
   return (
-    <Accordion>
+    <Accordion
+      className="inner-accordion"
+    >
       <AccordionSummary
         expandIcon={<ExpandCircleDownTwoToneIcon />}
       >
         <Typography variant="subtitle2">Categories & Mechanics</Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails
+        className="inner-accordion-details"
+      >
         <Grid container spacing={2}>
           <Grid size={6}>
             <Typography variant="subtitle2">Categories:</Typography>
@@ -56,7 +60,6 @@ function GameCatsAndMechsInfo({ categories, mechanics, setGamesFilter }) {
       >
         <Typography
           variant="subtitle1"
-          style={{ color: 'green' }}
         >
           ---- CLICK A CATEGORY/MECHANIC TO FILTER YOUR COLLECTION ----
         </Typography>

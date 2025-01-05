@@ -4,7 +4,7 @@ const appTheme = createTheme({
   // Affects the color scheme of the site
   palette: {
     primary: {
-      main: '#A523A5',
+      main: '#0FA4FF',
       /**
        * Other Color Tokens:
        *  - light
@@ -12,11 +12,14 @@ const appTheme = createTheme({
        *  - contrastText
        */
     },
-    // secondary: {
-
-    // },
+    secondary: {
+      main: '#FB7509',
+    },
     update: {
-      main: '#30BB60',
+      main: '#305560',
+    },
+    remove: {
+      main: '#703370',
     },
     /**
      * Other Default Colors:
@@ -32,7 +35,7 @@ const appTheme = createTheme({
   },
   // Affects Typography throughout the site
   typography: {
-    // fontFamily: 'Grandstander Variable',
+    fontFamily: 'Fredoka Variable, sans-serif',
     // fontSize: 16,
     /**
      * Typography variants can be customized individually:
@@ -75,7 +78,7 @@ const appTheme = createTheme({
       styleOverrides: {
         root: {
           // All accordions use this background color by default
-          backgroundColor: '#DD8888',
+          backgroundColor: '#0FD4FF',
           /*
             If you want to override styles based on a specific prop,
             you can use the 'variants' key in the particular slot that contains
@@ -85,14 +88,50 @@ const appTheme = createTheme({
           variants: [
             // These background colors are used if the className prop on the accordion matches
             {
-              props: { className: 'outer-accordion' },
-              style: { backgroundColor: '#A5E590' },
-            },
-            {
               props: { className: 'inner-accordion' },
-              style: { backgroundColor: '#BB99BB' },
+              style: { backgroundColor: '#FB7509' },
             },
           ],
+        },
+      },
+    },
+
+    // AccordionDetails
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#ABF1FD',
+          variants: [
+            {
+              props: { className: 'inner-accordion-details' },
+              style: { backgroundColor: '#FBC59A' },
+            },
+          ],
+        },
+      },
+    },
+    
+    // DialogTitle
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#ABF1FD',
+        },
+      },
+    },
+    // DialogContent
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#ABF1FD',
+        },
+      },
+    },
+    // DialogActions
+    MuiDialogActions: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#ABF1FD',
         },
       },
     },

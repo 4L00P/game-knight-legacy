@@ -18,12 +18,13 @@ function GamesList({ games, getGames, setGamesFilter }) {
           width: '1em',
         },
         '&::-webkit-scrollbar-track': {
-          boxShadow: 'inset 0 0 6px rgba(23, 154, 23, 0)',
-          webkitBoxShadow: 'inset 0 0 6px rgba(29, 179, 37, 0)',
+          boxShadow: 'inset 0 0 6px rgba(23, 99, 154, 0.5)',
+          webkitBoxShadow: 'inset 0 0 6px rgba(29, 137, 179, 0.5)',
+          borderRadius: 5,
         },
         '&::-webkit-scrollbar-thumb': {
-          backgroundColor: 'rgba(9, 188, 36, 0.1)',
-          outline: '3px solid green',
+          backgroundColor: 'rgba(10, 167, 195, 0.3)',
+          outline: '3px rgba(33, 21, 251, 0.89)',
           borderRadius: 5,
         },
       }}

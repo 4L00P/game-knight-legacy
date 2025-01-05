@@ -30,13 +30,17 @@ function GameGeneralInfo({
    *  - All data here is conditionally shown if there is data from BGG available
    */
   return (
-    <Accordion>
+    <Accordion
+      className="inner-accordion"
+    >
       <AccordionSummary
         expandIcon={<ExpandCircleDownTwoToneIcon />}
       >
         <Typography variant="subtitle2">General Info:</Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails
+        className="inner-accordion-details"
+      >
         <Grid container spacing={2}>
           {yearPublished
             ? (
