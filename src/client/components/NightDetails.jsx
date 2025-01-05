@@ -29,6 +29,8 @@ function NightDetails({ gameNight, getGameNights }) {
   // Set state values to track if date and time are being edited
   const [editingDate, setEditingDate] = useState(false);
   const [editingTime, setEditingTime] = useState(false);
+  // Hold value of the winner input field
+  const [winner, setWinner] = useState('');
   // Functions to open and close delete dialog box
   const handleDeleteOpen = () => {
     // Change the state value to true
@@ -89,6 +91,37 @@ function NightDetails({ gameNight, getGameNights }) {
       .catch((err) => {
         console.error('Error canceling the event: ', err);
       });
+  };
+  // Handle change in winner input field
+  const handleWinnerChange = (element) => {
+    // Grab the value from the element
+    const { value } = element.target;
+    // Set the winner in state
+    setWinner(value);
+  };
+  // PATCH the winner in the database
+  const patchWinner = () => {
+    // Grab the id from gameNight
+    const { _id } = gameNight;
+    // Build confgi object to send
+    const config = {
+      newDocument: {
+        winner,
+      },
+    };
+    // Make axios PATCH request
+    axios.patch(`/api/game-nights/${_id}`, config)
+      .then(getGameNights)
+      .catch((err) => {
+        console.error('Error PATCHing the winner: ', err);
+      });
+  };
+  // Allow enter to send request
+  const handleEnterClick = (element) => {
+    const { key } = element;
+    if (key === 'Enter') {
+      patchWinner();
+    }
   };
   return (
     <AccordionDetails>
@@ -174,7 +207,28 @@ function NightDetails({ gameNight, getGameNights }) {
         )}
         {moment(gameNight.fullDate).isBefore(moment())
         && !gameNight.isCancelled
-        && <Typography variant="subtitle2" sx={{ marginRight: 'auto' }}>Winner:</Typography>}
+        && (
+        <Typography
+          variant="subtitle2"
+          sx={{ marginRight: 'auto' }}
+        >
+          Winner:
+          {gameNight.winner ? ` ${gameNight.winner}` : (
+            <TextField
+              helperText="Enter to save"
+              value={winner}
+              onChange={handleWinnerChange}
+              onKeyUp={handleEnterClick}
+              sx={{
+                width: 115,
+                '& .MuiInputBase-root': {
+                  height: 30,
+                },
+              }}
+            />
+          )}
+        </Typography>
+        )}
         {moment(gameNight.fullDate).isBefore(moment())
         && gameNight.isCancelled
         && <Typography variant="subtitle2" sx={{ marginRight: 'auto' }} />}
@@ -231,6 +285,7 @@ NightDetails.propTypes = {
     date: PropTypes.string,
     time: PropTypes.string,
     isCancelled: PropTypes.bool,
+    winner: PropTypes.string,
   }).isRequired,
   getGameNights: PropTypes.func.isRequired,
 };
