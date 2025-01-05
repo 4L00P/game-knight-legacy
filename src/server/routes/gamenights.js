@@ -20,12 +20,16 @@ gameNightsRouter.get('/', (req, res) => {
 });
 
 gameNightsRouter.post('/', (req, res) => {
+  // Grab the id from the user object in the request
+  const { _id } = req.user;
   // Grab the request body
   const { formValues } = req.body;
+  // Add the id to the formValues to be added to the database
+  formValues.user = _id;
   // Add the new gamenight to the database
   GameNights.create(formValues).then((event) => {
     // Send back the proper status codes
-    res.status(201).send(event);
+    res.sendStatus(201);
   }).catch((err) => {
     console.error('Error adding game night to database: ', err);
     res.sendStatus(500);
