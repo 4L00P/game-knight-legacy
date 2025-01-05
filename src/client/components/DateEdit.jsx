@@ -41,7 +41,6 @@ function DateEdit({
             time: value,
           },
         };
-      console.log('Config: ', config);
       // Make axios patch request with the id
       axios.patch(`/api/game-nights/${_id}`, config)
         .then(getGameNights)
@@ -50,6 +49,12 @@ function DateEdit({
         .catch((err) => {
           console.error('Error patching the date: ', err);
         });
+    } else if (key === 'Escape') {
+      if (editingDate) {
+        setEditingDate(false);
+      } else {
+        setEditingTime(false);
+      }
     }
   };
   return (

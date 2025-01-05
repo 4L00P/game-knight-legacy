@@ -208,7 +208,7 @@ function NightDetails({ gameNight, getGameNights }) {
         <DialogContent>
           <DialogContentText>
             Are you sure you want to cancel your event
-            {gameNight.name}
+            {` ${gameNight.name}`}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
