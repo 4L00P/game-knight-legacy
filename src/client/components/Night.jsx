@@ -111,7 +111,7 @@ function Night({ gameNight, getGameNights }) {
               )
 }
           <Typography
-            sx={{ paddingRight: 2.5, '&:hover': { color: 'white' } }}
+            sx={{ paddingRight: 2.5 }}
           >
             {
                 gameNight.isCancelled
