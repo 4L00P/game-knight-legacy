@@ -22,7 +22,6 @@ gameNightsRouter.get('/', (req, res) => {
 gameNightsRouter.post('/', (req, res) => {
   // Grab the request body
   const { formValues } = req.body;
-  console.log('FormValues: ', formValues);
   // Add the new gamenight to the database
   GameNights.create(formValues).then((event) => {
     // Send back the proper status codes
@@ -46,6 +45,23 @@ gameNightsRouter.delete('/:id', (req, res) => {
       res.sendStatus(500);
     });
 });
+
+gameNightsRouter.patch('/:id', (req, res) => {
+  // Grab the id from req params
+  const { id } = req.params;
+  // Grab the config from the req body
+  const { newDocument } = req.body;
+  // Query the database to update the event with the correct id
+  GameNights.findByIdAndUpdate(id, newDocument)
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.error('Error cancelling event in the database: ', err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = {
   gameNightsRouter,
 };

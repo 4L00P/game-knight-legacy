@@ -4,33 +4,48 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import {
   AccordionDetails,
+  Box,
   Button,
   List,
   ListItem,
+  TextField,
   Typography,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Stack,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import DateEdit from './DateEdit';
 
 const { useState } = React;
 
 function NightDetails({ gameNight, getGameNights }) {
-  // Set state value for opening and closing dialog
-  const [dialogOpen, setDialogOpen] = useState(false);
-
-  // Open the dialog box
-  const handleClickOpen = () => {
-    // Chan ge the state value to true
-    setDialogOpen(true);
+  // Set sate value for opening and closing deleting/cancelling dialog
+  const [deleting, setDeleting] = useState(false);
+  const [cancelling, setCancelling] = useState(false);
+  // Set state values to track if date and time are being edited
+  const [editingDate, setEditingDate] = useState(false);
+  const [editingTime, setEditingTime] = useState(false);
+  // Functions to open and close delete dialog box
+  const handleDeleteOpen = () => {
+    // Change the state value to true
+    setDeleting(true);
   };
-  // Close the Dialog box
-  const handleClose = () => {
+  const handleDeleteClose = () => {
     // Change the state value to false
-    setDialogOpen(false);
+    setDeleting(false);
+  };
+  // Functions to open and close cancel dialog box
+  const handleCancelOpen = () => {
+    // Set cancelling state value to true
+    setCancelling(true);
+  };
+  const handleCancelClose = () => {
+    // Set cancelling state value to false
+    setCancelling(false);
   };
   // Helper function to create a list from props arrays
   const createList = (label, prop, index) => (
@@ -60,36 +75,118 @@ function NightDetails({ gameNight, getGameNights }) {
         console.error('Error deleting event: ', err);
       });
   };
+
+  // Handle click to cancel an event
+  const handleCancelClick = () => {
+    // Grab the _id and isCancelled fields from the gameNight prop
+    const { _id, isCancelled } = gameNight;
+    // Build config to send in request
+    const config = { newDocument: { isCancelled: !isCancelled } };
+    // Make an axios patch request to cancel the gameNight
+    axios.patch(`/api/game-nights/${_id}`, config)
+      .then(getGameNights)
+      .then(() => { setCancelling(false); })
+      .catch((err) => {
+        console.error('Error canceling the event: ', err);
+      });
+  };
   return (
     <AccordionDetails>
-      <Typography variant="subtitle2">Winner:</Typography>
       <Grid container spacing={2}>
-        <Grid size={6}>
+        <Grid size={4}>
           {createList('Guests', gameNight.guests)}
         </Grid>
-        <Grid size={6}>
+        <Grid size={4}>
           {createList('Games', gameNight.games)}
         </Grid>
-        {moment(gameNight.fullDate).isAfter(moment())
-          ? (
-            <Button
-              variant="contained"
-              size="small"
-              sx={{ marginRight: 'auto' }}
+        <Grid size={4}>
+          {createList('Snacks', gameNight.snacks)}
+        </Grid>
+        <Grid size={12}>
+          <Box>
+            <Typography
+              variant="body1"
+              onClick={() => { setEditingDate(true); }}
+              sx={{ '&:hover': { color: 'white' } }}
             >
-              Cancel
-            </Button>
-          )
-          : <Typography variant="body" sx={{ marginRight: 'auto' }}>This event has concluded</Typography>}
+              Date:
+            </Typography>
+            { editingDate
+              ? (
+                <DateEdit
+                  gameNight={gameNight}
+                  getGameNights={getGameNights}
+                  editingDate={editingDate}
+                  editingTime={editingTime}
+                  setEditingDate={setEditingDate}
+                  setEditingTime={setEditingTime}
+                  placeHolder="MM/DD/YY"
+                  blurEvent={() => { setEditingDate(false); }}
+                />
+              )
+              : <Typography variant="body1">{`${moment(gameNight.fullDate).format('MMM Do')}`}</Typography>}
+            <Typography
+              variant="body1"
+              onClick={() => { setEditingTime(true); }}
+              sx={{ '&:hover': { color: 'white' } }}
+            >
+              Time:
+            </Typography>
+            { editingTime
+              ? (
+                <DateEdit
+                  gameNight={gameNight}
+                  getGameNights={getGameNights}
+                  editingDate={editingDate}
+                  editingTime={editingTime}
+                  setEditingDate={setEditingDate}
+                  setEditingTime={setEditingTime}
+                  placeHolder="23:59"
+                  blurEvent={() => { setEditingTime(false); }}
+                />
+              )
+              : <Typography>{`${moment(gameNight.fullDate).format('h:mm a')}`}</Typography>}
+          </Box>
+        </Grid>
+        {moment(gameNight.fullDate).isAfter(moment())
+        && !gameNight.isCancelled
+        && (
+          <Button
+            variant="contained"
+            size="small"
+            sx={{ marginRight: 'auto' }}
+            onClick={handleCancelOpen}
+          >
+            Cancel Event
+          </Button>
+        )}
+        {moment(gameNight.fullDate).isAfter(moment())
+        && gameNight.isCancelled
+        && (
+          <Button
+            variant="contained"
+            size="small"
+            sx={{ marginRight: 'auto' }}
+            onClick={handleCancelClick}
+          >
+            Uncancel
+          </Button>
+        )}
+        {moment(gameNight.fullDate).isBefore(moment())
+        && !gameNight.isCancelled
+        && <Typography variant="subtitle2" sx={{ marginRight: 'auto' }}>Winner:</Typography>}
+        {moment(gameNight.fullDate).isBefore(moment())
+        && gameNight.isCancelled
+        && <Typography variant="subtitle2" sx={{ marginRight: 'auto' }} />}
         <Button
           variant="contained"
           size="small"
-          onClick={handleClickOpen}
+          onClick={handleDeleteOpen}
         >
           Delete
         </Button>
       </Grid>
-      <Dialog open={dialogOpen} onClose={handleClose}>
+      <Dialog open={deleting} onClose={handleDeleteClose}>
         <DialogTitle>
           Delete Your Event
           {` ${gameNight.name}`}
@@ -100,8 +197,23 @@ function NightDetails({ gameNight, getGameNights }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleDeleteClose}>Cancel</Button>
           <Button onClick={handleNightDelete}>Delete</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={cancelling} onClose={handleCancelClose}>
+        <DialogTitle>
+          Cancel Event
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to cancel your event
+            {gameNight.name}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelClose}>No</Button>
+          <Button onClick={handleCancelClick}>Yes</Button>
         </DialogActions>
       </Dialog>
     </AccordionDetails>
@@ -116,6 +228,9 @@ NightDetails.propTypes = {
     snacks: PropTypes.arrayOf(PropTypes.string),
     games: PropTypes.arrayOf(PropTypes.string),
     fullDate: PropTypes.instanceOf(Date),
+    date: PropTypes.string,
+    time: PropTypes.string,
+    isCancelled: PropTypes.bool,
   }).isRequired,
   getGameNights: PropTypes.func.isRequired,
 };

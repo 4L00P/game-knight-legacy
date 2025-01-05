@@ -42,7 +42,7 @@ function GameNights() {
   return (
     <div>
       <Navbar />
-      <Typography variant="h5">Your Game Nights</Typography>
+      <Typography variant="h5" sx={{ pt: 2 }}>Your Game Nights</Typography>
       <GameNightsList
         gameNights={gameNights}
         getGameNights={getGameNights}
