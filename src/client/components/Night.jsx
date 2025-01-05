@@ -18,8 +18,7 @@ function Night({ gameNight, getGameNights }) {
   // Set state values for editing an event
   const [editingName, setEditingName] = useState(false);
   const [event, setEvent] = useState(gameNight);
-  // Set state value for if the accordion is open
-  const [openAccordion, setOpenAccordion] = useState(false);
+  // Set state value to check if toggle is allowed
 
   // PATCH edited event name
   const patchName = (element) => {
@@ -64,19 +63,25 @@ function Night({ gameNight, getGameNights }) {
     if (key === 'Enter') {
       // Call function to PATCH name
       patchName(element);
-    } else if (key === ' ') {
-      // Set open accordion value in state to true
-      setOpenAccordion(true);
     } else if (key === 'Escape') {
+      // Reset the value of the textField
+      const eventCopy = { ...event };
+      eventCopy.name = gameNight.name;
+      setEvent(eventCopy);
       // Leave name edit mode
       setEditingName(false);
     }
   };
+  // Reset the text field name in name editor when field loses focus
+  const resetNameField = () => {
+    const eventCopy = { ...event };
+    eventCopy.name = gameNight.name;
+    setEditingName(false);
+    setEvent(eventCopy);
+  };
   return (
     <ListItem>
       <Accordion
-        expanded={openAccordion}
-        onClick={handleKeyClick}
         sx={{ width: 3 / 4 }}
       >
         <AccordionSummary
@@ -98,8 +103,7 @@ function Night({ gameNight, getGameNights }) {
                   value={event.name}
                   sx={{ marginRight: 'auto' }}
                   onChange={handleChange}
-                  onBlur={() => { setEditingName(false); }}
-                  onFocus={() => { setOpenAccordion(true); }}
+                  onBlur={resetNameField}
                   onKeyUp={handleKeyClick}
                   helperText="Hit enter to save"
                   autoFocus

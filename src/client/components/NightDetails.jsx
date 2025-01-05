@@ -141,7 +141,7 @@ function NightDetails({ gameNight, getGameNights }) {
                   editingTime={editingTime}
                   setEditingDate={setEditingDate}
                   setEditingTime={setEditingTime}
-                  placeHolder=""
+                  placeHolder="23:59"
                   blurEvent={() => { setEditingTime(false); }}
                 />
               )

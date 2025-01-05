@@ -26,7 +26,8 @@ function DateEdit({
     // Grab the id from gameNight and value from the element
       const { _id } = gameNight;
       const { value } = element.target;
-      // Check editingDate and editingTime values to know what config to send
+      // Check editingDate value to know what config to send
+      // Need to know if we are editing the date or the time
       const config = editingDate
         ? {
           newDocument: {
