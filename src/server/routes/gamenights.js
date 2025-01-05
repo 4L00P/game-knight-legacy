@@ -7,8 +7,12 @@ const gameNightsRouter = Router();
 // gameNightsRouter.get('/')
 
 gameNightsRouter.get('/', (req, res) => {
-  // Retrieve the GameNights from the database
-  GameNights.find({})
+  // Grab the id from the user object on req
+  const { _id } = req.user;
+  // Created a query filter with the id
+  const queryFilter = { user: _id };
+  // Retrieve the GameNights with the _id from the database
+  GameNights.find(queryFilter)
     .then((gameNights) => {
       // Send back the GameNights and correct status codes
       res.status(200).send(gameNights);
@@ -20,12 +24,16 @@ gameNightsRouter.get('/', (req, res) => {
 });
 
 gameNightsRouter.post('/', (req, res) => {
+  // Grab the id from the user object in the request
+  const { _id } = req.user;
   // Grab the request body
   const { formValues } = req.body;
+  // Add the id to the formValues to be added to the database
+  formValues.user = _id;
   // Add the new gamenight to the database
-  GameNights.create(formValues).then((event) => {
+  GameNights.create(formValues).then(() => {
     // Send back the proper status codes
-    res.status(201).send(event);
+    res.sendStatus(201);
   }).catch((err) => {
     console.error('Error adding game night to database: ', err);
     res.sendStatus(500);
