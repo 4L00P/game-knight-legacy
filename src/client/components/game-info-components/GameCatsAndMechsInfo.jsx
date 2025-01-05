@@ -21,7 +21,9 @@ function GameCatsAndMechsInfo({ categories, mechanics, setGamesFilter }) {
       >
         <Typography variant="subtitle2">Categories & Mechanics</Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails
+        className="inner-accordion-details"
+      >
         <Grid container spacing={2}>
           <Grid size={6}>
             <Typography variant="subtitle2">Categories:</Typography>

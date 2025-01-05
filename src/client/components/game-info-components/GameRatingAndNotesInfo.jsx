@@ -83,7 +83,9 @@ function GameRatingAndNotesInfo({
       >
         <Typography variant="subtitle2">Rating & Notes:</Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails
+        className="inner-accordion-details"
+      >
         <Grid container spacing={2}>
           <Grid size={3}>
             <Typography variant="subtitle2">Rating:</Typography>

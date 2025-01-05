@@ -38,7 +38,9 @@ function GameGeneralInfo({
       >
         <Typography variant="subtitle2">General Info:</Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails
+        className="inner-accordion-details"
+      >
         <Grid container spacing={2}>
           {yearPublished
             ? (

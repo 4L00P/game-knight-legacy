@@ -92,6 +92,21 @@ const appTheme = createTheme({
         },
       },
     },
+
+    // Accordion Details
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#BDF5FF',
+          variants: [
+            {
+              props: { className: 'inner-accordion-details' },
+              style: { backgroundColor: '#FBC59A' },
+            },
+          ],
+        },
+      },
+    },
   },
 });
 

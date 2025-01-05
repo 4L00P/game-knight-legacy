@@ -24,7 +24,9 @@ function GameDescriptionInfo({ description }) {
       >
         <Typography variant="subtitle2">Description:</Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails
+        className="inner-accordion-details"
+      >
         {description.split('\n').map((line, i) => (
           <Typography
             key={`${line.slice(0, 10)} - ${i * Math.random()}`}
