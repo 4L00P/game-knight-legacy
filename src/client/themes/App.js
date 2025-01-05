@@ -4,7 +4,7 @@ const appTheme = createTheme({
   // Affects the color scheme of the site
   palette: {
     primary: {
-      main: '#0FD4FF',
+      main: '#0FA4FF',
       /**
        * Other Color Tokens:
        *  - light
@@ -16,7 +16,10 @@ const appTheme = createTheme({
       main: '#FB7509',
     },
     update: {
-      main: '#30BB60',
+      main: '#305560',
+    },
+    remove: {
+      main: '#703370',
     },
     /**
      * Other Default Colors:
@@ -93,7 +96,7 @@ const appTheme = createTheme({
       },
     },
 
-    // Accordion Details
+    // AccordionDetails
     MuiAccordionDetails: {
       styleOverrides: {
         root: {
@@ -104,6 +107,31 @@ const appTheme = createTheme({
               style: { backgroundColor: '#FBC59A' },
             },
           ],
+        },
+      },
+    },
+    
+    // DialogTitle
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#ABF1FD',
+        },
+      },
+    },
+    // DialogContent
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#ABF1FD',
+        },
+      },
+    },
+    // DialogActions
+    MuiDialogActions: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#ABF1FD',
         },
       },
     },
