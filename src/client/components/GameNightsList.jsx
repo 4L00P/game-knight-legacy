@@ -1,7 +1,7 @@
 import React from 'react';
 import { List } from '@mui/material';
 import PropTypes from 'prop-types';
-import Night from './Night';
+import Night from './game-night-accordion/Night';
 
 function GameNightsList({ gameNights, getGameNights }) {
   return (

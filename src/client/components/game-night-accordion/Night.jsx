@@ -133,7 +133,6 @@ function Night({ gameNight, getGameNights }) {
           getGameNights={getGameNights}
         />
       </Accordion>
-      <Button>Edit</Button>
     </ListItem>
   );
 }
