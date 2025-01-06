@@ -16,6 +16,7 @@ function EventItem({
   index,
   collection,
   collectionName,
+  getGameNights,
 }) {
   // Handle deletion of items
   const deleteItem = () => {
@@ -31,7 +32,7 @@ function EventItem({
     };
     // Make a PATCH request to remove the element from the collection
     axios.patch(`/api/game-nights/${_id}`, config)
-      .then()
+      .then(getGameNights)
       .catch((err) => {
         console.error('Error patching gameNight collection: ', err);
       });
@@ -69,6 +70,7 @@ EventItem.propTypes = {
   index: PropTypes.number.isRequired,
   collection: PropTypes.instanceOf(Array).isRequired,
   collectionName: PropTypes.string.isRequired,
+  getGameNights: PropTypes.func.isRequired,
 };
 
 export default EventItem;

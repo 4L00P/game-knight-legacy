@@ -63,6 +63,7 @@ function NightDetails({ gameNight, getGameNights }) {
             collection={prop}
             // eslint-disable-next-line no-underscore-dangle
             collectionName={label.toLowerCase()}
+            getGameNights={getGameNights}
           />
         ))}
       </List>
