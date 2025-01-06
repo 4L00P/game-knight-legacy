@@ -43,12 +43,22 @@ Welcome to Game Knight! We want to develop a companion application for board gam
 ## Developer Notes
 Here's what you need to know to begin development on Game Knight:
 
-Node Version: 20
+Node Version Requirement: 20
 
 We make use of the Mongoose ODM to interact with a MongoDB database located in the same place as the server. Be sure that you are running your MongoDB database while in development.
 
 All other dependencies are included in the package.json can be installed with the following script in the terminal:
 `npm install`
+
+Technologies used in this repository:
+- Front-End Framework: React & React Router
+- Styling Framework: Material UI
+- Server: Built using Express
+- Database: MongoDB
+- Authentication: Google
+- Additional Technologies:
+  - Axios, for server requests
+  - Moment, for displaying dates and times
 
 ### Scripts available in the package.json:
 
@@ -97,23 +107,31 @@ The following is a break down of each view:
       - GameCatsAndMechsInfo
       - GameRatingAndNotesInfo
       - GameDescriptionInfo
+    - RemoveGameDialog
 
 `GameNights` : This views shows the user game nights they've planned. This view uses the following components (indentation denotes children):
 - NavBar
 - GameNightsList
   - Night
     - NightDetails
-- *GameNightForm* (File currently called CreateNight)
+      - DateEdit
+      - EventItem
+- GameNightForm
   - DividedListItem
   - InputField
+    - CalendarField
 
 `Groups` : This view shows the user groups they've created. This view uses the following components (indentation denotes children):
 
 - NavBar
+- GroupForm
+- Group
 
 `CurrentGame` : This view allows the user to select a group to use helpful features to facilitate game play. This view uses the following components (indentation denotes children):
 
 - NavBar
+- PlayerList
+- PlayerCard
 
 ### Server Routes
 All endpoints can be found in the initial express app found at `./src/server/app.js` and different routers found in the `./src/server/routes/` directory. The Express server uses the following endpoints:
@@ -122,25 +140,96 @@ All endpoints can be found in the initial express app found at `./src/server/app
   - `/auth/user` : This endpoint sends back user info from the current session.
 - `/api/games` : This route holds all interactions with the Games collection.
   - POST `/`
+    - Creates a board game object for a user in the database
+    - Must send an object in the request body:
+      - `{ game: { name || bggId } }`
+        - Must have either a "name" key or a "bggId" key.
+          - "name" : The Title of a board game
+          - "bggId" : The Board Game Geeks id of a board game
   - GET `/`
+    - Sends back the user's games
+    - Optionally, you may send query parameters to filter the query for games in the params key using axios:
+      - `{ game: { field(s) } }`
+        - The key(s) should match the fields in the Games collection to set a filter
   - DELETE `/:id`
+    - Removes the game from the database using the _id from the game object.
   - PATCH `/:id`
+    - Updates the game from the database using the _id from the game object.
+    - Must send an object in the request body:
+      - `{ game: { fields } }`
+        - The key(s) should match the fields in the Games collection to update the fields for the game object using the values attached to the keys.
 - `/api/game-nights` : This route holds all interactions with the GameNights collection.
   - GET `/`
+    - Sends back the user's game nights they planned
   - POST `/`
+    - Creates a game night object for a user in the database
+    - Must send an object in the request body:
+      - `{ formValues: { fields } }`
+        - The key(s) should match the fields in the GameNights collection to properly create and store the object
+  - DELETE `/:id`
+    - Removes the game night from the database using the _id from the game night object.
+  - PATCH `/:id`
+    - Updates the game from the database using the _id from the game object.
+    - Must send an object in the request body:
+      - `{ newDocument: { fields } }`
+        - The key(s) should match the fields in the GameNights collection to update the fields for the game night object using the values attached to the keys.
 - `/api/groups` : This route holds all interactions with the Groups collection.
   - POST `/`
+    - Creates a group object for a user in the database
+    - Must send an object in the request body:
+      - `{ groups: { fields } }`
+        - The key(s) should match the fields in the Groups collection to properly create and store the object
   - GET `/`
+    - Sends back the user's groups they put together
+  - DELETE `/:id`
+    - Removes the group from the database using the _id from the group object.
   - PATCH `/:id`
+    - Updates the group from the database using the _id from the group object.
+    - Must send an object in the request body:
+      - `{ groups: { fields } }`
+        - The key(s) should match the fields in the Groups collection to update the fields for the group object using the values attached to the keys.
 - `/logout` : This endpoint logs the user out of their current session and clears their cookie.
 - `*` : This endpoint facilitates all React-Router requests to the server. Using a custom verifySession middleware to check that a user has signed in properly to be able to navigate the site.
 
 ### Database Schemas
 We are using MongoDB with the Mongoose ODM. You can find schemas in the `./src/server/database/models` directory. At this moment, we have the following collections:
 - Users
+  - name
+  - googleId
+  - email
 - Games
+  - Data From Board Game Geeks:
+    - bggId (Board Game Geeks)
+    - name
+    - thumbnail
+    - image (bigger version of the thumbnail most of the time)
+    - description
+    - yearPublished
+    - minPlayers
+    - maxPlayers
+    - bestWith
+    - recommendedWith
+    - playTime
+    - minAge
+    - categories
+    - mechanics
+  - Other fields not from BGG
+    - user (should be the _id from the user object)
+    - notes
+    - rating
 - GameNights
+  - name
+  - user (should be the _id from the user object)
+  - fullDate (date)
+  - date (string)
+  - time (string)
+  - isComplete
+  - isCancelled
+  - guests (Array of Strings)
+  - snacks (Array of Strings)
+  - games (Array of Strings)
+  - winner
 - Groups
-
-## Future
-> ... any ideas we like from our backlog we can leave here ...
+  - name
+  - players (Array of Strings)
+  - user (should be the _id from the user object)
