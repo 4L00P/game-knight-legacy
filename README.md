@@ -150,17 +150,29 @@ All endpoints can be found in the initial express app found at `./src/server/app
     - Sends back the user's games
     - Optionally, you may send query parameters to filter the query for games in the params key using axios:
       - `{ game: { field(s) } }`
-        - The key(s) should match the field in the Games collection to set a filter
+        - The key(s) should match the fields in the Games collection to set a filter
   - DELETE `/:id`
     - Removes the game from the database using the _id from the game object.
   - PATCH `/:id`
     - Updates the game from the database using the _id from the game object.
     - Must send an object in the request body:
       - `{ game: { fields } }`
-        - The key(s) should match the field in the Games collection to update the fields for the game object using the values attached to the keys.
+        - The key(s) should match the fields in the Games collection to update the fields for the game object using the values attached to the keys.
 - `/api/game-nights` : This route holds all interactions with the GameNights collection.
   - GET `/`
+    - Sends back the user's game nights they planned
   - POST `/`
+    - Creates a game night object for a user in the database
+    - Must send an object in the request body:
+      - `{ formValues: { fields } }`
+        - The key(s) should match the fields in the GameNights collection to properly create and store the object
+  - DELETE `/:id`
+    - Removes the game night from the database using the _id from the game night object.
+  - PATCH `/:id`
+    - Updates the game from the database using the _id from the game object.
+    - Must send an object in the request body:
+      - `{ newDocument: { fields } }`
+        - The key(s) should match the fields in the GameNights collection to update the fields for the game night object using the values attached to the keys.
 - `/api/groups` : This route holds all interactions with the Groups collection.
   - POST `/`
   - GET `/`
