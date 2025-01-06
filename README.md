@@ -194,9 +194,42 @@ All endpoints can be found in the initial express app found at `./src/server/app
 ### Database Schemas
 We are using MongoDB with the Mongoose ODM. You can find schemas in the `./src/server/database/models` directory. At this moment, we have the following collections:
 - Users
+  - name
+  - googleId
+  - email
 - Games
+  - Data From Board Game Geeks:
+    - bggId (Board Game Geeks)
+    - name
+    - thumbnail
+    - image (bigger version of the thumbnail most of the time)
+    - description
+    - yearPublished
+    - minPlayers
+    - maxPlayers
+    - bestWith
+    - recommendedWith
+    - playTime
+    - minAge
+    - categories
+    - mechanics
+  - Other fields not from BGG
+    - user (should be the _id from the user object)
+    - notes
+    - rating
 - GameNights
+  - name
+  - user (should be the _id from the user object)
+  - fullDate (date)
+  - date (string)
+  - time (string)
+  - isComplete
+  - isCancelled
+  - guests (Array of Strings)
+  - snacks (Array of Strings)
+  - games (Array of Strings)
+  - winner
 - Groups
-
-## Future
-> ... any ideas we like from our backlog we can leave here ...
+  - name
+  - players (Array of Strings)
+  - user (should be the _id from the user object)
