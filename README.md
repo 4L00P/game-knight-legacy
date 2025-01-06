@@ -43,12 +43,22 @@ Welcome to Game Knight! We want to develop a companion application for board gam
 ## Developer Notes
 Here's what you need to know to begin development on Game Knight:
 
-Node Version: 20
+Node Version Requirement: 20
 
 We make use of the Mongoose ODM to interact with a MongoDB database located in the same place as the server. Be sure that you are running your MongoDB database while in development.
 
 All other dependencies are included in the package.json can be installed with the following script in the terminal:
 `npm install`
+
+Technologies used in this repository:
+- Front-End Framework: React & React Router
+- Styling Framework: Material UI
+- Server: Built using Express
+- Database: MongoDB
+- Authentication: Google
+- Additional Technologies:
+  - Axios, for server requests
+  - Moment, for displaying dates and times
 
 ### Scripts available in the package.json:
 
