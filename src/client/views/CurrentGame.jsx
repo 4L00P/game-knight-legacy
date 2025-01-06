@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Grid2, Typography, Paper, Card, List, ListItem } from "@mui/material";
+import { Grid2,
+   Typography,
+    Paper,
+    Button,
+     Card,
+      List,
+       ListItem,
+        Box,
+       } from "@mui/material";
 import PlayerList from '../components/PlayerList';
 import axios from 'axios';
 import PlayerCard from '../components/PlayerCard';
 
 import Navbar from "../components/Navbar";
-// import { name, members } from '../../server/database/models/Groups';
 const Grid = Grid2;
 
 function CurrentGame() {
@@ -28,6 +35,15 @@ function CurrentGame() {
   }
    function moveGroupToPage(group) {
     setPlayers(group.players);
+    setName(group.name);
+   }
+   function submitPlayer(e) {
+    e.preventDefault();
+    const newPlayer = e.target.value;
+    console.log(newPlayer);
+    players.push(newPlayer);
+    console.log(players);
+    setPlayers(players);
    }
   /**
    * Game Needs:
@@ -72,16 +88,16 @@ function CurrentGame() {
       </Typography>
       <Navbar />
       <Typography variant="h2" align="center">
-        TEST GAME!!!
+        {name}
       </Typography>
       <form align="center">
         <label htmlFor="name">
           Add Name
           <input type="text" id="name" />
         </label>
-        <button type="submit">Submit</button>
+        <Button variant="contained" type="submit">Submit</Button>
       </form>
-      <Typography variant="h4" align="center">
+      {/* <Typography variant="h4" align="center">
         Gaia Project
       </Typography>
       <form align="center">
@@ -89,15 +105,35 @@ function CurrentGame() {
           Add Game
           <input type="text" id="game" />
         </label>
-        <button type="submit">Submit</button>
-      </form>
+        <Button variant="contained" type="submit">Submit</Button>
+      </form> */}
       <form align="right">
         <label htmlFor="player">
           Add Player
           <input type="text" id="player" />
         </label>
-        <button type="submit">Submit</button>
+        <Button onClick={submitPlayer} type="submit">Submit</Button>
       </form>
+      <Box
+      sx={{
+        maxHeight: 200,
+        position: 'relative',
+        overflow: 'auto',
+        '&::-webkit-scrollbar': {
+          width: '1em',
+        },
+        '&::-webkit-scrollbar-track': {
+          boxShadow: 'inset 0 0 6px rgba(23, 99, 154, 0.5)',
+          webkitBoxShadow: 'inset 0 0 6px rgba(29, 137, 179, 0.5)',
+          borderRadius: 10,
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: 'rgba(10, 167, 195, 0.3)',
+          outline: '3px rgba(33, 21, 251, 0.89)',
+          borderRadius: 5,
+        },
+      }}
+      >
 
       <List>
         {groups.map((group) => {
@@ -112,10 +148,10 @@ function CurrentGame() {
           );
         })}
       </List>
-      <Grid container spacing={2}>
+        </Box>
 
+      <Grid container spacing={2}>
         {/* This will be dynamical PlayerCard in the future. Remember VP, HP, Maybe MP */}
-        <Grid size={4}>
           {players.map((player) => {
             console.log(player);
             return (
@@ -128,7 +164,6 @@ function CurrentGame() {
               />
             );
           })}
-        </Grid>
       </Grid>
     </div>
   );
