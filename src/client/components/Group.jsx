@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Card, Typography, Grid2 } from "@mui/material";
+import { Card, Typography, Grid2, Button } from "@mui/material";
 import axios from "axios";
 
 const Grid = Grid2;
@@ -16,21 +16,24 @@ function Group({ id, name, players, getGroups }) {
         console.error("Unable to Delete group", err);
       });
   }
-  function moveGroup() {}
+  function editingName() {}
+  function editName() {}
+  function editingPlayers() {}
+  function editPlayers() {}
   return (
     <Grid item size={3}>
         <Card
+        sx={{boxShadow: '0 0 15px 5px #48ABE0'}}
           elevation={10}
-          style={{ height: "200px", width: "200px", padding: "14px" }}
+          style={{ height: "200px", width: "200px"}}
         >
-          <Typography>{name}</Typography>
-          <button type="button">Edit Name</button>
-          <Typography>{players.join(',')}</Typography>
-          <button type="button">Edit Players</button>
-          <button type="button" onClick={deleteGroup}>
-            DELETE GROUP
-          </button>
-          <button type="button" onClick={moveGroup}>Start a game with this group!</button>
+          <Typography variant="h4">{name}</Typography>
+          <Button type="button" onClick={editName}><Typography>Edit Name</Typography></Button>
+          <Typography variant="h6">{players.join(',')}</Typography>
+          <Button type="button" onClick={editPlayers}><Typography>Edit Players</Typography></Button>
+          <Button type="button" onClick={deleteGroup}>
+            <Typography>DELETE GROUP</Typography>
+          </Button>
         </Card>
     </Grid>
   );

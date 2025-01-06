@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-
+import { Button, Typography } from '@mui/material';
 function GroupForm(props) {
   const { getGroups } = props;
   // useEffect(() => getGroups, []);
@@ -33,14 +33,14 @@ function GroupForm(props) {
   return (
     <form onSubmit={submitGroup}>
       <label htmlFor="group-name-form" id="group-name-form">
-        Group Name
+        <Typography variant="h6">Name</Typography>
         <input name="name" type="text" />
       </label>
       <label htmlFor="group-form-players" id="group-form-players">
-        Player List
+        <Typography variant="h6">Players</Typography>
         <input name="players" type="text" />
       </label>
-      <button type="submit">Submit</button>
+      <Button variant="contained" type="submit">Submit</Button>
     </form>
   );
 }
