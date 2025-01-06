@@ -175,8 +175,19 @@ All endpoints can be found in the initial express app found at `./src/server/app
         - The key(s) should match the fields in the GameNights collection to update the fields for the game night object using the values attached to the keys.
 - `/api/groups` : This route holds all interactions with the Groups collection.
   - POST `/`
+    - Creates a group object for a user in the database
+    - Must send an object in the request body:
+      - `{ groups: { fields } }`
+        - The key(s) should match the fields in the Groups collection to properly create and store the object
   - GET `/`
+    - Sends back the user's groups they put together
+  - DELETE `/:id`
+    - Removes the group from the database using the _id from the group object.
   - PATCH `/:id`
+    - Updates the group from the database using the _id from the group object.
+    - Must send an object in the request body:
+      - `{ groups: { fields } }`
+        - The key(s) should match the fields in the Groups collection to update the fields for the group object using the values attached to the keys.
 - `/logout` : This endpoint logs the user out of their current session and clears their cookie.
 - `*` : This endpoint facilitates all React-Router requests to the server. Using a custom verifySession middleware to check that a user has signed in properly to be able to navigate the site.
 
