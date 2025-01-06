@@ -8,6 +8,7 @@ import {
   Button,
   List,
   ListItem,
+  Divider,
   TextField,
   Typography,
   Dialog,
@@ -19,6 +20,7 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import DateEdit from './DateEdit';
+import EventItem from './EventItem';
 
 const { useState } = React;
 
@@ -50,17 +52,24 @@ function NightDetails({ gameNight, getGameNights }) {
     setCancelling(false);
   };
   // Helper function to create a list from props arrays
-  const createList = (label, prop, index) => (
-    <List>
-      <Typography variant="body">{`${label}:`}</Typography>
-      {prop.map((value) => (
-        <ListItem
-          key={`${value}-${index * 2}`}
-        >
-          <Typography variant="subtitle2">{value}</Typography>
-        </ListItem>
-      ))}
-    </List>
+  const createList = (label, prop) => (
+    <Stack>
+      <List>
+        <Typography variant="body">{`${label}:`}</Typography>
+        {prop.map((value, index) => (
+          <EventItem
+            key={`${value}-${index * 2}`}
+            gameNight={gameNight}
+            value={value}
+            index={index}
+            collection={prop}
+            // eslint-disable-next-line no-underscore-dangle
+            collectionName={label.toLowerCase()}
+            getGameNights={getGameNights}
+          />
+        ))}
+      </List>
+    </Stack>
   );
 
   // Handle deletion of a gameNight from the database
