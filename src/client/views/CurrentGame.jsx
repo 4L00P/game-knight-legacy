@@ -39,7 +39,7 @@ function CurrentGame() {
    }
    function submitPlayer(e) {
     e.preventDefault();
-    const newPlayer = e;
+    const newPlayer = e.target.value;
     console.log(newPlayer);
     players.push(newPlayer);
     console.log(players);
