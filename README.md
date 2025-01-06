@@ -140,9 +140,24 @@ All endpoints can be found in the initial express app found at `./src/server/app
   - `/auth/user` : This endpoint sends back user info from the current session.
 - `/api/games` : This route holds all interactions with the Games collection.
   - POST `/`
+    - Creates a board game object for a user in the database
+    - Must send an object in the request body:
+      - `{ game: { name || bggId } }`
+        - Must have either a "name" key or a "bggId" key.
+          - "name" : The Title of a board game
+          - "bggId" : The Board Game Geeks id of a board game
   - GET `/`
+    - Sends back the user's games
+    - Optionally, you may send query parameters to filter the query for games in the params key using axios:
+      - `{ game: { field(s) } }`
+        - The key(s) should match the field in the Games collection to set a filter
   - DELETE `/:id`
+    - Removes the game from the database using the _id from the game object.
   - PATCH `/:id`
+    - Updates the game from the database using the _id from the game object.
+    - Must send an object in the request body:
+      - `{ game: { fields } }`
+        - The key(s) should match the field in the Games collection to update the fields for the game object using the values attached to the keys.
 - `/api/game-nights` : This route holds all interactions with the GameNights collection.
   - GET `/`
   - POST `/`
