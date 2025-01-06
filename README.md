@@ -107,23 +107,31 @@ The following is a break down of each view:
       - GameCatsAndMechsInfo
       - GameRatingAndNotesInfo
       - GameDescriptionInfo
+    - RemoveGameDialog
 
 `GameNights` : This views shows the user game nights they've planned. This view uses the following components (indentation denotes children):
 - NavBar
 - GameNightsList
   - Night
     - NightDetails
-- *GameNightForm* (File currently called CreateNight)
+      - DateEdit
+      - EventItem
+- GameNightForm
   - DividedListItem
   - InputField
+    - CalendarField
 
 `Groups` : This view shows the user groups they've created. This view uses the following components (indentation denotes children):
 
 - NavBar
+- GroupForm
+- Group
 
 `CurrentGame` : This view allows the user to select a group to use helpful features to facilitate game play. This view uses the following components (indentation denotes children):
 
 - NavBar
+- PlayerList
+- PlayerCard
 
 ### Server Routes
 All endpoints can be found in the initial express app found at `./src/server/app.js` and different routers found in the `./src/server/routes/` directory. The Express server uses the following endpoints:
