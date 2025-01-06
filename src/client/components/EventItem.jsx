@@ -24,8 +24,6 @@ function EventItem({
     const { _id } = gameNight;
     // Remove the element in the correct collection form the gameNight object
     gameNight[collectionName].splice(index, 1);
-    console.log(gameNight[collectionName]);
-    console.log(index);
     // Build config to send in the req
     const config = {
       newDocument: gameNight,
