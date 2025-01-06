@@ -50,13 +50,19 @@ function NightDetails({ gameNight, getGameNights }) {
     setCancelling(false);
   };
   // Helper function to create a list from props arrays
-  const createList = (label, prop, index) => (
+  const createList = (label, prop) => (
     <Stack>
       <List>
         <Typography variant="body">{`${label}:`}</Typography>
-        {prop.map((value) => (
+        {prop.map((value, index) => (
           <EventItem
+            key={`${value}-${index * 2}`}
+            gameNight={gameNight}
             value={value}
+            index={index}
+            collection={prop}
+            // eslint-disable-next-line no-underscore-dangle
+            collectionName={label.toLowerCase()}
           />
         ))}
       </List>
