@@ -12,7 +12,7 @@ gameNightsRouter.get('/', (req, res) => {
   // Created a query filter with the id
   const queryFilter = { user: _id };
   // Retrieve the GameNights with the _id from the database
-  GameNights.find(queryFilter)
+  GameNights.find(queryFilter).sort({ fullDate: -1 })
     .then((gameNights) => {
       // Send back the GameNights and correct status codes
       res.status(200).send(gameNights);
