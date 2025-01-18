@@ -1,42 +1,27 @@
 # Game Knight: The Board Game Companion
 
 ## Introduction
-Welcome to Game Knight! We want to develop a companion application for board game enjoyers out there. We are striving to create a central hub for keeping track of a board game collection, scheduling game nights, and assisting players while they play board games.
+Welcome to Game Knight! Getting a group together for a game night can be tough: What should we play? What games are available? Forgetting whose turn it is. Game Knight will be a central hub for keeping track of a board game collection, scheduling game nights, and assisting players while they play board games.
 
 ## Current Features
-> Search Board Game Geeks for board game info and store the info in your collection.
+> Search for a board game and store the game along with its information in your collection.
 
+- The search utilizes the Board Game Geeks API to gather important details about a board game.
 
+> Track how you feel about a board game in your collection with a rating or a note.
 
-> Update the info on your board games with a rating and notes, and remove games if you don't want them in your collection anymore.
-
-
-
-> Filter your game collection based off a category or mechanic from a board game in your collection.
-
-
+> Filter your game collection based off a category or mechanic to find a game that's perfect for your game night.
 
 > Schedule game nights with a predetermined list of guests, snacks, and games.
-
-
-
-> View a scheduled game night from another user using a code.
-
-
-
-> Edit your scheduled game nights by adding or removing guests, snacks, or games from the event, cancel a game night, or remove it entirely from your profile.
-
-
+- Edit the details of the game night if plans change:
+  - Remove guests
+  - Remove snacks
+  - Remove games
+  - Rename title
+  - Pick a new date or time
+- Declare a winner after the game night has passed to keep a record.
 
 > Create groups of players for different game sessions.
-
-
-
-> Edit your groups in case someone can't play or if you have an additional player, and then remove the group once you're done with it.
-
-
-
-> A group has the additional feature of keeping track of turn order while you play a board game.
 
 
 
@@ -82,6 +67,7 @@ Add similar URIs for your production build.
 
 Once you have your OAuth 2.0 Client ID, locate you Client ID and Client secret because you'll need them in you .env file.
 
+## Environmental Variables
 In this repo, you'll find a file called .env-example. Be sure to copy this file as .env. In the newly created .env, you'll enter the following:
 - `GOOGLE_CLIENT_ID` : The client ID from your Google OAuth Client ID
 - `GOOGLE_CLIENT_SECRET` : The client secret from your Google OAuth Client ID
@@ -89,7 +75,7 @@ In this repo, you'll find a file called .env-example. Be sure to copy this file 
 - `DOMAIN_NAME` : The domain name of your server. If your using a local development environment, I suggest putting 127.0.0.1.
 - `PORT` : The port defaults to 8000 if this isn't here, but if you'd like to use a different port, you can put it here.
 
-## Architecture Diagrams
+## File Structure
 
 ### Client-side Component Tree
 We are making use of React-Router. The routes are defined in `./src/client/App.jsx`. Each route is assigned a "view", which we have stored in the `./src/client/views/` directory. Each view makes use of different components found in the `./src/client/components/` directory, which may contain further nested directories for the organization of components.
@@ -233,3 +219,19 @@ We are using MongoDB with the Mongoose ODM. You can find schemas in the `./src/s
   - name
   - players (Array of Strings)
   - user (should be the _id from the user object)
+
+## Current Bugs
+- When editing the Game Night name, the accordion opens and closes with the spacebar.
+
+## Future Development & Improvements
+- Be able to add more guests, snacks, and games to a game night when editing.
+- Be able to edit the winner for a game night.
+- Allow users to put times in regular time rather than military time.
+- Add functionality to the buttons in the Groups and Current Game views
+- Add more assist features for the current game view
+
+## Contributors
+- [Awesome Person Interface](https://github.com/Awesome-Person-Interface)
+  - Evan Loria ([evanloria4](https://github.com/evanloria4))
+  - Stefan Poole ([steviepee](https://github.com/steviepee))
+  - Tyler Meyer ([tymey](https://github.com/tymey))
