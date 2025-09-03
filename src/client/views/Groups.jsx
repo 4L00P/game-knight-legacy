@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Card, Grid2, Typography } from "@mui/material";
-import Navbar from "../components/Navbar";
-import GroupForm from "../components/GroupForm";
-import Group from "../components/Group";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Card, Grid2, Typography } from '@mui/material';
+import Navbar from '../components/Navbar';
+import GroupForm from '../components/GroupForm';
+import Group from '../components/Group';
+
+import Friends from '../components/group-friends-components/Friends';
 
 const Grid = Grid2;
 
@@ -61,6 +63,8 @@ function Groups() {
           );
         })}
       </Grid>
+      <br />
+      <Friends />
     </div>
   );
 }
