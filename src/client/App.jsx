@@ -19,7 +19,7 @@ function App() {
           <Route path="gamenights" element={<GameNights />} />
           <Route path="groups" element={<Groups />} />
           <Route path="current-game" element={<CurrentGame />} />
-          <Route path="friend" element={<Friend />} />
+          <Route path="friends" element={<Friend />} />
         </Routes>
       </div>
     </ThemeProvider>
