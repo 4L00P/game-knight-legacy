@@ -5,7 +5,8 @@ import Navbar from '../components/Navbar';
 import GameNightForm from '../components/game-night-form/GameNightForm';
 import GameNightsList from '../components/GameNightsList';
 
-import AddAvailability from '../components/group-schedule-components/Schedule';
+import AddAvailability from '../components/group-schedule-components/AddAvailability';
+
 
 const {
   useState,
