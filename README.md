@@ -67,6 +67,55 @@ Add similar URIs for your production build.
 
 Once you have your OAuth 2.0 Client ID, locate you Client ID and Client secret because you'll need them in you .env file.
 
+## Deployment Steps ##
+Deploy with `AWS` and `PuTTY` (Windows) - Using an `EC2`
+The only thing that'll change with using Mac/ Linux is using Open SSH instead of PuTTTY
+
+# AWS #
+1) Make an account to use AWS
+2) From the homepage, search `EC2` and hit `Launch an instance`
+3) For the Amazon Machine Image section, pick an `Ubuntu` Base 
+4) For Instance type leave at the default or pick a free tier
+5) For `key pair (login)` select Create a key pair and generate an RSA key, save as a .ppk for PuTTY
+6) In Network Settings, `create security groups` to modify who can access the deployed instance
+   To edit inbound rules - hit edit inbound rules
+    the security group should contain: 
+    - Type: HTTP - 0.0.0.0/0 to allow anyone to visit and use the site
+    - Type: SSH - who can access the build through SSH key 
+        note: if you only want 1 person to access, select My IP and enter the IP address
+    - Type: Custom TCP - The port that the server runs on (ex: 5000, 8000, etc.)
+7) We used default option for everything else, made 1 instance and hit `Launch instance`
+8) After a few minutes the Status Check should be 2/2 checks passed
+8) Hit `Connect` to connect to the instance
+9) use `SSH Client` to connect with SSH
+
+# Connect to the EC2 VM with PuTTY #
+10) In the PuTTY window, put connection type to SSH
+In the `Host Name` field enter: ubuntu@<IP address>
+11) On the left side there is a section with `SSH` -> `Auth` and load in the private key file 
+12) Make sure to go back to the `Session` tab, name your session and save it 
+13) Now, you should be able to login to your virtual machine!
+
+`What you need on the VM`
+- Install Node Version 20
+- Install mongodb (Note: can use cloud service instead, we opted to just install it directly)
+- Clone down the org's repository (make sure to do npm install)
+- Set up the .env file
+- Run the build script and run the server
+- Install PM2 and use the 'run' script file path
+
+DONE! This is not a continuous deployment, so any changes will need to be pulled down into the 
+deployed instance 
+
+Helpful docs:
+([MongoDB]https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/#install-mongodb-community-edition)
+([PM2](https://pm2.keymetrics.io/))
+
+Helpful video links:
+([AWS EC2](https://www.youtube.com/watch?v=YH_DVenJHII))
+([PuTTY](https://www.youtube.com/watch?v=051Jdka8piY))
+
+
 ## Environmental Variables
 In this repo, you'll find a file called .env-example. Be sure to copy this file as .env. In the newly created .env, you'll enter the following:
 - `GOOGLE_CLIENT_ID` : The client ID from your Google OAuth Client ID
@@ -235,3 +284,10 @@ We are using MongoDB with the Mongoose ODM. You can find schemas in the `./src/s
   - Evan Loria ([evanloria4](https://github.com/evanloria4))
   - Stefan Poole ([steviepee](https://github.com/steviepee))
   - Tyler Meyer ([tymey](https://github.com/tymey))
+
+# Legacy #
+- ([4L00P](https://github.com/4L00P))
+- Ava Alley ([avaAlley](https://github.com/avaAlley))
+- Joseph Furman ([joespaf](https://github.com/joespaf))
+- Ryan Simien ([RRARI504](https://github.com/RRARI504))
+- Yume Jensen ([yumejensen](https://github.com/yumejensen))
