@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
+const socket = require('./socket') //should ensure that socket is initialized
 // Builds passport for Google OAuth2.0 Authentication
 require('./routes/auth-passport');
 
