@@ -5,6 +5,8 @@ import Navbar from '../components/Navbar';
 import GameNightForm from '../components/game-night-form/GameNightForm';
 import GameNightsList from '../components/GameNightsList';
 
+import AddAvailability from '../components/group-schedule-components/Schedule';
+
 const {
   useState,
   useEffect,
@@ -62,6 +64,10 @@ function GameNights() {
           getGameNights={getGameNights}
         />
       )}
+
+      <br />
+      <AddAvailability />
+
     </div>
   );
 }
