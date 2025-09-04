@@ -24,18 +24,26 @@ function Navbar() {
             Home
           </Button>
           <Button
+          component={Link}
+          to="/groups"
+          color="inherit"
+          >
+            Groups
+          </Button>
+          <Button
             component={Link}
             to="/gamenights"
             color="inherit"
           >
             Game Nights
           </Button>
+
           <Button
-          component={Link}
-          to="/groups"
-          color="inherit"
+            component={Link}
+            to="/friends"
+            color="inherit"
           >
-            Groups
+            Friends
           </Button>
 
           <Button
