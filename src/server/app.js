@@ -64,7 +64,7 @@ app.use('/auth', authRouter);
 app.use('/api/games', gamesRouter);
 app.use('/api/groups', groupsRouter);
 app.use('/api/game-nights', gameNightsRouter);
-//app.use('/api/availabilities', availabilitiesRouter);
+app.use('/api/availabilities', availabilitiesRouter);
 
 /*
 GET /logout => Logout the session, destroy the session, clear cookie, redirect to landing page
