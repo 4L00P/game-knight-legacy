@@ -2,7 +2,6 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
-const socket = require('./socket') //should ensure that socket is initialized
 // Builds passport for Google OAuth2.0 Authentication
 require('./routes/auth-passport');
 
@@ -19,6 +18,8 @@ const {
 const { SESSION_SECRET } = process.env;
 
 const app = express();
+//const socket = require('./socket'); // should ensure that socket is initialized
+// I think this is making circular dependency? ^^^
 
 // Path to /dist directory
 const DIST_DIR = path.resolve(__dirname, '..', '..', 'dist');
