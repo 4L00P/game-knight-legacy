@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Card, Grid2, Typography } from "@mui/material";
-import Navbar from "../components/Navbar";
-import GroupForm from "../components/GroupForm";
-import Group from "../components/Group";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Card, Grid2, Typography } from '@mui/material';
+import Navbar from '../components/Navbar';
+import GroupForm from '../components/GroupForm';
+import Group from '../components/Group';
 
 const Grid = Grid2;
 
