@@ -1,6 +1,6 @@
 const { Router } = require('express');
 // import mongoose model
-const { Availabilites } = require('../database');
+const { Availabilities } = require('../database');
 
 // Create the express Router
 const availabilitiesRouter = Router();
