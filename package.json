@@ -44,6 +44,7 @@
     "@fontsource/roboto": "^5.1.0",
     "@mui/icons-material": "^6.3.0",
     "@mui/material": "^6.2.1",
+    "@mui/x-charts": "^8.11.0",
     "@mui/x-date-pickers": "^7.23.3",
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
