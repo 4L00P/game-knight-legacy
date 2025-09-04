@@ -32,9 +32,16 @@ const io = new Server(expressServer, {
 
 io.on('connection', socket => {
   console.log(`User ${socket.id} is connected`);
+  socket.join('allChat');
+  socket.to('allChat').emit('joinedNotif', `${socket.id.substring(0, 5)} has joined `)
 
   socket.on('message', data => {
     console.log(data);
     io.emit('message', `${socket.id.substring(0, 5)}: ${data}`);
   });
+
+  socket.on('joinedRoom', data => {
+    io.to(`${data}`).emit('joinNotif', `${socket.id.substring(0, 5)} has joined ${data}`)
+  })
 });
+
