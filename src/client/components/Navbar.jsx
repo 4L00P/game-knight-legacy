@@ -8,6 +8,17 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 
+const socket = io()
+
+const sayHi = ()=>{
+  socket.emit('message', 'hi');
+}
+
+socket.on('message', (msg)=>{
+  console.log(msg);
+})
+
+
 function Navbar() {
   return (
     <AppBar position="static">
@@ -58,6 +69,11 @@ function Navbar() {
             href="/logout"
           >
             Logout
+          </Button>
+          <Button
+            onClick={sayHi}
+          >
+            HELLO!
           </Button>
         </Stack>
       </Toolbar>
