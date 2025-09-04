@@ -32,7 +32,7 @@ app.use(session({
   secret: SESSION_SECRET,
   /*
     Forces the session to be saved back to the session store:
-    Cookie has an expiration time of one hour, so we'll need to re-save
+    Cookie has an expiration time of 24 hours, so we'll need to re-save
     while the client is using the site to keep the cookie from expiring.
   */
   resave: true,
@@ -48,8 +48,8 @@ app.use(session({
   saveUninitialized: false,
   // Cookie settings
   cookie: {
-    // The cookie will last one hour from when it is created/re-saved
-    maxAge: 60000 * 60,
+    // The cookie will last 24 hours from when it is created/re-saved
+    maxAge: 60000 * 1440,
   },
 }));
 
