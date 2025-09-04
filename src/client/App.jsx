@@ -9,6 +9,8 @@ import GameNights from './views/GameNights';
 import Groups from './views/Groups';
 import Friend from './views/Friend';
 
+import Chat from './components/group-chat-components/Chat';
+
 function App() {
   return (
     <ThemeProvider theme={responsiveFontSizes(appTheme)}>
@@ -20,6 +22,7 @@ function App() {
           <Route path="groups" element={<Groups />} />
           <Route path="current-game" element={<CurrentGame />} />
           <Route path="friends" element={<Friend />} />
+          <Route path="chat" element={<Chat />} />
         </Routes>
       </div>
     </ThemeProvider>
