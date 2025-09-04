@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from 'axios';
 
+
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
@@ -46,8 +47,9 @@ export default function AddAvailability() {
       <p>ADD YOUR AVAILABILITY</p>
       <p>day</p>
       <DateTimePicker views={['year', 'month', 'day']} />
-      <p>start time - end time</p>
+      <p>start time</p>
       <TimePicker label="Basic time picker" />
+      <p>end time</p>
       <TimePicker label="Basic time picker" />
     </LocalizationProvider>
   );

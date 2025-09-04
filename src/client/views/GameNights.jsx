@@ -5,8 +5,8 @@ import Navbar from '../components/Navbar';
 import GameNightForm from '../components/game-night-form/GameNightForm';
 import GameNightsList from '../components/GameNightsList';
 
-import AddAvailability from '../components/group-schedule-components/AddAvailability';
-import AvailabilityChart from '../components/group-schedule-components/AvailabilityChart';
+import Scheduling from '../components/group-schedule-components/Scheduling';
+
 const {
   useState,
   useEffect,
@@ -66,8 +66,7 @@ function GameNights() {
       )}
 
       <br />
-      <AddAvailability />
-      <AvailabilityChart />
+      <Scheduling />
     </div>
   );
 }
