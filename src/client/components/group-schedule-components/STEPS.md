@@ -18,8 +18,7 @@ Made a sample BarChart in AvailabilityChart.jsx (took from MUI docs) and importe
 `Steps to do next`
 
 Make a Mongoose schema to add availability data from the user
-need: date, time start, time end, uname (to display on the chart)
-- note: add a name input field so that can display on the chart
+- need: date, time start, time end, name (to display on the chart)
 
 Make backend routing and CRUD operations for the availability
 
