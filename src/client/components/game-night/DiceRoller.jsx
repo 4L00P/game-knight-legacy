@@ -9,17 +9,20 @@ import {
 } from '@mui/material';
 
 function DiceRollerComponent() {
-  // states for dice buttons
-  const [currentDice, setCurrentDice] = useState(['d10', 'd10', 'd4']);
+  // --------------[STATES]---------------
 
-  // handlers
-  const handleDiceSelect = () => {
+  const [currentDice, setCurrentDice] = useState([]);
 
+  // -------------[HANDLERS]--------------
+
+  // adds die clicked to currentDice state
+  const handleDiceClick = (e) => {
+    const { innerText } = e.target;
     // update current dice state
-
+    setCurrentDice([...currentDice, innerText.toLowerCase()]);
   };
 
-  // delete chip that has dice
+  // deletes a die when chip is clicked
   const handleDelete = (e) => {
     const { innerText } = e.target;
     let removed = false;
@@ -35,32 +38,35 @@ function DiceRollerComponent() {
     }));
   };
 
+  // --------------[HELPERS]--------------
+
   // rendering html
   return (
     <Paper elevation={6}>
-      <Fab color="primary" onClick={handleDiceSelect}>
-        D4
+      <Fab color="primary" onClick={handleDiceClick}>
+        d4
       </Fab>
-      <Fab color="primary" onClick={handleDiceSelect}>
-        D6
+      <Fab color="primary" onClick={handleDiceClick}>
+        d6
       </Fab>
-      <Fab color="primary" onClick={handleDiceSelect}>
-        D8
+      <Fab color="primary" onClick={handleDiceClick}>
+        d8
       </Fab>
-      <Fab color="primary" onClick={handleDiceSelect}>
-        D10
+      <Fab color="primary" onClick={handleDiceClick}>
+        d10
       </Fab>
-      <Fab color="primary" onClick={handleDiceSelect}>
-        D%
+      <Fab color="primary" onClick={handleDiceClick}>
+        d%
       </Fab>
-      <Fab color="primary" onClick={handleDiceSelect}>
-        D12
+      <Fab color="primary" onClick={handleDiceClick}>
+        d12
       </Fab>
-      <Fab color="primary" onClick={handleDiceSelect}>
-        D20
+      <Fab color="primary" onClick={handleDiceClick}>
+        d20
       </Fab>
       <br />
       <Stack direction="row" spacing={1}>
+        <Chip label="Click to remove:" />
         { currentDice.map((die) => <Chip label={die} value={die} onClick={handleDelete} />)}
       </Stack>
     </Paper>
