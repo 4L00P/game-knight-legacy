@@ -8,16 +8,6 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-const socket = io()
-
-const sayHi = ()=>{
-  socket.emit('message', 'hi');
-}
-
-socket.on('message', (msg)=>{
-  console.log(msg);
-})
-
 
 function Navbar() {
   return (
@@ -70,10 +60,11 @@ function Navbar() {
           >
             Logout
           </Button>
-          <Button
-            onClick={sayHi}
+               <Button
+            color="inherit"
+            href="/chat"
           >
-            HELLO!
+            Chat
           </Button>
         </Stack>
       </Toolbar>
