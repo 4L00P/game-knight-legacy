@@ -6,8 +6,7 @@ import GameNightForm from '../components/game-night-form/GameNightForm';
 import GameNightsList from '../components/GameNightsList';
 
 import AddAvailability from '../components/group-schedule-components/AddAvailability';
-
-
+import AvailabilityChart from '../components/group-schedule-components/AvailabilityChart';
 const {
   useState,
   useEffect,
@@ -68,7 +67,7 @@ function GameNights() {
 
       <br />
       <AddAvailability />
-
+      <AvailabilityChart />
     </div>
   );
 }
