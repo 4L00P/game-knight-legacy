@@ -7,6 +7,7 @@ import Home from './views/Home';
 import Login from './views/Login';
 import GameNights from './views/GameNights';
 import Groups from './views/Groups';
+import Friend from './views/Friend';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="gamenights" element={<GameNights />} />
           <Route path="groups" element={<Groups />} />
           <Route path="current-game" element={<CurrentGame />} />
+          <Route path="friends" element={<Friend />} />
         </Routes>
       </div>
     </ThemeProvider>
