@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 import React from 'react';
 import { useState } from 'react';
 
@@ -7,6 +8,24 @@ import {
   Chip,
   Stack,
 } from '@mui/material';
+
+import {
+  styled,
+  alpha,
+} from '@mui/material/styles';
+
+const Container = styled(Paper)(({ theme }) => (
+  {
+    alignItems: 'center',
+    gap: theme.spacing(2),
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    padding: theme.spacing(6),
+    borderRadius: 10,
+    width: '25rem',
+    height: '30rem',
+    margin: '5rem auto',
+  }
+));
 
 function DiceRollerComponent() {
   // --------------[STATES]---------------
@@ -42,7 +61,7 @@ function DiceRollerComponent() {
 
   // rendering html
   return (
-    <Paper elevation={6}>
+    <Container elevation={3} fixed>
       <Fab color="primary" onClick={handleDiceClick}>
         d4
       </Fab>
@@ -66,10 +85,14 @@ function DiceRollerComponent() {
       </Fab>
       <br />
       <Stack direction="row" spacing={1}>
-        <Chip label="Click to remove:" />
-        { currentDice.map((die) => <Chip label={die} value={die} onClick={handleDelete} />)}
+        <Chip label="Dice to roll:" />
+        { currentDice.map((die) => {
+          return (
+            <Chip label={die} value={die} onClick={handleDelete} />
+          );
+        })}
       </Stack>
-    </Paper>
+    </Container>
   );
 }
 
