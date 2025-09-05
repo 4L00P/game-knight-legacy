@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 import React from 'react';
 import { useState } from 'react';
 
@@ -15,13 +16,13 @@ import {
 
 const Container = styled(Paper)(({ theme }) => (
   {
-    display: 'flex',
     alignItems: 'center',
     gap: theme.spacing(2),
     backgroundColor: alpha(theme.palette.common.white, 0.15),
     padding: theme.spacing(6),
     borderRadius: 10,
-    width: 'fit-content',
+    width: '25rem',
+    height: '30rem',
     margin: '5rem auto',
   }
 ));
@@ -60,7 +61,7 @@ function DiceRollerComponent() {
 
   // rendering html
   return (
-    <Container elevation={3}>
+    <Container elevation={3} fixed>
       <Fab color="primary" onClick={handleDiceClick}>
         d4
       </Fab>
@@ -83,12 +84,14 @@ function DiceRollerComponent() {
         d20
       </Fab>
       <br />
-      <Container elevation={3}>
-        <Stack direction="row" spacing={1}>
-          <Chip label="Dice to roll:" />
-          { currentDice.map((die) => <Chip label={die} value={die} onClick={handleDelete} />)}
-        </Stack>
-      </Container>
+      <Stack direction="row" spacing={1}>
+        <Chip label="Dice to roll:" />
+        { currentDice.map((die) => {
+          return (
+            <Chip label={die} value={die} onClick={handleDelete} />
+          );
+        })}
+      </Stack>
     </Container>
   );
 }
