@@ -1,5 +1,6 @@
 import React from 'react';
 
+// imported AppBar from mui and edited to only render the search bar.
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
