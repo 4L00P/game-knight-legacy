@@ -43,7 +43,6 @@ export default function AddAvailability() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
-      <br />
       <p>ADD YOUR AVAILABILITY</p>
       <p>day</p>
       <DateTimePicker views={['year', 'month', 'day']} />

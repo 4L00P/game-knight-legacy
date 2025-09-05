@@ -1,30 +1,33 @@
 import React from "react";
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-
+import Grid from '@mui/material/Grid';
 import AddAvailability from './AddAvailability';
 import AvailabilityChart from './AvailabilityChart';
 
 
 export default function Scheduling() {
-  const Container = styled(Paper)(() => ({
+  const Section = styled(Paper)(({ theme }) => ({
     display: 'flex', // put them side by side
     flexDirection: 'column', // change to 'column' if you want them stacked
-    alignItems: 'center',
-    padding: '5px',
+    alignItems: 'left',
+    padding: 10,
     // gap: theme.spacing(2),
-    backgroundColor: '#8de3fdff',
-    borderRadius: '5px',
-    width: 'fit-content',
-    margin: '2rem auto',
+    backgroundColor: '#6fe2ebff',
+    borderRadius: 10,
+    // width: 'fit-content',
+    margin: '1rem',
   }));
 
   return (
-    <Container>
+    <>
+      <Section>
+        <AddAvailability />
+      </Section>
 
-      <AddAvailability />
-
-      <AvailabilityChart />
-    </Container>
+      <Section>
+        <AvailabilityChart />
+      </Section>
+    </>
   );
 }
