@@ -168,6 +168,13 @@ The following is a break down of each view:
 - PlayerList
 - PlayerCard
 
+`Friend` :  This view allows the user to search for players from their email or name, and add and remove players . This view uses the following components (indentation denotes children):
+
+-NavBar
+-FriendsList
+-FriendsSearch
+-PendingSearch
+
 ### Server Routes
 All endpoints can be found in the initial express app found at `./src/server/app.js` and different routers found in the `./src/server/routes/` directory. The Express server uses the following endpoints:
 
