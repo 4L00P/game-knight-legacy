@@ -18,5 +18,12 @@ Made backend routing
 
 `Steps to do next`
 Make sample data to test front end display
+
+bar charts:
+- contain a data property that will hold an array of values
+- can specify bar ticks with xAxis prop
+- series contains the points of data
+
+
 Make CRUD operations for the availability on back end
 
