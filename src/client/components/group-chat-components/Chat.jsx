@@ -1,11 +1,13 @@
-import React from "react";
+import React from 'react';
+import { useState } from 'react'
 
 function Chat() {
-  // let everyone know that user joined
-  // socket.emit('joinedRoom', 'allChat');
+  const [messages, setMessages] = useState([]);
+
+
 
   socket.on('message', message => {
-    console.log(message);
+    setMessages(messages.concat(message))
   });
 
   socket.on('joinedNotif', note =>{
@@ -14,7 +16,9 @@ function Chat() {
 
   return (
     <div>
-      messages here
+      <ul>
+        { messages.map((msg)=>(<div> { msg } </div>)) }
+      </ul>
       <button onClick={()=>{
         socket.emit('message', 'ribbit!')
       }} >Click here to frog</button>
