@@ -3,6 +3,7 @@ const { gamesRouter } = require('./games');
 const { groupsRouter } = require('./groups');
 const { gameNightsRouter } = require('./gamenights');
 const { availabilitiesRouter } = require('./availabilities');
+const { friendsRouter } = require('./friends');
 
 module.exports = {
   authRouter,
@@ -10,4 +11,5 @@ module.exports = {
   groupsRouter,
   gameNightsRouter,
   availabilitiesRouter,
+  friendsRouter,
 };
