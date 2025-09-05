@@ -1,22 +1,29 @@
-import React from 'react'
-const socket = new WebSocket('ws://localhost:9000')
+import React from 'react';
+import { useState } from 'react'
 
-export default function Chat (props){
-  const [messages, addMessage] = useState([])
+function Chat() {
+  const [messages, setMessages] = useState([]);
 
-  addMessage = () => {
-    
-  }
-  socket.onmessage = ({ data }) => {
-    
-  };
-  
+
+
+  socket.on('message', message => {
+    setMessages(messages.concat(message))
+  });
+
+  socket.on('joinedNotif', note =>{
+    console.log(note);
+  });
+
   return (
     <div>
-      Chat Div
       <ul>
-        {messages.map((message)=> <li> { message } </li>)}
+        { messages.map((msg)=>(<div> { msg } </div>)) }
       </ul>
+      <button onClick={()=>{
+        socket.emit('message', 'ribbit!')
+      }} >Click here to frog</button>
     </div>
-  )
+);
 };
+
+export default Chat;

@@ -3,6 +3,7 @@ const { Users } = require('./models/Users');
 const { Games } = require('./models/Games');
 const { Groups } = require('./models/Groups');
 const { GameNights } = require('./models/GameNights');
+const { Availabilities } = require('./models/Availabilities');
 
 connect('mongodb://127.0.0.1:27017/game-knight')
   .then(() => {
@@ -17,4 +18,5 @@ module.exports = {
   Games,
   Groups,
   GameNights,
+  Availabilities,
 };

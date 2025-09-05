@@ -2,21 +2,24 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
-const socket = require('./socket') //should ensure that socket is initialized
 // Builds passport for Google OAuth2.0 Authentication
 require('./routes/auth-passport');
 
+// Import Routers from routes directory
 const {
   authRouter,
   gamesRouter,
   groupsRouter,
   gameNightsRouter,
+  availabilitiesRouter,
 } = require('./routes');
 
 // Pull variables from .env file
 const { SESSION_SECRET } = process.env;
 
 const app = express();
+//const socket = require('./socket'); // should ensure that socket is initialized
+// I think this is making circular dependency? ^^^
 
 // Path to /dist directory
 const DIST_DIR = path.resolve(__dirname, '..', '..', 'dist');
@@ -57,11 +60,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Routers
+// Routers, set endpoints
 app.use('/auth', authRouter);
 app.use('/api/games', gamesRouter);
 app.use('/api/groups', groupsRouter);
 app.use('/api/game-nights', gameNightsRouter);
+app.use('/api/availabilities', availabilitiesRouter);
 
 /*
 GET /logout => Logout the session, destroy the session, clear cookie, redirect to landing page

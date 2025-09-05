@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 
+
 function Navbar() {
   return (
     <AppBar position="static">
@@ -58,6 +59,12 @@ function Navbar() {
             href="/logout"
           >
             Logout
+          </Button>
+               <Button
+            color="inherit"
+            href="/chat"
+          >
+            Chat
           </Button>
         </Stack>
       </Toolbar>
