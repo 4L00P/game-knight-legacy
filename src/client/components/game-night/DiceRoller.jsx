@@ -61,6 +61,7 @@ function DiceRollerComponent() {
 
   const handleSendRolls = () => {
     socket.emit('roll', [...currentDice]);
+    setCurrentDice([]);
   };
 
   // --------------[HELPERS]--------------
@@ -105,8 +106,8 @@ function DiceRollerComponent() {
         onClick={handleSendRolls}
         sx={{
           position: 'fixed',
-          bottom: 16, // Adjust as needed
-          right: 16,  // Adjust as needed
+          bottom: 16,
+          right: 16,
         }}
       >
         Roll!
