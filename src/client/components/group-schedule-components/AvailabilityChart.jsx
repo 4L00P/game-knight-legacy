@@ -32,11 +32,12 @@ const xLabels = [
 //   '12:00am',
 // ];
 
-const yLabels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+// const yLabels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 const sampleDataset = [
-  { category: 'Adonis', start: 1, end: 5, duration: 4 },
-  { category: 'Adonis', start: 3, end: 8, duration: 5 },
+  { category: 'Adonis', start: -12, end: -24, duration: -12 },
+  { category: 'Adonis', start: 0, end: -5, duration: -5 },
+  // { category: 'Adonis', start: 10, end: 12, duration: 2 },
 ];
 
 export default function AvailabilityChart() {
@@ -49,9 +50,10 @@ export default function AvailabilityChart() {
         { dataKey: 'start', stack: 'rangeStack', color: 'transparent' }, // transparent start segment
         { dataKey: 'duration', stack: 'rangeStack', color: 'blue', label: 'Adonis', id: 'AdonisId' }, // visible duration segment
       ]}
+      // layout="horizontal" // this makes the page crash lol
       // date is the label, data is the ticks on the bottom
       xAxis={[{ label: 'date', data: xLabels }]}
-      yAxis={[{ label: 'available times', data: yLabels, width: 60 }]}
+      yAxis={[{ label: 'available times', width: 60 }]}
     />
   );
 }
