@@ -1,9 +1,34 @@
-// const WebSocket = require('ws')
-// const server = new WebSocket.Server({port: 9000})
+const { Server } = require('socket.io');
+const { io } = require('./index');
 
-// server.on('connection', socket => {
-//   socket.on('message', message => {
-//     console.log('message in socket', message)
-//     socket.send(`${message}`)
-//   })
-// })
+// importing dice helper
+const { rollDice } = require('./helpers/dice-rolling-helpers');
+
+io.on('connection', socket => {
+  // CONNNECTION LOGIC
+  console.log(`User ${socket.id} is connected`);
+  socket.join('allChat');
+  socket.to('allChat').emit('joinedNotif', `${socket.id.substring(0, 5)} has joined `)
+
+
+  // MESSAGE HANDLING
+  socket.on('message', data => {
+    io.to('allChat').emit('message', `${socket.id.substring(0, 5)}: ${data}`);
+  });
+
+  // socket.on('joinedRoom', data => {
+  //   io.to(`${data}`).emit('joinNotif', `${socket.id.substring(0, 5)} has joined ${data}`)
+  // });
+
+  // ROLL HANDLING
+  socket.on('roll', (rolls) => {
+    console.log(rolls);
+
+    rolls.forEach((roll) => {
+      const rolled = rollDice(roll);
+      console.log(rolled);
+
+      io.to('allChat').emit('message', `${socket.id.substring(0, 5)} rolled ${rolled[0]} for ${rolled[1]}!`);
+    });
+  });
+});
