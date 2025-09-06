@@ -44,45 +44,45 @@ const xLabels = [
 
 const dataset = [
   {
-    Adonis: 5.20,
-    Tyler: 21.30,
+    Adonis: 16.50,
+    Tyler: 18.50,
     day: 'Sun',
   },
-  {
-    Adonis: 5.30,
-    Tyler: 20.00,
-    day: 'Mon',
-  },
-  {
-    Adonis: 5.50,
-    Tyler: 4.20,
-    day: 'Tues',
-  },
-  {
-    Adonis: 5.60,
-    Tyler: 7.50,
-    day: 'Wed',
-  },
-  {
-    Adonis: 6.55,
-    Tyler: 9.12,
-    day: 'Thurs',
-  },
-  {
-    Tyler: 6.30,
-    Adonis: 14.00,
-    day: 'Fri',
-  },
-  {
-    Adonis: 8.00,
-    Tyler: 13.40,
-    day: 'Sat',
-  },
-  {
-    Adonis: 6.00,
-    Tyler: 22.50,
-    day: 'Sun',
-  },
+  // {
+  //   Adonis: 5.30,
+  //   Tyler: 20.00,
+  //   day: 'Mon',
+  // },
+  // {
+  //   Adonis: 5.50,
+  //   Tyler: 4.20,
+  //   day: 'Tues',
+  // },
+  // {
+  //   Adonis: 5.60,
+  //   Tyler: 7.50,
+  //   day: 'Wed',
+  // },
+  // {
+  //   Adonis: 6.55,
+  //   Tyler: 9.12,
+  //   day: 'Thurs',
+  // },
+  // {
+  //   Tyler: 6.30,
+  //   Adonis: 14.00,
+  //   day: 'Fri',
+  // },
+  // {
+  //   Adonis: 8.00,
+  //   Tyler: 13.40,
+  //   day: 'Sat',
+  // },
+  // {
+  //   Adonis: 6.00,
+  //   Tyler: 22.50,
+  //   day: 'Sun',
+  // },
 ];
 
 // ________________________________________________________________
