@@ -7,27 +7,39 @@ import AvailabilityChart from './AvailabilityChart';
 
 
 export default function Scheduling() {
-  const Section = styled(Paper)(({ theme }) => ({
+  // const Section1 = styled(Paper)(({ theme }) => ({
+  //   display: 'flex', // put them side by side
+  //   flexDirection: 'column', // change to 'column' if you want them stacked
+  //   alignItems: 'left',
+  //   padding: 10,
+  //   // gap: theme.spacing(2),
+  //   backgroundColor: '#EDFAFF',
+  //   borderRadius: 10,
+  //   // width: 'fit-content',
+  //   maxWidth: '25%',
+  //   margin: '1rem',
+  // }));
+
+  const Section2 = styled(Paper)(({ theme }) => ({
     display: 'flex', // put them side by side
     flexDirection: 'column', // change to 'column' if you want them stacked
     alignItems: 'left',
     padding: 10,
     // gap: theme.spacing(2),
-    backgroundColor: '#6fe2ebff',
+    backgroundColor: '#EDFAFF',
     borderRadius: 10,
     // width: 'fit-content',
+    maxWidth: '50%',
     margin: '1rem',
   }));
-
   return (
     <>
-      <Section>
-        <AddAvailability />
-      </Section>
 
-      <Section>
+      <AddAvailability />
+
+      <Section2>
         <AvailabilityChart />
-      </Section>
+      </Section2>
     </>
   );
 }
