@@ -47,7 +47,7 @@ function Chat() {
 
   // --------------[SOCKET]---------------
   socket.on('message', message => {
-    setMessages(messages.concat(message));
+    setMessages([...messages, message]);
   });
 
   socket.on('joinedNotif', note => {
