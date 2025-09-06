@@ -10,8 +10,17 @@ const availabilitiesRouter = Router();
 // Note: end point (set in app.js) is '/api/availabilities'
 
 availabilitiesRouter.get('/', (req, res) => {
-// user can see all the availabilities they entered
-// limit to 1 week?
+  // user can see all the availabilities they entered
+  // limit to 1 week
+  Availabilities.find({})
+    .then((times) => {
+      console.log('GET times from db:', times);
+
+      res.status(200).send(times);
+    })
+    .catch((err) => {
+      console.log('failed to GET availabilities from db', err);
+    });
 });
 
 availabilitiesRouter.post('/', (req, res) => {

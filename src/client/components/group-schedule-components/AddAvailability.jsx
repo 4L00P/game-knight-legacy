@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import axios from 'axios';
-
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
 
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
@@ -41,15 +42,27 @@ export default function AddAvailability() {
     // send patch request to server to edit availability
   };
 
+  const Section1 = styled(Paper)(({ theme }) => ({
+    display: 'flex', // put them side by side
+    flexDirection: 'column', // change to 'column' if you want them stacked
+    alignItems: 'center',
+    padding: 10,
+    gap: theme.spacing(2),
+    backgroundColor: '#EDFAFF',
+    borderRadius: 10,
+    // width: 'fit-content',
+    maxWidth: '25%',
+    margin: '1rem',
+  }));
+
   return (
-    <LocalizationProvider dateAdapter={AdapterMoment}>
-      <p>ADD YOUR AVAILABILITY</p>
-      <p>day</p>
-      <DateTimePicker views={['year', 'month', 'day']} />
-      <p>start time</p>
-      <TimePicker label="Basic time picker" />
-      <p>end time</p>
-      <TimePicker label="Basic time picker" />
-    </LocalizationProvider>
+    <Section1>
+      <LocalizationProvider dateAdapter={AdapterMoment}>
+        <p>ADD YOUR AVAILABILITY</p>
+        <DateTimePicker views={['year', 'month', 'day']} />
+        <TimePicker label="Start time" />
+        <TimePicker label="End time" />
+      </LocalizationProvider>
+    </Section1>
   );
 }
