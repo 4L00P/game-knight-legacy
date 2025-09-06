@@ -1,12 +1,7 @@
 const sampleAvailabilities = [
-  // user has a 'name' that is linked to google
+  // Adonis
   {
-    user: {
-      _id: '88fgjk',
-      name: 'Adonis',
-      googleId: '11342',
-      email: 'adonis@helpdesk.com',
-    },
+    user: { _id: '68bbe2c566c9943d6afa3350' },
     date: '2025/09/01',
     timeStart: '1:00pm',
     timeEnd: '5:00pm',
@@ -44,13 +39,9 @@ const sampleAvailabilities = [
     timeStart: '1:30pm',
     timeEnd: '3:30pm',
   },
+  // Tyler
   {
-    user: {
-      _id: '77hui',
-      name: 'Tyler',
-      googleId: '66754',
-      email: 'tyler@helpdesk.com',
-    },
+    user: { _id: '68bbe2fe66c9943d6afa3351' },
     date: '2025/09/01',
     timeStart: '2:00pm',
     timeEnd: '7:00pm',
@@ -92,3 +83,21 @@ const sampleAvailabilities = [
 ];
 
 export default sampleAvailabilities;
+
+// after inserting Adonis and Tyler as sample users
+// Adonis: _id: ObjectId('68bbe2c566c9943d6afa3350')
+// Tyler: _id: ObjectId('68bbe2fe66c9943d6afa3351')
+/*
+    user: {
+      _id: '88fgjk',
+      name: 'Adonis',
+      googleId: '11342',
+      email: 'adonis@helpdesk.com',
+    }
+    user: {
+      _id: '77hui',
+      name: 'Tyler',
+      googleId: '66754',
+      email: 'tyler@helpdesk.com',
+    },
+*/
