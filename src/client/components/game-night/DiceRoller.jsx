@@ -1,12 +1,14 @@
 /* eslint-disable arrow-body-style */
 import React from 'react';
 import { useState } from 'react';
+import axios from 'axios';
 
 import {
   Paper,
   Fab,
   Chip,
   Stack,
+  Box,
 } from '@mui/material';
 
 import {
@@ -21,8 +23,7 @@ const Container = styled(Paper)(({ theme }) => (
     backgroundColor: alpha(theme.palette.common.white, 0.15),
     padding: theme.spacing(6),
     borderRadius: 10,
-    width: '25rem',
-    height: '30rem',
+    width: '50rem',
     margin: '5rem auto',
   }
 ));
@@ -57,32 +58,38 @@ function DiceRollerComponent() {
     }));
   };
 
+  const handleSendRolls = () => {
+
+  }
+
   // --------------[HELPERS]--------------
 
   // rendering html
   return (
     <Container elevation={3} fixed>
-      <Fab color="primary" onClick={handleDiceClick}>
-        d4
-      </Fab>
-      <Fab color="primary" onClick={handleDiceClick}>
-        d6
-      </Fab>
-      <Fab color="primary" onClick={handleDiceClick}>
-        d8
-      </Fab>
-      <Fab color="primary" onClick={handleDiceClick}>
-        d10
-      </Fab>
-      <Fab color="primary" onClick={handleDiceClick}>
-        d%
-      </Fab>
-      <Fab color="primary" onClick={handleDiceClick}>
-        d12
-      </Fab>
-      <Fab color="primary" onClick={handleDiceClick}>
-        d20
-      </Fab>
+      <Box>
+        <Fab color="primary" onClick={handleDiceClick}>
+          d4
+        </Fab>
+        <Fab color="primary" onClick={handleDiceClick}>
+          d6
+        </Fab>
+        <Fab color="primary" onClick={handleDiceClick}>
+          d8
+        </Fab>
+        <Fab color="primary" onClick={handleDiceClick}>
+          d10
+        </Fab>
+        <Fab color="primary" onClick={handleDiceClick}>
+          d%
+        </Fab>
+        <Fab color="primary" onClick={handleDiceClick}>
+          d12
+        </Fab>
+        <Fab color="primary" onClick={handleDiceClick}>
+          d20
+        </Fab>
+      </Box>
       <br />
       <Stack direction="row" spacing={1}>
         <Chip label="Dice to roll:" />
@@ -92,6 +99,17 @@ function DiceRollerComponent() {
           );
         })}
       </Stack>
+      <Fab
+        color="primary"
+        onClick={handleSendRolls}
+        sx={{
+          position: 'fixed',
+          bottom: 16, // Adjust as needed
+          right: 16,  // Adjust as needed
+        }}
+      >
+        Roll!
+      </Fab>
     </Container>
   );
 }

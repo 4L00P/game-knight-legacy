@@ -13,9 +13,10 @@ import PlayerList from '../components/PlayerList';
 import axios from 'axios';
 import PlayerCard from '../components/PlayerCard';
 
-import DiceRollerComponent from "../components/game-night/DiceRoller";
-
 import Navbar from "../components/Navbar";
+import DiceRollerComponent from "../components/game-night/DiceRoller";
+import Chat from "../components/group-chat-components/Chat";
+
 const Grid = Grid2;
 
 function CurrentGame() {
@@ -91,6 +92,7 @@ function CurrentGame() {
         {name}
       </Typography>
       <DiceRollerComponent />
+      <Chat />
     </div>
   );
 }
