@@ -60,8 +60,8 @@ export default function AddAvailability() {
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <p>ADD YOUR AVAILABILITY</p>
         <DateTimePicker views={['year', 'month', 'day']} />
-        <TimePicker label="Start time" />
-        <TimePicker label="End time" />
+        <TimePicker label="Start time" ampm={false} />
+        <TimePicker label="End time" ampm={false} />
       </LocalizationProvider>
     </Section1>
   );

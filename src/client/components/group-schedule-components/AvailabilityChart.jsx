@@ -81,7 +81,21 @@ const dataset = [
     Tyler: 22.50,
     day: 'Sun',
   },
+];
 
+// ________________________________________________________________
+
+const SAMPLEDATA = [
+  {
+    name: 'Adonis',
+    timeStart: 5.20,
+    timeEnd: 10.30,
+  },
+  {
+    Adonis: 5.20,
+    Tyler: 21.30,
+    day: 'Sun',
+  },
 ];
 
 // formatter to add (good for client clarity)
@@ -99,7 +113,7 @@ export default function AvailabilityChart() {
       // set scaleType and match data to input data
       yAxis={[{ scaleType: 'band', dataKey: 'day' }]}
       // set label for x axis and maximum
-      xAxis={[{ label: 'time (hrs)', max: 24.00 }]}
+      xAxis={[{ label: 'time - 24 hr clock', max: 24.00 }]}
       // represents all the bars that will show
       series={[
         { dataKey: 'Adonis', label: 'Adonis Availability' },
@@ -107,6 +121,7 @@ export default function AvailabilityChart() {
       ]}
       // make layout into horizontal bar chart
       layout="horizontal"
+      borderRadius={7}
     />
   );
 }

@@ -4,7 +4,7 @@ const { io } = require('./index');
 io.on('connection', socket => {
 
   // CONNNECTION LOGIC
-  // console.log(socket)
+  console.log(socket)
   console.log(`User ${socket.id} is connected`);
   socket.join('allChat');
   socket.to('allChat').emit('joinedNotif', `${socket.id.substring(0, 5)} has joined `)
