@@ -1,9 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import axios from 'axios';
+
+// MUI
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-
+import { InputLabel } from '@mui/material';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
@@ -46,7 +48,7 @@ export default function AddAvailability() {
     display: 'flex', // put them side by side
     flexDirection: 'column', // change to 'column' if you want them stacked
     alignItems: 'center',
-    padding: 10,
+    padding: 20,
     gap: theme.spacing(2),
     backgroundColor: '#EDFAFF',
     borderRadius: 10,
@@ -58,7 +60,7 @@ export default function AddAvailability() {
   return (
     <Section1>
       <LocalizationProvider dateAdapter={AdapterMoment}>
-        <p>ADD YOUR AVAILABILITY</p>
+        <InputLabel> add your availability </InputLabel>
         <DateTimePicker views={['year', 'month', 'day']} />
         <TimePicker label="Start time" ampm={false} />
         <TimePicker label="End time" ampm={false} />

@@ -1,4 +1,6 @@
 import React from 'react';
+
+// MUI
 import { BarChart } from '@mui/x-charts/BarChart';
 import { sampleAvailabilities } from './sample-data';
 

@@ -1,11 +1,18 @@
 import React from "react";
 
-import { styled } from '@mui/material/styles';
+// MUI
+// import Grid from '@mui/material/Grid';
 import Fab from '@mui/material/Fab';
-// import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
+// import AddIcon from '@mui/icons-material/Add';
+import { InputLabel } from '@mui/material';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
+import { styled } from '@mui/material/styles';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+
+// COMPONENTS
 import AddAvailability from './AddAvailability';
 import AvailabilityChart from './AvailabilityChart';
 
@@ -29,10 +36,22 @@ export default function Scheduling() {
       <AddAvailability />
 
       <Section2>
+
         <Fab color="secondary" aria-label="edit">
           <EditIcon />
         </Fab>
+
+        <br />
+
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <InputLabel> select to change graph view </InputLabel>
+          <DateTimePicker views={['year', 'month', 'day']} />
+        </LocalizationProvider>
+
+        <br />
+
         <AvailabilityChart />
+
       </Section2>
     </>
   );
