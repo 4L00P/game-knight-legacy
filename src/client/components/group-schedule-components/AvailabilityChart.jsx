@@ -42,103 +42,70 @@ const xLabels = [
 
 const dataset = [
   {
-    london: 59,
-    paris: 57,
-    newYork: 86,
-    seoul: 21,
-    month: 'Jan',
+    Adonis: 5.20,
+    Tyler: 21.30,
+    day: 'Sun',
   },
   {
-    london: 50,
-    paris: 52,
-    newYork: 78,
-    seoul: 28,
-    month: 'Feb',
+    Adonis: 5.30,
+    Tyler: 20.00,
+    day: 'Mon',
   },
   {
-    london: 47,
-    paris: 53,
-    newYork: 106,
-    seoul: 41,
-    month: 'Mar',
+    Adonis: 5.50,
+    Tyler: 4.20,
+    day: 'Tues',
   },
   {
-    london: 54,
-    paris: 56,
-    newYork: 92,
-    seoul: 73,
-    month: 'Apr',
+    Adonis: 5.60,
+    Tyler: 7.50,
+    day: 'Wed',
   },
   {
-    london: 57,
-    paris: 69,
-    newYork: 92,
-    seoul: 99,
-    month: 'May',
+    Adonis: 6.55,
+    Tyler: 9.12,
+    day: 'Thurs',
   },
   {
-    london: 60,
-    paris: 63,
-    newYork: 103,
-    seoul: 144,
-    month: 'June',
+    Tyler: 6.30,
+    Adonis: 14.00,
+    day: 'Fri',
   },
   {
-    london: 59,
-    paris: 60,
-    newYork: 105,
-    seoul: 319,
-    month: 'July',
+    Adonis: 8.00,
+    Tyler: 13.40,
+    day: 'Sat',
   },
   {
-    london: 65,
-    paris: 60,
-    newYork: 106,
-    seoul: 249,
-    month: 'Aug',
+    Adonis: 6.00,
+    Tyler: 22.50,
+    day: 'Sun',
   },
-  {
-    london: 51,
-    paris: 51,
-    newYork: 95,
-    seoul: 131,
-    month: 'Sept',
-  },
-  {
-    london: 60,
-    paris: 65,
-    newYork: 97,
-    seoul: 55,
-    month: 'Oct',
-  },
-  {
-    london: 67,
-    paris: 64,
-    newYork: 76,
-    seoul: 48,
-    month: 'Nov',
-  },
-  {
-    london: 61,
-    paris: 70,
-    newYork: 103,
-    seoul: 25,
-    month: 'Dec',
-  },
+
 ];
 
-function valueFormatter(value) {
-  return `${value}mm`;
-}
+// formatter to add (good for client clarity)
+// function valueFormatter(value) {
+//   return `${value}hours`;
+// }
 
 export default function AvailabilityChart() {
   return (
     <BarChart
+      // import data into the chart
       dataset={dataset}
+      // height of the chart
       height={400}
-      yAxis={[{ scaleType: 'band', dataKey: 'month' }]}
-      xAxis={[{ label: 'rainfall (mm)' }]}
-      series={[{ dataKey: 'seoul', label: 'Seoul rainfall', valueFormatter }]}
+      // set scaleType and match data to input data
+      yAxis={[{ scaleType: 'band', dataKey: 'day' }]}
+      // set label for x axis and maximum
+      xAxis={[{ label: 'time (hrs)', max: 24.00 }]}
+      // represents all the bars that will show
+      series={[
+        { dataKey: 'Adonis', label: 'Adonis Availability' },
+        { dataKey: 'Tyler', label: 'Tyler Availability' },
+      ]}
+      // make layout into horizontal bar chart
       layout="horizontal"
     />
   );
