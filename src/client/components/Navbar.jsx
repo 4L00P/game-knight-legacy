@@ -8,7 +8,6 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-
 function Navbar() {
   return (
     <AppBar position="static">
@@ -18,16 +17,9 @@ function Navbar() {
         </Typography>
         <Stack direction="row" spacing={2}>
           <Button
-            color="inherit"
             component={Link}
-            to="/home"
-          >
-            Home
-          </Button>
-          <Button
-          component={Link}
-          to="/groups"
-          color="inherit"
+            to="/groups"
+            color="inherit"
           >
             Groups
           </Button>
@@ -48,23 +40,24 @@ function Navbar() {
           </Button>
 
           <Button
-          component={Link}
-          to="/current-game"
-          color="inherit"
+            component={Link}
+            to="/current-game"
+            color="inherit"
           >
-            Start A Game
+            Active Game
+          </Button>
+          <Button
+            color="inherit"
+            component={Link}
+            to="/home"
+          >
+            Collection
           </Button>
           <Button
             color="inherit"
             href="/logout"
           >
             Logout
-          </Button>
-               <Button
-            color="inherit"
-            href="/chat"
-          >
-            Chat
           </Button>
         </Stack>
       </Toolbar>
