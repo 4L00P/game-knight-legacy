@@ -1,12 +1,32 @@
+/* eslint-disable arrow-body-style */
 import React from 'react';
 import { useState } from 'react';
+import axios from 'axios';
 
 import {
   Paper,
   Fab,
   Chip,
   Stack,
+  Box,
 } from '@mui/material';
+
+import {
+  styled,
+  alpha,
+} from '@mui/material/styles';
+
+const Container = styled(Paper)(({ theme }) => (
+  {
+    alignItems: 'center',
+    gap: theme.spacing(2),
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    padding: theme.spacing(6),
+    borderRadius: 10,
+    width: '50rem',
+    margin: '5rem auto',
+  }
+));
 
 function DiceRollerComponent() {
   // --------------[STATES]---------------
@@ -38,38 +58,59 @@ function DiceRollerComponent() {
     }));
   };
 
+  const handleSendRolls = () => {
+
+  }
+
   // --------------[HELPERS]--------------
 
   // rendering html
   return (
-    <Paper elevation={6}>
-      <Fab color="primary" onClick={handleDiceClick}>
-        d4
-      </Fab>
-      <Fab color="primary" onClick={handleDiceClick}>
-        d6
-      </Fab>
-      <Fab color="primary" onClick={handleDiceClick}>
-        d8
-      </Fab>
-      <Fab color="primary" onClick={handleDiceClick}>
-        d10
-      </Fab>
-      <Fab color="primary" onClick={handleDiceClick}>
-        d%
-      </Fab>
-      <Fab color="primary" onClick={handleDiceClick}>
-        d12
-      </Fab>
-      <Fab color="primary" onClick={handleDiceClick}>
-        d20
-      </Fab>
+    <Container elevation={3} fixed>
+      <Box>
+        <Fab color="primary" onClick={handleDiceClick}>
+          d4
+        </Fab>
+        <Fab color="primary" onClick={handleDiceClick}>
+          d6
+        </Fab>
+        <Fab color="primary" onClick={handleDiceClick}>
+          d8
+        </Fab>
+        <Fab color="primary" onClick={handleDiceClick}>
+          d10
+        </Fab>
+        <Fab color="primary" onClick={handleDiceClick}>
+          d%
+        </Fab>
+        <Fab color="primary" onClick={handleDiceClick}>
+          d12
+        </Fab>
+        <Fab color="primary" onClick={handleDiceClick}>
+          d20
+        </Fab>
+      </Box>
       <br />
       <Stack direction="row" spacing={1}>
-        <Chip label="Click to remove:" />
-        { currentDice.map((die) => <Chip label={die} value={die} onClick={handleDelete} />)}
+        <Chip label="Dice to roll:" />
+        { currentDice.map((die) => {
+          return (
+            <Chip label={die} value={die} onClick={handleDelete} />
+          );
+        })}
       </Stack>
-    </Paper>
+      <Fab
+        color="primary"
+        onClick={handleSendRolls}
+        sx={{
+          position: 'fixed',
+          bottom: 16, // Adjust as needed
+          right: 16,  // Adjust as needed
+        }}
+      >
+        Roll!
+      </Fab>
+    </Container>
   );
 }
 
