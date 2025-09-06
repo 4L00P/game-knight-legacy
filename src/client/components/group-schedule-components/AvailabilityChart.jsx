@@ -14,23 +14,25 @@ const xLabels = [
   'Saturday',
 ];
 
-const yLabels = [
-  '10:00am',
-  '11:00am',
-  '12:00pm',
-  '1:00pm',
-  '2:00pm',
-  '3:00pm',
-  '4:00pm',
-  '5:00pm',
-  '6:00pm',
-  '7:00pm',
-  '8:00pm',
-  '9:00pm',
-  '10:00pm',
-  '11:00pm',
-  '12:00am',
-];
+// const yLabels = [
+//   '10:00am',
+//   '11:00am',
+//   '12:00pm',
+//   '1:00pm',
+//   '2:00pm',
+//   '3:00pm',
+//   '4:00pm',
+//   '5:00pm',
+//   '6:00pm',
+//   '7:00pm',
+//   '8:00pm',
+//   '9:00pm',
+//   '10:00pm',
+//   '11:00pm',
+//   '12:00am',
+// ];
+
+const yLabels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 const sampleDataset = [
   { category: 'Adonis', start: 1, end: 5, duration: 4 },
@@ -43,21 +45,13 @@ export default function AvailabilityChart() {
       dataset={sampleDataset}
       height={420}
       series={[
-        // {
-        //   data: pData, label: 'pv', id: 'pvId', stack: 'stack',
-        // },
-        // {
-        //   data: uData, label: 'uv', id: 'uvId', stack: 'stack',
-        // },
-
-        // { data: [2400, 1398, -8000, 3908, 4800, -3800, 4300], label: 'Adonis', id: 'adonisId' },
-        // { data: [4000, -3000, -2000, 2780, -1890, 2390, 3490], label: 'Tyler', id: 'tylerId' },
 
         { dataKey: 'start', stack: 'rangeStack', color: 'transparent', label: 'Adonis', id: 'adonisId' }, // transparent start segment
         { dataKey: 'duration', stack: 'rangeStack', color: 'blue', label: 'Tyler', id: 'tylerId' }, // visible duration segment
       ]}
+      // date is the label, data is the ticks on the bottom
       xAxis={[{ label: 'date', data: xLabels }]}
-      yAxis={[{ label: 'available times', width: 60 }]}
+      yAxis={[{ label: 'available times', data: yLabels, width: 60 }]}
     />
   );
 }
