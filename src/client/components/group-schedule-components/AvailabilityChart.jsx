@@ -36,7 +36,7 @@ const yLabels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 const sampleDataset = [
   { category: 'Adonis', start: 1, end: 5, duration: 4 },
-  { category: 'Tyler', start: 3, end: 8, duration: 5 },
+  { category: 'Adonis', start: 3, end: 8, duration: 5 },
 ];
 
 export default function AvailabilityChart() {
@@ -46,8 +46,8 @@ export default function AvailabilityChart() {
       height={420}
       series={[
 
-        { dataKey: 'start', stack: 'rangeStack', color: 'transparent', label: 'Adonis', id: 'adonisId' }, // transparent start segment
-        { dataKey: 'duration', stack: 'rangeStack', color: 'blue', label: 'Tyler', id: 'tylerId' }, // visible duration segment
+        { dataKey: 'start', stack: 'rangeStack', color: 'transparent' }, // transparent start segment
+        { dataKey: 'duration', stack: 'rangeStack', color: 'blue', label: 'Adonis', id: 'AdonisId' }, // visible duration segment
       ]}
       // date is the label, data is the ticks on the bottom
       xAxis={[{ label: 'date', data: xLabels }]}
