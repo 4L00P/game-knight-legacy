@@ -32,6 +32,7 @@ function DiceRollerComponent() {
   // --------------[STATES]---------------
 
   const [currentDice, setCurrentDice] = useState([]);
+  const [rolls, setRolls] = useState([]);
 
   // -------------[HANDLERS]--------------
 
@@ -59,8 +60,8 @@ function DiceRollerComponent() {
   };
 
   const handleSendRolls = () => {
-
-  }
+    socket.emit('roll', [...currentDice]);
+  };
 
   // --------------[HELPERS]--------------
 
