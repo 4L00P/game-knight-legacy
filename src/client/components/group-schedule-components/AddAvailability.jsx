@@ -14,26 +14,31 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 export default function AddAvailability() {
   // STATES
-  const [date, setDate] = useState('MM/DD/YYYY');
-  const [startTime, setStartTime] = useState('');
+  const [date, setDate] = useState({});
+  const [startTime, setStartTime] = useState({});
   const [endTime, setEndTime] = useState('');
 
   // STATE CHANGES
   const handleDateInput = (e) => {
     // get date from the input
-    const dateStr = e._d.toString().substring(0, 16);
+    // const dateStr = e._d.toString().substring(0, 16);
+
     // change the state of date based on user input
-    setDate(dateStr);
+    setDate(e._d);
   };
+  console.log('date state:', date);
 
   const handleStartTimeInput = (e) => {
     // change the state of startTime based on user input
-    console.log(e)
+    setStartTime(e._d);
   };
+  console.log('startTime state:', startTime);
 
-  const handleEndTimeInput = () => {
+  const handleEndTimeInput = (e) => {
     // change the state of endTime based on user input
+    setEndTime(e._d);
   };
+  console.log('endTime state:', endTime);
 
   const Section1 = styled(Paper)(({ theme }) => ({
     display: 'flex', // put them side by side
