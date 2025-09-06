@@ -23,7 +23,6 @@ const expressServer = app.listen(PORT, () => {
   }
 });
 
-
 const io = new Server(expressServer, {
   cors: {
     origin: `http://localhost:${PORT}`,
@@ -31,7 +30,7 @@ const io = new Server(expressServer, {
 });
 
 module.exports = {
-  io
-}
-require('./socket')
+  io,
+};
 
+require('./socket');
