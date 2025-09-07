@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 
 // imported AppBar from mui and edited to only render the search bar.
 import { styled, alpha } from '@mui/material/styles';
@@ -7,6 +9,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import Friend from './Friend';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -45,8 +48,32 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-
 export default function PrimarySearchAppBar() {
+  // setup state
+  const [search, setSearch] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
+  // handles inputs from the text input
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setSearch(value);
+  };
+
+  const handleSearch = () => {
+    // update state with new message
+    axios.get(`/api/users/:${search}`)
+      .then((data) => {
+        console.log(data)
+        const { user } = data;
+        setSearchResults(user);
+        // clears the search bar
+        setSearch('');
+      })
+      .catch((err) => {
+        console.error('failed to perform search CLIENT', err);
+      });
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -58,10 +85,19 @@ export default function PrimarySearchAppBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              // onChange={handleChange}
+              // onKeyUp={({ key }) => {
+              //   if (key === 'Enter') {
+              //     handleSearch();
+              //   }
+              // }}
             />
           </Search>
         </Toolbar>
       </AppBar>
+      {/* {searchResults.map((friend) => <Friend friend={friend} />)} */}
+
     </Box>
   );
 }
+// map over search to pass one search result or friend into friend
