@@ -46,8 +46,12 @@ function Chat() {
   const [message, setMessage] = useState('');
 
   // --------------[SOCKET]---------------
-  socket.on('message', message => {
-    setMessages([...messages, message]);
+  socket.on('message', (message) => {
+    if (Array.isArray(message)) {
+      setMessages([...messages, ...message]);
+    } else {
+      setMessages([...messages, message]);
+    }
   });
 
   socket.on('joinedNotif', note => {
