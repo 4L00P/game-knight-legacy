@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from 'axios';
+import moment from 'moment';
 
 // MUI
 import { styled } from '@mui/material/styles';
@@ -14,31 +15,49 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 export default function AddAvailability() {
   // STATES
-  const [date, setDate] = useState({});
-  const [startTime, setStartTime] = useState({});
+  const [date, setDate] = useState('');
+  const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
 
   // STATE CHANGES
   const handleDateInput = (e) => {
-    // get date from the input
-    // const dateStr = e._d.toString().substring(0, 16);
+    // destructure the date from event
+    const { _d } = e;
+
+    // parse the date
+    const dateStr = moment(_d.toString().substring(0, 16), 'ddd MMM DD YYYY').format('ddd, MM DD YYYY');
 
     // change the state of date based on user input
-    setDate(e._d);
+    // setDate(dateStr);
+    // console.log('date obj', _d);
+    // console.log('date state:', date);
   };
-  console.log('date state:', date);
 
   const handleStartTimeInput = (e) => {
+    // destructure the date from event
+    const { _d } = e;
+
+    // parse the time
+    const timeStr = moment(_d.toString().slice(16, 24), 'HH:mm:ss').format('HH:mm');
+
     // change the state of startTime based on user input
-    setStartTime(e._d);
+    // setStartTime(timeStr);
+    // console.log('date obj:', _d);
+    // console.log('startTime state:', startTime);
   };
-  console.log('startTime state:', startTime);
 
   const handleEndTimeInput = (e) => {
-    // change the state of endTime based on user input
-    setEndTime(e._d);
+    // destructure the date from event
+    const { _d } = e;
+
+    // parse the time
+    const timeStr = moment(_d.toString().slice(16, 24), 'HH:mm:ss').format('HH:mm');
+
+    // change state of endTime based on user input
+    // setEndTime(timeStr);
+    // console.log('date obj:', _d);
+    // console.log('endTime state:', endTime);
   };
-  console.log('endTime state:', endTime);
 
   const Section1 = styled(Paper)(({ theme }) => ({
     display: 'flex', // put them side by side
