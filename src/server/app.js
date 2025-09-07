@@ -12,7 +12,8 @@ const {
   groupsRouter,
   gameNightsRouter,
   availabilitiesRouter,
-  friendsRouter,
+  usersRouter,
+  pendingFriendsRouter,
 } = require('./routes');
 
 // Pull variables from .env file
@@ -67,7 +68,8 @@ app.use('/api/games', gamesRouter);
 app.use('/api/groups', groupsRouter);
 app.use('/api/game-nights', gameNightsRouter);
 app.use('/api/availabilities', availabilitiesRouter);
-app.use('/api/friends', friendsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/pending', pendingFriendsRouter);
 
 /*
 GET /logout => Logout the session, destroy the session, clear cookie, redirect to landing page

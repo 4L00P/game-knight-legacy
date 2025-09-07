@@ -30,11 +30,17 @@ io.on('connection', socket => {
   socket.on('roll', (rolls) => {
     console.log(rolls);
 
+    const allRollMessages = [];
+
     rolls.forEach((roll) => {
       const rolled = rollDice(roll);
       console.log('sending roll', rolled);
 
       io.to('allChat').emit('message', {username: socket.username, text: `rolled ${rolled[0]} for ${rolled[1]}!`});
+      
+      allRollMessages.push(`${socket.id.substring(0, 5)} rolled ${rolled[0]} for ${rolled[1]}!`);
+
     });
+    io.to('allChat').emit('message', allRollMessages);
   });
 });

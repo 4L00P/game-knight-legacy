@@ -58,8 +58,12 @@ function Chat() {
             name: data.name,
             userId: data._id,
           });
-          socketRef.current.on("message", (msg) => {
-            setMessages((prevMessages) => [...prevMessages, msg]);
+          socketRef.current.on("message", (message) => {
+            if (Array.isArray(message)) {
+              setMessages([...messages, ...message]);
+            } else {
+              setMessages([...messages, message]);
+            }
           });
           socketRef.current.on("joinedNotif", (note) => {
             console.log(note);
