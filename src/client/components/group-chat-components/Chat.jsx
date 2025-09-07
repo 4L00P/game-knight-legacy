@@ -44,6 +44,7 @@ function Chat() {
   const [messages, setMessages] = useState([...testMessages]);
   const [message, setMessage] = useState("");
   const socketRef = useRef(null);
+  
   useEffect(() => {
     let isMounted = true; // flag if component is mounted (prevents changes while in other pages)
     axios
