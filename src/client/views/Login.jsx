@@ -36,7 +36,7 @@ function Login() {
   return (
     <Box
       sx={{
-        paddingTop: 20,
+        paddingTop: 10,
         textAlign: 'center',
       }}
     >
@@ -56,6 +56,16 @@ function Login() {
       >
         Game Knight
       </Typography>
+
+      <Box
+        component="section"
+        sx={{
+          alignContent: 'center',
+          paddingBottom: 5,
+          pt: 2,
+        }}
+      />
+
       <Typography variant="h5">
         Start your board game journey here!
       </Typography>
@@ -63,6 +73,7 @@ function Login() {
         component="section"
         sx={{
           alignContent: 'center',
+          paddingBottom: 10,
           pt: 2,
         }}
       >

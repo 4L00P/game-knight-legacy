@@ -11,12 +11,11 @@ const availabilitiesRouter = Router();
 
 availabilitiesRouter.get('/', (req, res) => {
   // user can see all the availabilities they entered
-  // limit to 1 week
   Availabilities.find({})
     .then((times) => {
       console.log('GET times from db:', times);
 
-      res.status(200).send(times);
+      res.status(200).json(times);
     })
     .catch((err) => {
       console.log('failed to GET availabilities from db', err);
@@ -24,7 +23,17 @@ availabilitiesRouter.get('/', (req, res) => {
 });
 
 availabilitiesRouter.post('/', (req, res) => {
-// user can add an availability
+  const { user, date, timeStart, timeEnd } = req.body;
+  // user can add an availability
+  Availabilities.create({
+    user, date, timeStart, timeEnd,
+  })
+    .then((availability) => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log('failed to POST availability to the db', err);
+    });
 });
 
 availabilitiesRouter.delete('/', (req, res) => {
