@@ -10,10 +10,16 @@ io.on('connection', socket => {
   socket.join('allChat');
   socket.to('allChat').emit('joinedNotif', `${socket.id.substring(0, 5)} has joined `)
 
+  socket.on('userInfo', ({ name, userId }) => {
+    console.log(`User info received: ${name} with ID: ${userId}`);
+    socket.username = name;
+    socket.userId = userId;
+  });
+
 
   // MESSAGE HANDLING
   socket.on('message', data => {
-    io.to('allChat').emit('message', `${socket.id.substring(0, 5)}: ${data}`);
+    io.to('allChat').emit('message', { username: socket.username, text: data });
   });
 
   // socket.on('joinedRoom', data => {
@@ -28,10 +34,12 @@ io.on('connection', socket => {
 
     rolls.forEach((roll) => {
       const rolled = rollDice(roll);
+      console.log('sending roll', rolled);
       
-      allRollMessages.push(`${socket.id.substring(0, 5)} rolled ${rolled[0]} for ${rolled[1]}!`);
+      allRollMessages.push({username: `Server`, text: `rolled ${rolled[0]} for ${rolled[1]}!`});
 
     });
     io.to('allChat').emit('message', allRollMessages);
   });
+  return socket
 });

@@ -29,6 +29,7 @@ const Container = styled(Paper)(({ theme }) => (
 ));
 
 function DiceRollerComponent() {
+  const socket = window.io();
   // --------------[STATES]---------------
 
   const [currentDice, setCurrentDice] = useState([]);
