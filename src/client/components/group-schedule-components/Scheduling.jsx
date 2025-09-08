@@ -1,5 +1,6 @@
 import React from "react";
-
+import { useState } from "react";
+import moment from "moment";
 // MUI
 // import Grid from '@mui/material/Grid';
 import Fab from '@mui/material/Fab';
@@ -17,6 +18,18 @@ import AddAvailability from './AddAvailability';
 import AvailabilityChart from './AvailabilityChart';
 
 export default function Scheduling() {
+  // STATE
+  const [dayView, setDayView] = useState(moment().format('MM DD YYYY'));
+
+  // STATE CHANGES
+  const handleDateInput = (e) => {
+    // destructure the date from event
+    const { _d } = e;
+    // change the state of date based on user input
+    const dateStr = moment(_d.toString().substring(0, 16), 'ddd MMM DD YYYY').format('MM DD YYYY');
+    setDayView(dateStr);
+  };
+
   const Section2 = styled(Paper)(({ theme }) => ({
     display: 'flex', // put them side by side
     flexDirection: 'column', // change to 'column' if you want them stacked
@@ -45,12 +58,12 @@ export default function Scheduling() {
 
         <LocalizationProvider dateAdapter={AdapterMoment}>
           <InputLabel> select to change graph view </InputLabel>
-          <DateTimePicker views={['year', 'month', 'day']} />
+          <DateTimePicker views={['year', 'month', 'day']} onChange={handleDateInput} />
         </LocalizationProvider>
 
         <br />
 
-        <AvailabilityChart />
+        <AvailabilityChart day={dayView} />
 
       </Section2>
     </>

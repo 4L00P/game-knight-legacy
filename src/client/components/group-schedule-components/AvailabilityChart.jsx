@@ -2,19 +2,20 @@ import React from 'react';
 
 // MUI
 import { BarChart } from '@mui/x-charts/BarChart';
+import { Typography } from '@mui/material';
 import { sampleAvailabilities } from './sample-data';
 
 // EXAMPLE 2
 
-const xLabels = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-];
+// const xLabels = [
+//   'Sunday',
+//   'Monday',
+//   'Tuesday',
+//   'Wednesday',
+//   'Thursday',
+//   'Friday',
+//   'Saturday',
+// ];
 
 // const sampleDataset = [
 //   { category: 'Adonis', start: -12, end: -23, duration: -12 },
@@ -42,60 +43,13 @@ const xLabels = [
 //   );
 // }
 
+
+// ________________________________________________________________
+
 const dataset = [
   {
     Adonis: 16.50,
     Tyler: 18.50,
-    day: 'Sun',
-  },
-  // {
-  //   Adonis: 5.30,
-  //   Tyler: 20.00,
-  //   day: 'Mon',
-  // },
-  // {
-  //   Adonis: 5.50,
-  //   Tyler: 4.20,
-  //   day: 'Tues',
-  // },
-  // {
-  //   Adonis: 5.60,
-  //   Tyler: 7.50,
-  //   day: 'Wed',
-  // },
-  // {
-  //   Adonis: 6.55,
-  //   Tyler: 9.12,
-  //   day: 'Thurs',
-  // },
-  // {
-  //   Tyler: 6.30,
-  //   Adonis: 14.00,
-  //   day: 'Fri',
-  // },
-  // {
-  //   Adonis: 8.00,
-  //   Tyler: 13.40,
-  //   day: 'Sat',
-  // },
-  // {
-  //   Adonis: 6.00,
-  //   Tyler: 22.50,
-  //   day: 'Sun',
-  // },
-];
-
-// ________________________________________________________________
-
-const SAMPLEDATA = [
-  {
-    name: 'Adonis',
-    timeStart: 5.20,
-    timeEnd: 10.30,
-  },
-  {
-    Adonis: 5.20,
-    Tyler: 21.30,
     day: 'Sun',
   },
 ];
@@ -105,7 +59,7 @@ const SAMPLEDATA = [
 //   return `${value}hours`;
 // }
 
-export default function AvailabilityChart() {
+export default function AvailabilityChart({ day }) {
   const getAvailabilities = () => {
     axios.get('/api/availabilities')
       .then((res) => {
@@ -117,23 +71,27 @@ export default function AvailabilityChart() {
   };
 
   return (
-    <BarChart
-      // import data into the chart
-      dataset={dataset}
-      // height of the chart
-      height={400}
-      // set scaleType and match data to input data
-      yAxis={[{ scaleType: 'band', dataKey: 'day' }]}
-      // set label for x axis and maximum
-      xAxis={[{ label: 'time - 24 hr clock', max: 24.00 }]}
-      // represents all the bars that will show
-      series={[
-        { dataKey: 'Adonis', label: 'Adonis Availability' },
-        { dataKey: 'Tyler', label: 'Tyler Availability' },
-      ]}
-      // make layout into horizontal bar chart
-      layout="horizontal"
-      borderRadius={7}
-    />
+    <>
+      <Typography variant="h5">{day}</Typography>
+      <BarChart
+        // import data into the chart
+        dataset={dataset}
+        // height of the chart
+        height={200}
+        // set scaleType and match data to input data
+        yAxis={[{ scaleType: 'band', dataKey: 'day' }]}
+        // set label for x axis and maximum
+        xAxis={[{ label: 'time - 24 hr clock', max: 24.00 }]}
+        // represents all the bars that will show
+        series={[
+          { dataKey: 'Adonis', label: 'Adonis Availability' },
+          { dataKey: 'Tyler', label: 'Tyler Availability' },
+        ]}
+        // make layout into horizontal bar chart
+        layout="horizontal"
+        borderRadius={7}
+      />
+
+    </>
   );
 }
