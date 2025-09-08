@@ -7,7 +7,7 @@ const usersRouter = Router();
 
 // Note: end point (set in app.js) is '/api/friends'
 
-// user can see all friends added
+// user can search for all friends by email
 usersRouter.get('/:search', (req, res) => {
   let { search } = req.params;
   // this removes the colon.
@@ -23,25 +23,17 @@ usersRouter.get('/:search', (req, res) => {
   });
 });
 
-// user can add friend to list
+// user can add friend by email or name
 usersRouter.post('/', (req, res) => {
-  // Users.findOneAndUpdate({})
-  //   .then((user) => {
-  //     console.log('GET all users from db:', user);
 
-  //     res.status(200).send(user);
-  //   })
-  //   .catch((err) => {
-  //     console.error('failed to GET users from db', err);
-  //   });
 });
 
+// user can delete a friends by email or name
 usersRouter.delete('/', (req, res) => {
-  // user can delete a friend from the list
 });
 
+// user can check if a friend request is pending.
 usersRouter.patch('/', (req, res) => {
-  // user can check if a friend request is pending.
 });
 
 module.exports = {
