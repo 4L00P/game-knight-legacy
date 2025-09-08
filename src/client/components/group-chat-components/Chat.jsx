@@ -44,14 +44,15 @@ function Chat() {
   const [messages, setMessages] = useState([...testMessages]);
   const [message, setMessage] = useState("");
   const socketRef = useRef(null);
-  
+
+
   useEffect(() => {
     let isMounted = true; // flag if component is mounted (prevents changes while in other pages)
     axios
       .get("/auth/user")
       .then(({ data }) => {
         if (data && isMounted) {
-          console.log("User is logged in ", data);
+          // console.log("User is logged in ", data);
           socketRef.current = window.io();
 
           // socket is live! Tell server which user this is, and add listeners
@@ -59,11 +60,15 @@ function Chat() {
             name: data.name,
             userId: data._id,
           });
-          socketRef.current.on("message", (message) => {
-            if (Array.isArray(message)) {
-              setMessages([...messages, ...message]);
+          socketRef.current.on("message", (incomingMsg) => {
+            // console.log("MESSAGE EVENT");
+            // console.log(messages)
+            if (Array.isArray(incomingMsg)) {
+              // console.log("ARRAY DETECTED");
+              setMessages([...messages, ...incomingMsg]);
             } else {
-              setMessages([...messages, message]);
+              // console.log("ARRAY DETECTED");
+              setMessages([...messages, incomingMsg]);
             }
           });
           socketRef.current.on("joinedNotif", (note) => {
@@ -75,6 +80,10 @@ function Chat() {
         console.error("User is not logged in", err);
       });
 
+      // request all previous messages
+
+      //something like axios('/messages').then((msgs)=>{setMessages(msgs)})
+
     return () => {
       isMounted = false;
       if (socketRef.current) {
@@ -83,7 +92,8 @@ function Chat() {
         socketRef.current.disconnect();
       }
     };
-  }, []);
+  }, [messages]);
+
 
   // -------------[HANDLERS]--------------
 
@@ -106,8 +116,8 @@ function Chat() {
   return (
     <Container elevation={6}>
       <Box>
-        {messages.map(({ text, username }) => (
-          <Message text={text} username={username} />
+        {messages.map((msg) => (
+          <Message text={msg.text} username={msg.username} />
         ))}
       </Box>
       <Box
@@ -124,10 +134,11 @@ function Chat() {
           id="fullWidth"
           label="Send a message..."
           onChange={handleChange}
-          onKeyUp={({ key }) => {
-            if (key === "Enter") {
+          onKeyUp={(e) => {
+            if (e.key === "Enter") {
               // console.log("enter key pressed");
               sendMessage();
+              e.target.value = "";
             }
           }}
         />

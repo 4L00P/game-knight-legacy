@@ -36,9 +36,10 @@ io.on('connection', socket => {
       const rolled = rollDice(roll);
       console.log('sending roll', rolled);
       
-      allRollMessages.push({username: socket.username, text: `rolled ${rolled[0]} for ${rolled[1]}!`});
+      allRollMessages.push({username: `Server`, text: `rolled ${rolled[0]} for ${rolled[1]}!`});
 
     });
     io.to('allChat').emit('message', allRollMessages);
   });
+  return socket
 });
