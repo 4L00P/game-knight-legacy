@@ -9,6 +9,8 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import IconButton from '@mui/material/IconButton';
+
 import Friend from './Friend';
 
 const Search = styled('div')(({ theme }) => ({
@@ -48,6 +50,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
 export default function PrimarySearchAppBar() {
   // setup state
   const [search, setSearch] = useState('');
@@ -55,17 +58,19 @@ export default function PrimarySearchAppBar() {
 
   // handles inputs from the text input
   const handleChange = (e) => {
+    // console.log(e.target.value)
     const { value } = e.target;
+    // updates search to the string that user is typing
     setSearch(value);
   };
 
   const handleSearch = () => {
     // update state with new message
     axios.get(`/api/users/:${search}`)
-      .then((data) => {
-        console.log(data)
-        const { user } = data;
-        setSearchResults(user);
+      .then((res) => {
+      // console.log(data);
+        // const { user } = res.data;
+        setSearchResults(res.data);
         // clears the search bar
         setSearch('');
       })
@@ -85,18 +90,20 @@ export default function PrimarySearchAppBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
-              // onChange={handleChange}
-              // onKeyUp={({ key }) => {
-              //   if (key === 'Enter') {
-              //     handleSearch();
-              //   }
-              // }}
+              onChange={handleChange}
+              onKeyUp={({ key }) => {
+                if (key === 'Enter') {
+                  handleSearch();
+                }
+              }}
             />
           </Search>
+          <IconButton color="inherit" onClick={handleSearch}>
+            <SearchIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
-      {/* {searchResults.map((friend) => <Friend friend={friend} />)} */}
-
+      {searchResults.map((friend) => <Friend key={friend.googleId} friend={friend} />)}
     </Box>
   );
 }
