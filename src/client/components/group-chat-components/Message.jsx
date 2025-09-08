@@ -22,12 +22,11 @@ const Container = styled(Paper)(({ theme }) => (
 
 function Message(props) {
   // --------------[PROPS]---------------
-  const { message } = props;
-
+  const { username, text } = props;
   // --------------[RENDER]---------------
   return (
     <Container elevation={3}>
-      { message }
+      { `${username} : ${text}` }
     </Container>
   );
 }
