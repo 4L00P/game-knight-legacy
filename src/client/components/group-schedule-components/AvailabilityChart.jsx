@@ -106,6 +106,16 @@ const SAMPLEDATA = [
 // }
 
 export default function AvailabilityChart() {
+  const getAvailabilities = () => {
+    axios.get('/api/availabilities')
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <BarChart
       // import data into the chart

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 import moment from 'moment';
 
@@ -18,6 +18,7 @@ export default function AddAvailability() {
   const [date, setDate] = useState('MM DD YYYY');
   const [startTime, setStartTime] = useState('HH:MM');
   const [endTime, setEndTime] = useState('HH:MM');
+  const [user, setUser] = useState('');
 
   // STATE CHANGES
   const handleDateInput = (e) => {
@@ -50,6 +51,37 @@ export default function AddAvailability() {
     setEndTime(timeStr);
   };
 
+  useEffect(() => {
+    axios.get('/auth/user')
+      .then((userObj) => {
+        const { data } = userObj;
+        // const { name } = userObj.data;
+        setUser(data);
+      })
+      .catch((err) => {
+        console.log('could GET user (client)', err);
+      });
+  }, []);
+
+  // CRUD OPERATIONS
+  const handleSubmit = () => {
+    // send a post request with the times to the database
+    // use axios.post
+
+    axios.post('/api/availabilities', {
+      user: user,
+      date: date,
+      timeStart: startTime,
+      timeEnd: endTime,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const Section1 = styled(Paper)(({ theme }) => ({
     display: 'flex', // put them side by side
     flexDirection: 'column', // change to 'column' if you want them stacked
@@ -62,12 +94,6 @@ export default function AddAvailability() {
     maxWidth: '25%',
     margin: '1rem',
   }));
-
-  // CRUD OPERATIONS
-  const handleSubmit = () => {
-    // send a post request with the times to the database
-    // use axios.post
-  };
 
   return (
     <Section1>
