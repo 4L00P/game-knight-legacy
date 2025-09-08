@@ -15,49 +15,39 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 export default function AddAvailability() {
   // STATES
-  const [date, setDate] = useState('MM/ DD/ YYYY');
-
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
+  const [date, setDate] = useState('MM DD YYYY');
+  const [startTime, setStartTime] = useState('HH:MM');
+  const [endTime, setEndTime] = useState('HH:MM');
 
   // STATE CHANGES
   const handleDateInput = (e) => {
     // destructure the date from event
     const { _d } = e;
-
     // parse the date
     const dateStr = moment(_d.toString().substring(0, 16), 'ddd MMM DD YYYY').format('MM DD YYYY');
 
     // change the state of date based on user input
     setDate(dateStr);
-    // console.log('date obj', _d);
-    console.log('date state:', date);
   };
 
   const handleStartTimeInput = (e) => {
     // destructure the date from event
     const { _d } = e;
-
     // parse the time
     const timeStr = moment(_d.toString().slice(16, 24), 'HH:mm:ss').format('HH:mm');
 
     // change the state of startTime based on user input
-    // setStartTime(timeStr);
-    // console.log('date obj:', _d);
-    // console.log('startTime state:', startTime);
+    setStartTime(timeStr);
   };
 
   const handleEndTimeInput = (e) => {
     // destructure the date from event
     const { _d } = e;
-
     // parse the time
     const timeStr = moment(_d.toString().slice(16, 24), 'HH:mm:ss').format('HH:mm');
 
     // change state of endTime based on user input
-    // setEndTime(timeStr);
-    // console.log('date obj:', _d);
-    // console.log('endTime state:', endTime);
+    setEndTime(timeStr);
   };
 
   const Section1 = styled(Paper)(({ theme }) => ({
@@ -73,6 +63,12 @@ export default function AddAvailability() {
     margin: '1rem',
   }));
 
+  // CRUD OPERATIONS
+  const handleSubmit = () => {
+    // send a post request with the times to the database
+    // use axios.post
+  };
+
   return (
     <Section1>
 
@@ -81,32 +77,28 @@ export default function AddAvailability() {
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <DateTimePicker
           views={['year', 'month', 'day']}
-          // value={date}
+          label={date}
           onChange={handleDateInput}
         />
         <TimePicker
-          label="Start time"
+          label={startTime}
           ampm={false}
           onChange={handleStartTimeInput}
         />
         <TimePicker
-          label="End time"
+          label={endTime}
           ampm={false}
           onChange={handleEndTimeInput}
         />
       </LocalizationProvider>
 
-      <Button variant="contained" color="secondary"> ADD </Button>
+      <Button onClick={handleSubmit} variant="contained" color="secondary">
+        ADD
+      </Button>
+
     </Section1>
   );
 }
-
-// // CRUD OPERATIONS
-
-// const handleSubmit = () => {
-//   // send a post request with the times to the database
-//   // use axios.post
-// };
 
 // const handleDelete = () => {
 //   // send a delete request to get rid of availability
