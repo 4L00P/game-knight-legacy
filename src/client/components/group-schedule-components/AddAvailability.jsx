@@ -15,7 +15,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 export default function AddAvailability() {
   // STATES
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState('MM/ DD/ YYYY');
+
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
 
@@ -25,12 +26,12 @@ export default function AddAvailability() {
     const { _d } = e;
 
     // parse the date
-    const dateStr = moment(_d.toString().substring(0, 16), 'ddd MMM DD YYYY').format('ddd, MM DD YYYY');
+    const dateStr = moment(_d.toString().substring(0, 16), 'ddd MMM DD YYYY').format('MM DD YYYY');
 
     // change the state of date based on user input
-    // setDate(dateStr);
+    setDate(dateStr);
     // console.log('date obj', _d);
-    // console.log('date state:', date);
+    console.log('date state:', date);
   };
 
   const handleStartTimeInput = (e) => {
@@ -80,6 +81,7 @@ export default function AddAvailability() {
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <DateTimePicker
           views={['year', 'month', 'day']}
+          // value={date}
           onChange={handleDateInput}
         />
         <TimePicker
