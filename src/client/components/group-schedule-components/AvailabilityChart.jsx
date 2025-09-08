@@ -3,54 +3,35 @@ import React from 'react';
 // MUI
 import { BarChart } from '@mui/x-charts/BarChart';
 import { Typography } from '@mui/material';
-import { sampleAvailabilities } from './sample-data';
 
-// EXAMPLE 2
-
-// const xLabels = [
-//   'Sunday',
-//   'Monday',
-//   'Tuesday',
-//   'Wednesday',
-//   'Thursday',
-//   'Friday',
-//   'Saturday',
-// ];
-
-// const sampleDataset = [
-//   { category: 'Adonis', start: -12, end: -23, duration: -12 },
-//   { category: 'Adonis', start: 0, end: -5, duration: -5 },
-//   // { category: 'Adonis', start: 10, end: 12, duration: 2 },
-// ];
-
-// export default function AvailabilityChart() {
-//   return (
-//     <BarChart
-//       dataset={sampleDataset}
-//       height={420}
-//       series={[
-
-//         { dataKey: 'start', stack: 'rangeStack', color: 'transparent' }, 
-//         // transparent start segment
-//         { dataKey: 'duration', stack: 'rangeStack', color: 'blue', label: 'Adonis', id: 'AdonisId' }, 
-//         // visible duration segment
-//       ]}
-//       // layout="horizontal" // this makes the page crash lol
-//       // date is the label, data is the ticks on the bottom
-//       xAxis={[{ label: 'date', data: xLabels }]}
-//       yAxis={[{ label: 'available times', width: 60 }]}
-//     />
-//   );
-// }
-
-
-// ________________________________________________________________
-
-const dataset = [
+const dataset1 = [
   {
-    Adonis: 16.50,
-    Tyler: 18.50,
-    day: 'Sun',
+    user: {
+      _id: '77hui',
+      name: 'Tyler',
+      googleId: '66754',
+      email: 'tyler@helpdesk.com',
+    },
+    date: '09 02 2025',
+    timeStart: '05:00',
+    timeEnd: '10:00',
+  },
+];
+
+const dataset2 = [
+  {
+    name: 'Me',
+    date: '09 02 2025',
+    timeStart: 7,
+    timeEnd: 18,
+    duration: 11,
+  },
+  {
+    name: 'Friend',
+    date: '09 03 2025',
+    timeStart: 12,
+    timeEnd: 20,
+    duration: 8,
   },
 ];
 
@@ -70,26 +51,31 @@ export default function AvailabilityChart({ day }) {
       });
   };
 
+  // const makeTimeNumbers = () => {
+
+  // };
+
   return (
     <>
       <Typography variant="h5">{day}</Typography>
       <BarChart
         // import data into the chart
-        dataset={dataset}
+        dataset={dataset2}
         // height of the chart
         height={200}
         // set scaleType and match data to input data
-        yAxis={[{ scaleType: 'band', dataKey: 'day' }]}
+        yAxis={[{ scaleType: 'band', dataKey: 'name' }]}
         // set label for x axis and maximum
         xAxis={[{ label: 'time - 24 hr clock', max: 24.00 }]}
         // represents all the bars that will show
         series={[
-          { dataKey: 'Adonis', label: 'Adonis Availability' },
-          { dataKey: 'Tyler', label: 'Tyler Availability' },
+          // invisible start stack
+          { dataKey: 'timeStart', stack: 'rangeStack', color: 'transparent' },
+          // visible 'duration' stack
+          { dataKey: 'duration', stack: 'rangeStack', color: 'blue' },
         ]}
         // make layout into horizontal bar chart
         layout="horizontal"
-        borderRadius={7}
       />
 
     </>
