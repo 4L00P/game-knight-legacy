@@ -7,6 +7,8 @@ import {
   Box,
 } from '@mui/material';
 
+import gameKnightLogo from '../../images/GameKnightYellow.png';
+
 function Login() {
   // Set up the navigate function to navigate user to /home if already logged in
   const navigate = useNavigate();
@@ -61,10 +63,12 @@ function Login() {
         component="section"
         sx={{
           alignContent: 'center',
-          paddingBottom: 5,
-          pt: 2,
+          // paddingBottom: 5,
+          // pt: 2,
         }}
-      />
+      >
+        <img src={gameKnightLogo} alt="Logo" width={300} />
+      </Box>
 
       <Typography variant="h5">
         Start your board game journey here!
@@ -80,6 +84,7 @@ function Login() {
         <Button
           href="/auth"
           color="secondary"
+          variant="contained"
         >
           Login with Google
         </Button>
