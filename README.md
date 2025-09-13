@@ -184,7 +184,7 @@ The following is a break down of each view:
   - FriendsList
     - Friend (for iterative list of search results)
 
-### Server Routes
+### Server Routes 
 All endpoints can be found in the initial express app found at `./src/server/app.js` and different routers found in the `./src/server/routes/` directory. The Express server uses the following endpoints:
 
 - `/auth` : This route holds all authentication endpoints to facilitate the Google login process
@@ -242,6 +242,16 @@ All endpoints can be found in the initial express app found at `./src/server/app
 - `/logout` : This endpoint logs the user out of their current session and clears their cookie.
 - `*` : This endpoint facilitates all React-Router requests to the server. Using a custom verifySession middleware to check that a user has signed in properly to be able to navigate the site.
 
+### Socket.js
+
+Handles websocket behavior for messaging and dice rolling. Currently all users exist in one chat and when the socket receives a message it
+emits to that chat. Socket is created in [Chat Component](src/client/components/group-chat-components/Chat.jsx).
+Socket.io is used to manage the web socket.
+The client socket connection is established after passport auth to allow users to be identified. This is related to the bug where
+rolls appear to be coming from the server.
+
+
+
 ### Database Schemas
 We are using MongoDB with the Mongoose ODM. You can find schemas in the `./src/server/database/models` directory. At this moment, we have the following collections:
 - Users
@@ -293,6 +303,8 @@ We are using MongoDB with the Mongoose ODM. You can find schemas in the `./src/s
 - Clicking to add a friend does not update the pending schema or save in any way, it simply performs a search.
 - Availability chart does not read from the database and renders test data.
 - Friends dropdown for adding friends renders test data.
+- Route handling for pending component was started but needs to be completed.
+
 
 ## Future Development & Improvements
 - Be able to add more guests, snacks, and games to a game night when editing.
@@ -304,6 +316,8 @@ We are using MongoDB with the Mongoose ODM. You can find schemas in the `./src/s
 - Remove test data for message rendering, and adjust location and scaling of the messages box component.
 - Each active game session should have its own socket for group only messages and dice rolls.
 - Add player list on active game, with possible tracking of player stats.
+- PendingFriends component is not being rendered and needs logic.
+- Request and handling for searching a friend by email is working but update and delete CRUD operations need to be done.
 
 ## Contributors
 - [Awesome Person Interface](https://github.com/Awesome-Person-Interface)
