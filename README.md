@@ -1,10 +1,10 @@
 # Game Knight: The Board Game Companion
 
 ## Introduction
-Welcome to Game Knight! Getting a group together for a game night can be tough: What should we play? What games are available? Forgetting whose turn it is. Game Knight will be a central hub for keeping track of a board game collection, scheduling game nights, and assisting players while they play board games.
+Welcome to Game Knight! Getting a group together for a game night can be tough: What should we play? What games are available? Forgetting whose turn it is. Game Knight will be a central hub for keeping track of a board game collection, scheduling game nights, assisting players while they play board games, and initiating a game session to facilitate online board games with friends!
 
 ## Current Features
-> Search for a board game and store the game along with its information in your collection.
+> Search for a board game and store the game along with its information in your collection, from the collection tab.
 
 - The search utilizes the Board Game Geeks API to gather important details about a board game.
 
@@ -12,7 +12,8 @@ Welcome to Game Knight! Getting a group together for a game night can be tough: 
 
 > Filter your game collection based off a category or mechanic to find a game that's perfect for your game night.
 
-> Schedule game nights with a predetermined list of guests, snacks, and games.
+> Schedule game nights with a predetermined list of guests, snacks, and games in the Game Nights tab.
+
 - Edit the details of the game night if plans change:
   - Remove guests
   - Remove snacks
@@ -23,6 +24,9 @@ Welcome to Game Knight! Getting a group together for a game night can be tough: 
 
 > Create groups of players for different game sessions.
 
+> Add friends by searching the friend's email (not saving to database atm).
+
+> Start an active game which allows players to roll dice, where everyone can see what was rolled, and chat with members (not closed socket).
 
 
 ## Developer Notes
@@ -133,9 +137,9 @@ The following is a break down of each view:
 
 `Login` : This view is the landing page for Game Knight. Users will login here.
 
-`Home` : This view shows the user their board game collection. This view uses the following components (indentation denotes children):
+`Collection` : This view shows the user their board game collection. This view uses the following components (indentation denotes children):
 - NavBar
-- GamesList
+- GamesList (not visible on site)
   - Game
     - GameInfo
       - GameGeneralInfo
@@ -144,7 +148,7 @@ The following is a break down of each view:
       - GameDescriptionInfo
     - RemoveGameDialog
 
-`GameNights` : This views shows the user game nights they've planned. This view uses the following components (indentation denotes children):
+`Game Nights` : This views shows the user game nights they've planned. This view uses the following components (indentation denotes children):
 - NavBar
 - GameNightsList
   - Night
@@ -155,6 +159,9 @@ The following is a break down of each view:
   - DividedListItem
   - InputField
     - CalendarField
+- Scheduling
+  - AddAvailability
+  - AvailabilityChart
 
 `Groups` : This view shows the user groups they've created. This view uses the following components (indentation denotes children):
 
@@ -162,18 +169,20 @@ The following is a break down of each view:
 - GroupForm
 - Group
 
-`CurrentGame` : This view allows the user to select a group to use helpful features to facilitate game play. This view uses the following components (indentation denotes children):
+`Active Game` : This view allows the user to select a group to use helpful features to facilitate game play. This view uses the following components (indentation denotes children):
 
 - NavBar
-- PlayerList
-- PlayerCard
+- DiceRoller
+- Chat
+  - Message
+  - MessageInput
 
-`Friend` :  This view allows the user to search for players from their email or name, and add and remove players . This view uses the following components (indentation denotes children):
+`Friends` :  This view allows the user to search for players from their email or name, and add and remove players . This view uses the following components (indentation denotes children):
 
--NavBar
--FriendsList
--FriendsSearch
--PendingSearch
+- NavBar
+- FriendsSearch
+  - FriendsList
+    - Friend (for iterative list of search results)
 
 ### Server Routes
 All endpoints can be found in the initial express app found at `./src/server/app.js` and different routers found in the `./src/server/routes/` directory. The Express server uses the following endpoints:
@@ -278,13 +287,23 @@ We are using MongoDB with the Mongoose ODM. You can find schemas in the `./src/s
 
 ## Current Bugs
 - When editing the Game Night name, the accordion opens and closes with the spacebar.
+- Editing a group currently does not function. Names do not display with spaces.
+- Socket for chat and dice rolls work on one socket, so anyone visiting that page can see all rolls and messages.
+- Messages and dice rolls are not being persisted through the database.
+- Clicking to add a friend does not update the pending schema or save in any way, it simply performs a search.
+- Availability chart does not read from the database and renders test data.
+- Friends dropdown for adding friends renders test data.
 
 ## Future Development & Improvements
 - Be able to add more guests, snacks, and games to a game night when editing.
 - Be able to edit the winner for a game night.
 - Allow users to put times in regular time rather than military time.
-- Add functionality to the buttons in the Groups and Current Game views
-- Add more assist features for the current game view
+- Add functionality to the buttons in the Groups and Current Game views.
+- Edit Group creation to include the dropdown friends list, to directly add friends to your game group.
+- Add more assist features for the current game view.
+- Remove test data for message rendering, and adjust location and scaling of the messages box component.
+- Each active game session should have its own socket for group only messages and dice rolls.
+- Add player list on active game, with possible tracking of player stats.
 
 ## Contributors
 - [Awesome Person Interface](https://github.com/Awesome-Person-Interface)
