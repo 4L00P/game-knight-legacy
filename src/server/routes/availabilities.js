@@ -60,7 +60,7 @@ availabilitiesRouter.patch('/:id', (req, res) => {
   const { scheduling } = req.body;
   // change the availability to whichever day/start/end time user wants
   Availabilities.findByIdAndUpdate(id, scheduling)
-    .then((result) => {
+    .then(() => {
       res.sendStatus(200);
     })
     .catch((err) => {
