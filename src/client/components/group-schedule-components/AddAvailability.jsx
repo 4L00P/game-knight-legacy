@@ -3,17 +3,15 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import moment from 'moment';
 
-// MUI
+// MUI COMPONENTS
 import { styled, alpha } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-import { InputLabel } from '@mui/material';
-import { Button } from '@mui/material';
+import { Paper, InputLabel, Button } from '@mui/material';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-export default function AddAvailability({elevation}) {
+export default function AddAvailability() {
   // STATES
   const [user, setUser] = useState('');
   const [date, setDate] = useState('MM DD YYYY');
@@ -88,6 +86,10 @@ export default function AddAvailability({elevation}) {
   //   // send a delete request to get rid of availability
   // };
 
+  // const handleEdit = () => {
+  //   // send patch request to server to edit availability
+  // };
+
   const Section1 = styled(Paper)(({ theme }) => ({
     display: 'flex', // put them side by side
     flexDirection: 'column', // change to 'column' if you want them stacked
@@ -131,8 +133,3 @@ export default function AddAvailability({elevation}) {
     </Section1>
   );
 }
-
-
-// const handleEdit = () => {
-//   // send patch request to server to edit availability
-// };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-// MUI
+// MUI COMPONENTS
 import { BarChart } from '@mui/x-charts/BarChart';
 import { Typography } from '@mui/material';
 

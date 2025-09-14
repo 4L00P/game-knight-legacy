@@ -1,13 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import moment from "moment";
-// MUI
-// import Grid from '@mui/material/Grid';
-import Fab from '@mui/material/Fab';
+
+// MUI COMPONENTS
+import { Fab, InputLabel, Paper } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-// import AddIcon from '@mui/icons-material/Add';
-import { InputLabel } from '@mui/material';
-import Paper from '@mui/material/Paper';
 import { styled, alpha } from '@mui/material/styles';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
