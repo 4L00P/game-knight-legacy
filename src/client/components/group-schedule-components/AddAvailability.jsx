@@ -15,10 +15,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 export default function AddAvailability() {
   // STATES
-  const [date, setDate] = useState('MM DD YYYY');
-  const [startTime, setStartTime] = useState('HH:MM');
-  const [endTime, setEndTime] = useState('HH:MM');
   const [user, setUser] = useState('');
+  const [date, setDate] = useState('MM DD YYYY');
+  const [timeStart, setTimeStart] = useState('HH:MM');
+  const [timeEnd, setTimeEnd] = useState('HH:MM');
 
   // STATE CHANGES
   const handleDateInput = (e) => {
@@ -69,10 +69,12 @@ export default function AddAvailability() {
     // use axios.post
 
     axios.post('/api/availabilities', {
-      user: user,
-      date: date,
-      timeStart: startTime,
-      timeEnd: endTime,
+      scheduling: {
+        user,
+        date,
+        timeStart,
+        timeEnd,
+      },
     })
       .then((res) => {
         console.log(res);
@@ -107,12 +109,12 @@ export default function AddAvailability() {
           onChange={handleDateInput}
         />
         <TimePicker
-          label={startTime}
+          label={timeStart}
           ampm={false}
           onChange={handleStartTimeInput}
         />
         <TimePicker
-          label={endTime}
+          label={timeEnd}
           ampm={false}
           onChange={handleEndTimeInput}
         />

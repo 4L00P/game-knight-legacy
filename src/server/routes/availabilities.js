@@ -27,7 +27,7 @@ availabilitiesRouter.post('/', (req, res) => {
     date,
     timeStart,
     timeEnd,
-  } = req.body;
+  } = req.body.scheduling;
 
   // create an availability in the db
   Availabilities.create({
@@ -42,11 +42,21 @@ availabilitiesRouter.post('/', (req, res) => {
 });
 
 availabilitiesRouter.delete('/', (req, res) => {
-// user can delete an availability
+  // destructure request object
+  const { date } = req.body.scheduling;
+  // user deletes an availability by date
+  Availabilities.deleteOne({ date })
+    .then(() => {
+      console.log('successfully DELETED an availability');
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.log('failed to DELETE availability', err);
+    });
 });
 
 availabilitiesRouter.patch('/', (req, res) => {
-// change the availability to whichever day/start/end time user wants
+  // change the availability to whichever day/start/end time user wants
 });
 
 // Export the router
