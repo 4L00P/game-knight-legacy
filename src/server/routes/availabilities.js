@@ -47,7 +47,6 @@ availabilitiesRouter.delete('/', (req, res) => {
   // user deletes an availability by date
   Availabilities.deleteOne({ date })
     .then(() => {
-      console.log('successfully DELETED an availability');
       res.sendStatus(204);
     })
     .catch((err) => {
@@ -55,8 +54,18 @@ availabilitiesRouter.delete('/', (req, res) => {
     });
 });
 
-availabilitiesRouter.patch('/', (req, res) => {
+availabilitiesRouter.patch('/:id', (req, res) => {
+  // destructure request obj
+  const { id } = req.params;
+  const { scheduling } = req.body;
   // change the availability to whichever day/start/end time user wants
+  Availabilities.findByIdAndUpdate(id, scheduling)
+    .then((result) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log('failed to PATCH availability', err);
+    });
 });
 
 // Export the router
