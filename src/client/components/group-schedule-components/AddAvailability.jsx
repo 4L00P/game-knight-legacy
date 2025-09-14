@@ -4,7 +4,7 @@ import axios from 'axios';
 import moment from 'moment';
 
 // MUI
-import { styled } from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { InputLabel } from '@mui/material';
 import { Button } from '@mui/material';
@@ -13,7 +13,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-export default function AddAvailability() {
+export default function AddAvailability({elevation}) {
   // STATES
   const [user, setUser] = useState('');
   const [date, setDate] = useState('MM DD YYYY');
@@ -38,7 +38,7 @@ export default function AddAvailability() {
     const timeStr = moment(_d.toString().slice(16, 24), 'HH:mm:ss').format('HH:mm');
 
     // change the state of startTime based on user input
-    setStartTime(timeStr);
+    setTimeStart(timeStr);
   };
 
   const handleEndTimeInput = (e) => {
@@ -48,7 +48,7 @@ export default function AddAvailability() {
     const timeStr = moment(_d.toString().slice(16, 24), 'HH:mm:ss').format('HH:mm');
 
     // change state of endTime based on user input
-    setEndTime(timeStr);
+    setTimeEnd(timeStr);
   };
 
   useEffect(() => {
@@ -84,13 +84,17 @@ export default function AddAvailability() {
       });
   };
 
+  // const handleDelete = () => {
+  //   // send a delete request to get rid of availability
+  // };
+
   const Section1 = styled(Paper)(({ theme }) => ({
     display: 'flex', // put them side by side
     flexDirection: 'column', // change to 'column' if you want them stacked
     alignItems: 'center',
     padding: 20,
     gap: theme.spacing(2),
-    backgroundColor: '#EDFAFF',
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
     borderRadius: 10,
     // width: 'fit-content',
     maxWidth: '25%',
@@ -98,7 +102,7 @@ export default function AddAvailability() {
   }));
 
   return (
-    <Section1>
+    <Section1 elevation={5}>
 
       <InputLabel> add your availability </InputLabel>
 
@@ -128,9 +132,6 @@ export default function AddAvailability() {
   );
 }
 
-// const handleDelete = () => {
-//   // send a delete request to get rid of availability
-// };
 
 // const handleEdit = () => {
 //   // send patch request to server to edit availability

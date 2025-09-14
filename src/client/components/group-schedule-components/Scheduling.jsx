@@ -8,7 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 // import AddIcon from '@mui/icons-material/Add';
 import { InputLabel } from '@mui/material';
 import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -35,8 +35,8 @@ export default function Scheduling() {
     flexDirection: 'column', // change to 'column' if you want them stacked
     alignItems: 'left',
     padding: 10,
-    // gap: theme.spacing(2),
-    backgroundColor: '#EDFAFF',
+    gap: theme.spacing(2),
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
     borderRadius: 10,
     // width: 'fit-content',
     maxWidth: '50%',
@@ -48,7 +48,7 @@ export default function Scheduling() {
 
       <AddAvailability />
 
-      <Section2>
+      <Section2 elevation={5}>
 
         <Fab color="secondary" aria-label="edit">
           <EditIcon />
