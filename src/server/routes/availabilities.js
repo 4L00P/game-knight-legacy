@@ -5,16 +5,14 @@ const { Availabilities } = require('../database');
 // Create the express Router
 const availabilitiesRouter = Router();
 
-// CRUD OPERATIONS - interacts with Mongoose models //
-
+// CRUD OPERATIONS - interacts with Mongoose models
 // Note: end point (set in app.js) is '/api/availabilities'
 
 availabilitiesRouter.get('/', (req, res) => {
   // user can see all the availabilities they entered
   Availabilities.find({})
     .then((times) => {
-      console.log('GET times from db:', times);
-
+      // send 200 ok status and the times as json
       res.status(200).json(times);
     })
     .catch((err) => {
@@ -23,12 +21,19 @@ availabilitiesRouter.get('/', (req, res) => {
 });
 
 availabilitiesRouter.post('/', (req, res) => {
-  const { user, date, timeStart, timeEnd } = req.body;
-  // user can add an availability
+  // destructure req object
+  const {
+    user,
+    date,
+    timeStart,
+    timeEnd,
+  } = req.body;
+
+  // create an availability in the db
   Availabilities.create({
     user, date, timeStart, timeEnd,
   })
-    .then((availability) => {
+    .then(() => {
       res.sendStatus(201);
     })
     .catch((err) => {
