@@ -14,9 +14,22 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 export default function AddAvailability() {
   // STATES
   const [user, setUser] = useState('');
-  const [date, setDate] = useState('MM DD YYYY');
-  const [timeStart, setTimeStart] = useState('HH:MM');
-  const [timeEnd, setTimeEnd] = useState('HH:MM');
+  const [date, setDate] = useState('');
+  const [timeStart, setTimeStart] = useState('');
+  const [timeEnd, setTimeEnd] = useState('');
+  const [duration, setDuration] = useState('');
+
+  // HELPER TO CHANGE TIME INTO NUMBER
+  const timeStringToNumber = (str) => {
+    // grab first two numbers as is
+    const hours = Number(str.substring(0, 2));
+    // change 2nd half into a number - divide by 60
+    const minutesStr = str.substring(3, 5);
+    const minutes = Number(minutesStr) / 60;
+    // change to number with two decimal places
+    const timeNum = Number((hours + minutes).toFixed(2));
+    return timeNum;
+  };
 
   // STATE CHANGES
   const handleDateInput = (e) => {
@@ -36,7 +49,7 @@ export default function AddAvailability() {
     const timeStr = moment(_d.toString().slice(16, 24), 'HH:mm:ss').format('HH:mm');
 
     // change the state of startTime based on user input
-    setTimeStart(timeStr);
+    setTimeStart(timeStringToNumber(timeStr));
   };
 
   const handleEndTimeInput = (e) => {
@@ -46,7 +59,10 @@ export default function AddAvailability() {
     const timeStr = moment(_d.toString().slice(16, 24), 'HH:mm:ss').format('HH:mm');
 
     // change state of endTime based on user input
-    setTimeEnd(timeStr);
+    setTimeEnd(timeStringToNumber(timeStr));
+
+    // set the duration
+    setDuration(timeEnd - timeStart);
   };
 
   useEffect(() => {
@@ -61,12 +77,15 @@ export default function AddAvailability() {
       });
   }, []);
 
+
   // CRUD OPERATIONS
   const handleSubmit = () => {
     // send a post request with the times to the database
     // use axios.post
 
     axios.post('/api/availabilities', {
+      // reassign date
+
       scheduling: {
         user,
         date,

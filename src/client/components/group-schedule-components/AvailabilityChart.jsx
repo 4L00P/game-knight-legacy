@@ -20,14 +20,14 @@ const dataset1 = [
 
 const dataset2 = [
   {
-    name: 'Me',
+    user: { name: 'Person1' },
     date: '09 02 2025',
     timeStart: 7,
     timeEnd: 18,
     duration: 11,
   },
   {
-    name: 'Friend',
+    user: { name: 'Person2' },
     date: '09 03 2025',
     timeStart: 12,
     timeEnd: 20,
@@ -51,10 +51,6 @@ export default function AvailabilityChart({ day }) {
       });
   };
 
-  // const makeTimeNumbers = () => {
-
-  // };
-
   return (
     <>
       <Typography variant="h5">{day}</Typography>
@@ -64,7 +60,7 @@ export default function AvailabilityChart({ day }) {
         // height of the chart
         height={200}
         // set scaleType and match data to input data
-        yAxis={[{ scaleType: 'band', dataKey: 'name' }]}
+        yAxis={[{ scaleType: 'band', dataKey: 'date' }]}
         // set label for x axis and maximum
         xAxis={[{ label: 'time - 24 hr clock', max: 24.00 }]}
         // represents all the bars that will show
