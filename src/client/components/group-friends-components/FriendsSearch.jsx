@@ -52,7 +52,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
-  // setup state
+  // setup state for search and search results
   const [search, setSearch] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
@@ -64,6 +64,8 @@ export default function PrimarySearchAppBar() {
     setSearch(value);
   };
 
+  // user types and hits enter or clicks icon,
+  // calls axios request and stores response in search results
   const handleSearch = () => {
     // update state with new message
     axios.get(`/api/users/:${search}`)
@@ -107,4 +109,4 @@ export default function PrimarySearchAppBar() {
     </Box>
   );
 }
-// map over search to pass one search result or friend into friend
+// map over search results to renders each one w friend component
