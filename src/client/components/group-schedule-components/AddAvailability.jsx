@@ -37,7 +37,6 @@ export default function AddAvailability() {
     const { _d } = e;
     // parse the date
     const dateStr = moment(_d.toString().substring(0, 16), 'ddd MMM DD YYYY').format('MM DD YYYY');
-
     // change the state of date based on user input
     setDate(dateStr);
   };
@@ -47,8 +46,8 @@ export default function AddAvailability() {
     const { _d } = e;
     // parse the time
     const timeStr = moment(_d.toString().slice(16, 24), 'HH:mm:ss').format('HH:mm');
-
     // change the state of startTime based on user input
+    // pass the time string into the helper to get a number
     setTimeStart(timeStringToNumber(timeStr));
   };
 
@@ -57,12 +56,12 @@ export default function AddAvailability() {
     const { _d } = e;
     // parse the time
     const timeStr = moment(_d.toString().slice(16, 24), 'HH:mm:ss').format('HH:mm');
-
     // change state of endTime based on user input
+    // pass the time string into the helper to get a number
     setTimeEnd(timeStringToNumber(timeStr));
 
     // set the duration
-    setDuration(Math.abs(timeEnd - timeStart));
+    setDuration(timeEnd - timeStart);
   };
 
   useEffect(() => {
