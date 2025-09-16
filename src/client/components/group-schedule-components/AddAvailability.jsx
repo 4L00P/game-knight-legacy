@@ -62,7 +62,7 @@ export default function AddAvailability() {
     setTimeEnd(timeStringToNumber(timeStr));
 
     // set the duration
-    setDuration(timeEnd - timeStart);
+    setDuration(Math.abs(timeEnd - timeStart));
   };
 
   useEffect(() => {
@@ -73,24 +73,21 @@ export default function AddAvailability() {
         setUser(data);
       })
       .catch((err) => {
-        console.log('could GET user (client)', err);
+        console.log('could not GET user (client)', err);
       });
   }, []);
-
 
   // CRUD OPERATIONS
   const handleSubmit = () => {
     // send a post request with the times to the database
     // use axios.post
-
     axios.post('/api/availabilities', {
-      // reassign date
-
       scheduling: {
         user,
         date,
         timeStart,
         timeEnd,
+        duration,
       },
     })
       .then((res) => {

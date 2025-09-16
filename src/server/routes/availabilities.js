@@ -27,11 +27,12 @@ availabilitiesRouter.post('/', (req, res) => {
     date,
     timeStart,
     timeEnd,
+    duration,
   } = req.body.scheduling;
 
   // create an availability in the db
   Availabilities.create({
-    user, date, timeStart, timeEnd,
+    user, date, timeStart, timeEnd, duration,
   })
     .then(() => {
       res.sendStatus(201);
