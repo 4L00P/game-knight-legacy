@@ -20,6 +20,20 @@ availabilitiesRouter.get('/', (req, res) => {
     });
 });
 
+availabilitiesRouter.get('/day/:date', (req, res) => {
+  const { date } = req.params;
+  // user can find by date
+
+  Availabilities.find({ date })
+    .then((dayData) => {
+      // send 200 ok status and the times as json
+      res.status(200).send(dayData);
+    })
+    .catch((err) => {
+      console.log('failed to GET availability from db', err);
+    });
+});
+
 availabilitiesRouter.post('/', (req, res) => {
   // destructure req object
   const {
@@ -27,11 +41,12 @@ availabilitiesRouter.post('/', (req, res) => {
     date,
     timeStart,
     timeEnd,
-  } = req.body;
+    duration,
+  } = req.body.scheduling;
 
   // create an availability in the db
   Availabilities.create({
-    user, date, timeStart, timeEnd,
+    user, date, timeStart, timeEnd, duration,
   })
     .then(() => {
       res.sendStatus(201);
@@ -42,11 +57,30 @@ availabilitiesRouter.post('/', (req, res) => {
 });
 
 availabilitiesRouter.delete('/', (req, res) => {
-// user can delete an availability
+  // destructure request object
+  const { date } = req.body.scheduling;
+  // user deletes an availability by date
+  Availabilities.deleteOne({ date })
+    .then(() => {
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.log('failed to DELETE availability', err);
+    });
 });
 
-availabilitiesRouter.patch('/', (req, res) => {
-// change the availability to whichever day/start/end time user wants
+availabilitiesRouter.patch('/:id', (req, res) => {
+  // destructure request obj
+  const { id } = req.params;
+  const { scheduling } = req.body;
+  // change the availability to whichever day/start/end time user wants
+  Availabilities.findByIdAndUpdate(id, scheduling)
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log('failed to PATCH availability', err);
+    });
 });
 
 // Export the router

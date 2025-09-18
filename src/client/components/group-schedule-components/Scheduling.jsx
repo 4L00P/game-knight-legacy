@@ -1,14 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import moment from "moment";
-// MUI
-// import Grid from '@mui/material/Grid';
-import Fab from '@mui/material/Fab';
+import axios from "axios";
+
+// MUI COMPONENTS
+import { Fab, InputLabel, Paper } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-// import AddIcon from '@mui/icons-material/Add';
-import { InputLabel } from '@mui/material';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -20,6 +18,7 @@ import AvailabilityChart from './AvailabilityChart';
 export default function Scheduling() {
   // STATE
   const [dayView, setDayView] = useState(moment().format('MM DD YYYY'));
+  const [availabilityData, setAvailabilityData] = useState([]);
 
   // STATE CHANGES
   const handleDateInput = (e) => {
@@ -30,16 +29,29 @@ export default function Scheduling() {
     setDayView(dateStr);
   };
 
+  // whenever the dayView changes, query database for day info
+  useEffect(() => {
+    // get the relevant day data
+    axios.get(`/api/availabilities/day/${dayView}`)
+      .then(({ data }) => {
+        // set the availabilityData
+        setAvailabilityData(data);
+      })
+      .catch((err) => {
+        console.log('could not GET user (client)', err);
+      });
+  }, [dayView]);
+
+  // Paper styling for the chart
   const Section2 = styled(Paper)(({ theme }) => ({
     display: 'flex', // put them side by side
     flexDirection: 'column', // change to 'column' if you want them stacked
     alignItems: 'left',
     padding: 10,
-    // gap: theme.spacing(2),
-    backgroundColor: '#EDFAFF',
+    gap: theme.spacing(2),
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
     borderRadius: 10,
-    // width: 'fit-content',
-    maxWidth: '50%',
+    width: 600,
     margin: '1rem',
   }));
 
@@ -48,11 +60,7 @@ export default function Scheduling() {
 
       <AddAvailability />
 
-      <Section2>
-
-        <Fab color="secondary" aria-label="edit">
-          <EditIcon />
-        </Fab>
+      <Section2 elevation={5}>
 
         <br />
 
@@ -63,7 +71,14 @@ export default function Scheduling() {
 
         <br />
 
-        <AvailabilityChart day={dayView} />
+        <AvailabilityChart day={dayView} dataset={availabilityData} />
+
+        <Fab
+          color="secondary"
+          aria-label="edit"
+        >
+          <EditIcon />
+        </Fab>
 
       </Section2>
     </>
