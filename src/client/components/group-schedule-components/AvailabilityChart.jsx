@@ -4,29 +4,13 @@ import React from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { Typography } from '@mui/material';
 
-const dataset2 = [
-  {
-    'user': '68b6303b6c1748ba13017e5d',
-    'date': '09 30 2025',
-    'timeStart': 9,
-    'timeEnd': 20,
-    'duration': 11,
-    '__v': 0,
-  },
-];
-
-// formatter to add (good for client clarity)
-// function valueFormatter(value) {
-//   return `${value}hours`;
-// }
-
 export default function AvailabilityChart({ day, dataset }) {
   return (
     <>
       <Typography variant="h5">{day}</Typography>
       <BarChart
         // import data into the chart
-        dataset={dataset2}
+        dataset={dataset}
         // height of the chart
         height={200}
         // set scaleType and match data to input data

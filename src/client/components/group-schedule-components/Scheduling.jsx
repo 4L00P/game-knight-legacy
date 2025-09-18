@@ -18,7 +18,7 @@ import AvailabilityChart from './AvailabilityChart';
 export default function Scheduling() {
   // STATE
   const [dayView, setDayView] = useState(moment().format('MM DD YYYY'));
-  const [availabilityData, setAvailabilityData] = useState('');
+  const [availabilityData, setAvailabilityData] = useState([]);
 
   // STATE CHANGES
   const handleDateInput = (e) => {
@@ -32,16 +32,10 @@ export default function Scheduling() {
   // whenever the dayView changes, query database for day info
   useEffect(() => {
     // get the relevant day data
-    axios.get('/day', {
-      body: {
-        scheduling: { date: dayView },
-      },
-    })
-      .then((res) => {
-        const { data } = res;
+    axios.get(`/api/availabilities/day/${dayView}`)
+      .then(({ data }) => {
         // set the availabilityData
         setAvailabilityData(data);
-        console.log(res);
       })
       .catch((err) => {
         console.log('could not GET user (client)', err);
