@@ -10,7 +10,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import PropTypes from "prop-types";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 export default function AddAvailability() {
   // STATES
@@ -60,20 +60,20 @@ export default function AddAvailability() {
     // change state of endTime based on user input
     // pass the time string into the helper to get a number
     setTimeEnd(timeStringToNumber(timeStr));
-
-    // set the duration
-    // setDuration(timeEnd - timeStart);
   };
 
+  // useEffect hook to watch the timeEnd state
   useEffect(() => {
+    // update duration state by subtracting timeStart from timeEnd
     setDuration(timeEnd - timeStart);
   }, [timeEnd]);
 
+  // useEffect hook on initial render to get the user
   useEffect(() => {
     axios.get('/auth/user')
       .then((userObj) => {
         const { data } = userObj;
-        // const { name } = userObj.data;
+        // set the user state
         setUser(data);
       })
       .catch((err) => {
@@ -83,8 +83,7 @@ export default function AddAvailability() {
 
   // CRUD OPERATIONS
   const handleSubmit = () => {
-    // send a post request with the times to the database
-    // use axios.post
+    // on submit, send a POST req with the availability to the db
     axios.post('/api/availabilities', {
       scheduling: {
         user,
@@ -94,11 +93,10 @@ export default function AddAvailability() {
         duration,
       },
     })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
       })
       .catch((err) => {
-        console.log(err);
+        console.log('failed to POST an availability', err);
       });
   };
 
@@ -110,39 +108,55 @@ export default function AddAvailability() {
   //   // send patch request to server to edit availability
   // };
 
+  // Paper styling
   const Section1 = styled(Paper)(({ theme }) => ({
     display: 'flex', // put them side by side
-    flexDirection: 'column', // change to 'column' if you want them stacked
+    flexDirection: 'row', // change to 'column' if you want them stacked
     alignItems: 'center',
     padding: 20,
     gap: theme.spacing(2),
     backgroundColor: alpha(theme.palette.common.white, 0.15),
     borderRadius: 10,
-    // width: 'fit-content',
-    maxWidth: '25%',
+    width: 'fit-content',
     margin: '1rem',
   }));
 
   return (
     <Section1 elevation={5}>
 
-      <InputLabel> add your availability </InputLabel>
+      <InputLabel>
+        add your
+        <br />
+        availability!
+      </InputLabel>
 
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <DateTimePicker
           views={['year', 'month', 'day']}
           label={date}
           onChange={handleDateInput}
+          sx={{
+            width: 150,
+          }}
         />
+
         <TimePicker
           label={timeStart}
           ampm={false}
           onChange={handleStartTimeInput}
+          sx={{
+            width: 110,
+          }}
         />
+
+        <ArrowForwardIcon />
         <TimePicker
           label={timeEnd}
           ampm={false}
           onChange={handleEndTimeInput}
+          sx={{
+            width: 110,
+          }}
         />
       </LocalizationProvider>
 
