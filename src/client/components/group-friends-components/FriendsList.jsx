@@ -19,6 +19,8 @@ const MenuProps = {
   },
 };
 
+// contains static  UI component w names
+// needs to let users select multiple friends or see friends from the db
 const names = [
   'Oliver Hansen',
   'Van Henry',
