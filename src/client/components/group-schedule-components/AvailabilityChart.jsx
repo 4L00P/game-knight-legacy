@@ -4,34 +4,14 @@ import React from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { Typography } from '@mui/material';
 
-const dataset1 = [
-  {
-    user: {
-      _id: '77hui',
-      name: 'Tyler',
-      googleId: '66754',
-      email: 'tyler@helpdesk.com',
-    },
-    date: '09 02 2025',
-    timeStart: '05:00',
-    timeEnd: '10:00',
-  },
-];
-
 const dataset2 = [
   {
-    user: { name: 'Person1' },
-    date: '09 02 2025',
-    timeStart: 7,
-    timeEnd: 18,
-    duration: 11,
-  },
-  {
-    user: { name: 'Person2' },
-    date: '09 03 2025',
-    timeStart: 12,
-    timeEnd: 20,
-    duration: 8,
+    'user': '68b6303b6c1748ba13017e5d',
+    'date': '09 30 2025',
+    'timeStart': 9,
+    'timeEnd': 20,
+    'duration': 11,
+    '__v': 0,
   },
 ];
 
@@ -40,17 +20,7 @@ const dataset2 = [
 //   return `${value}hours`;
 // }
 
-export default function AvailabilityChart({ day }) {
-  const getAvailabilities = () => {
-    axios.get('/api/availabilities')
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
+export default function AvailabilityChart({ day, dataset }) {
   return (
     <>
       <Typography variant="h5">{day}</Typography>
@@ -68,7 +38,7 @@ export default function AvailabilityChart({ day }) {
           // invisible start stack
           { dataKey: 'timeStart', stack: 'rangeStack', color: 'transparent' },
           // visible 'duration' stack
-          { dataKey: 'duration', stack: 'rangeStack', color: 'blue' },
+          { dataKey: 'duration', stack: 'rangeStack', color: 'blue', label: 'available hours' },
         ]}
         // make layout into horizontal bar chart
         layout="horizontal"
