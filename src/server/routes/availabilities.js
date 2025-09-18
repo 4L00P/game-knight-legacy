@@ -20,12 +20,14 @@ availabilitiesRouter.get('/', (req, res) => {
     });
 });
 
-availabilitiesRouter.get('/day', (req, res) => {
+availabilitiesRouter.get('/day/:date', (req, res) => {
+  const { date } = req.params;
   // user can find by date
-  Availabilities.find({ date: req.body.scheduling.date })
+
+  Availabilities.find({ date })
     .then((dayData) => {
       // send 200 ok status and the times as json
-      res.status(200).json(dayData);
+      res.status(200).send(dayData);
     })
     .catch((err) => {
       console.log('failed to GET availability from db', err);
