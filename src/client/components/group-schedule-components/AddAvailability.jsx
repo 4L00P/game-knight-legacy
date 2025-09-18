@@ -10,6 +10,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import PropTypes from "prop-types";
 
 export default function AddAvailability() {
   // STATES
@@ -61,8 +62,12 @@ export default function AddAvailability() {
     setTimeEnd(timeStringToNumber(timeStr));
 
     // set the duration
-    setDuration(timeEnd - timeStart);
+    // setDuration(timeEnd - timeStart);
   };
+
+  useEffect(() => {
+    setDuration(timeEnd - timeStart);
+  }, [timeEnd]);
 
   useEffect(() => {
     axios.get('/auth/user')
